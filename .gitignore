@@ -1,0 +1,23 @@
+/.idea
+/.vscode
+# default build directory
+/build
+/build*
+# default idea build directory
+/cmake-build-*
+
+
+/target
+**/*.rs.bk
+/docs/.bundle
+/docs/Gemfile.lock
+/docs/vendor
+/venv/
+
+lib/log
+lib/log/log
+lib/log/compile
+lib/log/domain_stats
+lib/u/passwords/
+lib/data/secure/
+lib/data/
