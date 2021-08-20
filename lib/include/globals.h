@@ -30,6 +30,9 @@
 
 #define COMMAND_PREFIX "/command/"
 
+// modules
+#define M_PRIVILEGES "/inherit/secure/m_privileges"
+
 // classes for message() efun.
 #define M_STATUS "status"
 #define M_SAY    "say"

@@ -5,6 +5,7 @@
 #include <globals.h>
 
 inherit BASE;
+inherit M_PRIVILEGES;
 
 private string name;
 
@@ -134,7 +135,7 @@ commandHook(string arg)
     string verb = query_verb();
     verb = lower_case(verb);
 
-    foreach(string path in SECURE_D->query_command_paths(name)) {
+    foreach(string path in query_search_paths()) {
         cmd_path = path + verb;
         cobj = load_object(cmd_path);
         if (cobj) {
@@ -206,6 +207,9 @@ setup()
 #else
     set_this_player(this_object());
 #endif
+
+    m_privileges::create();
+
 }
 
 // net_dead: called by the gamedriver when an interactive player loses

@@ -63,7 +63,7 @@ nomask int query_user(string user) {
   return 0;
 }
 
-string* query_command_paths(string user) {
+string* query_search_paths(string user) {
   string* ret = ({});
   if (query_user(user)) {
     ret += ({COMMAND_PREFIX});
