@@ -23,7 +23,7 @@ logon()
 #endif
     write("Welcome to RajMud!\n\n");
     //cat("/etc/motd");
-    write("\nName thyself");
+    write("\nName thyself ");
     input_to("accept_name", 2); // 2 means no command escaping with !
 }
 
