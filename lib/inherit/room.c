@@ -6,6 +6,10 @@ void create() {
 
 }
 
-int SetShort(string short) {
+int set_short(string short) {
     short_desc = short;
+}
+
+string query_short() {
+    return short_desc;
 }

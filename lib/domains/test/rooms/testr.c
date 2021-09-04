@@ -4,5 +4,5 @@ inherit LIB_ROOM;
 
 void create() {
     ::create();
-    SetShort("Testing room for test purposes");
+    set_short("Testing room for test purposes");
 }
