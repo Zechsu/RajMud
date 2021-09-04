@@ -15,12 +15,14 @@
 #define CONFIG_DIR "/etc"
 #define LOG_DIR    "/log"
 #define DAEMON_DIR "/daemon"
+#define DOMAINS_DIR "/domains"
 
 #define VIRTUAL_D  "/single/virtual"
 
 #define LOGIN_OB   "/clone/login"
 #define USER_OB    "/clone/user"
 #define VOID_OB    "/single/void"
+#define TEST_ROOM  "/domains/test/rooms/testr"
 
 #define ROOT_UID     "Root"
 #define BACKBONE_UID "Backbone"
@@ -32,6 +34,9 @@
 
 // modules
 #define M_PRIVILEGES "/inherit/secure/m_privileges"
+
+// Components
+#define LIB_ROOM "/inherit/room"
 
 // classes for message() efun.
 #define M_STATUS "status"

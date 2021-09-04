@@ -35,7 +35,7 @@ private void create_user_object(string name) {
     user->set_name(name);
     exec(user, this_object());
     user->setup();
-    user->move(VOID_OB);
+    user->move(TEST_ROOM);
     SECURE_D->make_user(name);
     destruct(this_object());
 }
