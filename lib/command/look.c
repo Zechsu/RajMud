@@ -2,7 +2,8 @@
 
 int main(string arg) {
     string desc;
-    desc = environment(this_player())->query_short();
-    write(desc + "\n");
+    object room = environment(this_player());
+    desc = room->query_short() + "\n" + room->query_long() + "\n";
+    write(desc);
     return 1;
 }
