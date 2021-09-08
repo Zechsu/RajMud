@@ -1,5 +1,5 @@
 #include <globals.h>
-#include "def.h"
+#include <def.h>
 
 inherit LIB_ROOM;
 
