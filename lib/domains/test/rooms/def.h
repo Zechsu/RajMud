@@ -1,1 +1,0 @@
-#define AREAPATH    "/domains/test/rooms/"

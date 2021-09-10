@@ -1,9 +1,8 @@
 #include <globals.h>
-#include "def.h"
 
 private string short_description;
 private string long_description;
-private mapping exits;
+private mapping exits = ([]);
 
 void create() {
 
@@ -25,12 +24,20 @@ string query_long() {
     return long_description;
 }
 
-void add_exit(string direction, string room_path) {
-    exits[direction] = room_path;
+void add_exit(string direction, string destination) {
+    if (!exits[direction]) {
+        exits[direction] = destination;
+    }
+}
+
+void set_exits(mapping new_exits) {
+    exits = new_exits;
 }
 
 void remove_exit(string exit) {
-    map_delete(exits, exit);
+    if (exits[exit]) {
+        map_delete(exits, exit);
+    }
 }
 
 mapping query_exits() {

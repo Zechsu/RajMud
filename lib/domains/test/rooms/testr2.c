@@ -6,4 +6,5 @@ void create() {
     ::create();
     set_short("Testing room 2");
     set_long("Second room in the game, wooo!");
+    add_exit("south", "/domains/test/rooms/testr");
 }
