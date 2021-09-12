@@ -34,6 +34,7 @@
 
 // modules
 #define M_PRIVILEGES "/inherit/secure/m_privileges"
+#define M_ALIASES    "/inherit/secure/m_aliases"
 
 // Components
 #define LIB_ROOM "/inherit/room"

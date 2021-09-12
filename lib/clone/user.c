@@ -6,6 +6,7 @@
 
 inherit BASE;
 inherit M_PRIVILEGES;
+inherit M_ALIASES;
 
 private string name;
 
@@ -97,38 +98,22 @@ exec_command(string arg) {
     }
 }
 
-void
-process_input(string arg) {
-#ifndef __OLD_ED__
-    if (query_ed_mode() != -1) {
-    if (arg[0] != '!') {
-        write(ed_cmd(arg));
-        return;
-    }
-    arg = arg[1..];
-    }
-#endif
+void process_input(string arg) {
     exec_command(arg);
 }
+
 #else
-string
-process_input(string arg)
+string process_input(string arg)
 {
-#ifndef __OLD_ED__
-    if (query_ed_mode() != -1) {
-    if (arg[0] != '!') {
-        write(ed_cmd(arg));
-        return 0;
-    }
-    arg = arg[1..];
-    }
-#endif
     // possible to modify player input here before driver parses it.
-    return arg;
+    string* tmp = explode(arg, " ");
+    for (int i = 0; i < sizeof(tmp); i++) {
+        tmp[i] = get_alias(tmp[i]);
+    }
+    return implode(tmp[0..], " ");
 }
 
-int
-commandHook(string arg)
+int commandHook(string arg)
 {
     string cmd_path;
     object cobj;
@@ -142,13 +127,6 @@ commandHook(string arg)
             return (int)cobj->main(arg);
         }
     }
-    // cmd_path = COMMAND_PREFIX + verb;
-    // cobj = load_object(cmd_path);
-    // if (cobj) {
-    // return (int)cobj->main(arg);
-    // } else {
-    // // maybe call an emote/soul daemon here
-    // }
     return 0;
 }
 
