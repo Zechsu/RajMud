@@ -28,7 +28,7 @@ int main(string arg) {
         } else if ( member_array(arg, add_action_commands()) > -1) {
             write("No help available on that command\n");
         } else {
-            write("No such command");
+            write("No such command\n");
         }
 
         return 1;
