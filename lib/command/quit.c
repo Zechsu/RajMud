@@ -7,6 +7,7 @@
 int
 main(string arg)
 {
+    this_player()->save();
     write("Bye.\n");
     say((string)previous_object()->query_name()
         + " leaves this reality.\n");

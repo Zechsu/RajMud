@@ -31,11 +31,10 @@ private void create_user_object(string name) {
     object user;
 
     user = new("clone/user");
-
     user->set_name(name);
     exec(user, this_object());
     user->setup();
-    user->move(TEST_ROOM);
+    user->move(user->query_current_room());
     SECURE_D->make_user(name);
     destruct(this_object());
 }

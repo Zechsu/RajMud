@@ -9,6 +9,9 @@ inherit M_PRIVILEGES;
 inherit M_ALIASES;
 
 private string name;
+private object current_room;
+
+string query_save_folder();
 
 #ifdef __INTERACTIVE_CATCH_TELL__
 void catch_tell(string str) {
@@ -106,7 +109,13 @@ void process_input(string arg) {
 string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
-    string* tmp = explode(arg, " ");
+    string* tmp;
+
+    if (strsrch(arg, "alias") != -1) {
+        return arg;
+    }
+
+    tmp = explode(arg, " ");
     for (int i = 0; i < sizeof(tmp); i++) {
         tmp[i] = get_alias(tmp[i]);
     }
@@ -168,8 +177,7 @@ receive_message(string newclass, string msg)
 // setup: used to configure attributes that aren't known by this_object()
 // at create() time such as living_name (and so can't be done in create()).
 
-void
-setup()
+void setup()
 {
     set_heart_beat(1);
 #ifdef __PACKAGE_UIDS__
@@ -185,9 +193,8 @@ setup()
 #else
     set_this_player(this_object());
 #endif
-
     m_privileges::create();
-
+    restore_object(query_save_folder());
 }
 
 // net_dead: called by the gamedriver when an interactive player loses
@@ -219,4 +226,21 @@ reconnect()
     tell_room(environment(), "Reconnected.\n");
     tell_room(environment(), query_name() + " has reconnected.\n");
 #endif
+}
+
+string query_save_folder() {
+    return sprintf("/data/users/%c/%s", lower_case(name)[0], name);
+}
+
+void save() {
+    save_object(query_save_folder());
+}
+
+int move(mixed dest) {
+    ::move(dest);
+    current_room = dest;
+}
+
+object query_current_room() {
+    return current_room;
 }
