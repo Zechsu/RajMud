@@ -148,6 +148,25 @@ int commandHook(string arg)
     return 0;
 }
 
+int call_verb(string verb, string arg) {
+    string cmd_path;
+    object cobj;
+    verb = lower_case(verb);
+
+    if (!arg) {
+        arg = "";
+    }
+
+    foreach(string path in query_search_paths()) {
+        cmd_path = path + verb;
+        cobj = load_object(cmd_path);
+        if (cobj) {
+            return (int)cobj->main(arg);
+        }
+    }
+    return 0;
+}
+
 // init: called by the driver to give the object a chance to add some
 // actions (see the MudOS "applies" documentation for a better description).
 

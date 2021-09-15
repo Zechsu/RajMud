@@ -8,6 +8,7 @@ int main(string arg) {
     else if (member_array(arg, keys(exits)) != -1) {
         write("You walk " + arg + ".\n");
         this_player()->move(exits[arg]);
+        this_player()->call_verb("look", "");
     }
     else {
         write("No such exit.\n");
