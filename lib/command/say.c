@@ -13,8 +13,8 @@ int main(string arg)
 	return 1;
     }
     if (SECURE_D->query_wizard(name)) {
-        write("You say \"" +sprintf("%c["+(1)+"m", 27)+sprintf("%c["+(33)+"m", 27) + arg + sprintf("%c["+(0)+"m", 27) + "\"\n");
-        say(name + " says \"" +sprintf("%c["+(1)+"m", 27)+sprintf("%c["+(33)+"m", 27) + arg + sprintf("%c["+(0)+"m", 27) +"\"\n");
+        write("You say " +sprintf("%c["+(1)+"m", 27)+sprintf("%c["+(33)+"m", 27) + "\"" + arg + "\"" + sprintf("%c["+(0)+"m", 27) + "\n");
+        say(name + " says " +sprintf("%c["+(1)+"m", 27)+sprintf("%c["+(33)+"m", 27) + "\"" +arg + "\"" + sprintf("%c["+(0)+"m", 27) +"\n");
     }
     else {
         write("You say \"" + arg + "\"\n");
