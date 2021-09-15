@@ -1,4 +1,5 @@
 #include <command.h>
+#include <daemons.h>
 
 #ifdef __NO_ENVIRONMENT__
 #define say(x) shout(x)
@@ -11,9 +12,15 @@ int main(string arg)
         write("Say what?\n");
 	return 1;
     }
-    write("You say \"" + arg + "\"\n");
-    say(name
-        + " says \"" +  arg + "\"\n");
+    if (SECURE_D->query_wizard(name)) {
+        write("You say \"" +sprintf("%c["+(1)+"m", 27)+sprintf("%c["+(33)+"m", 27) + arg + sprintf("%c["+(0)+"m", 27) + "\"\n");
+        say(name + " says \"" +sprintf("%c["+(1)+"m", 27)+sprintf("%c["+(33)+"m", 27) + arg + sprintf("%c["+(0)+"m", 27) +"\"\n");
+    }
+    else {
+        write("You say \"" + arg + "\"\n");
+        say(name + " says \"" + arg +"\"\n");
+    }
+
     return 1;
 }
 
