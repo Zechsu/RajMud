@@ -1,6 +1,6 @@
 #include <globals.h>
 
-private mapping aliases;
+private mapping aliases = ([]);
 
 void create() {
     if (!sizeof(aliases)) {

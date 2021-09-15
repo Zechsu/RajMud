@@ -39,9 +39,6 @@ nomask void delete_wizard(string wizard) {
 }
 
 nomask void make_user(string user) {
-  if (!find_player(user)) {
-    return;
-  }
   if (users[user]) {
     return;
   }

@@ -33,9 +33,9 @@ private void create_user_object(string name) {
     user = new("clone/user");
     user->set_name(name);
     exec(user, this_object());
+    SECURE_D->make_user(name);
     user->setup();
     user->move(user->query_current_room());
-    SECURE_D->make_user(name);
     destruct(this_object());
 }
 

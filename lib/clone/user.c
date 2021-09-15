@@ -9,7 +9,7 @@ inherit M_PRIVILEGES;
 inherit M_ALIASES;
 
 private string name;
-private object current_room;
+private string current_room;
 private nosave mapping predefined_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "l":"look"]);
 
 //forward declarations
@@ -223,6 +223,9 @@ void setup()
 #endif
     m_privileges::create();
     restore_object(query_save_folder());
+    if (!current_room) {
+        current_room = TEST_ROOM;
+    }
 }
 
 // net_dead: called by the gamedriver when an interactive player loses
@@ -269,6 +272,6 @@ int move(mixed dest) {
     current_room = dest;
 }
 
-object query_current_room() {
+string query_current_room() {
     return current_room;
 }

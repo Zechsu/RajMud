@@ -6,12 +6,13 @@
 
 int main(string arg)
 {
+    string name = (string)previous_object()->query_name();
     if (!arg || trim(arg) == "") {
         write("Say what?\n");
 	return 1;
     }
     write("You say \"" + arg + "\"\n");
-    say((string)previous_object()->query_name()
+    say(name
         + " says \"" +  arg + "\"\n");
     return 1;
 }
