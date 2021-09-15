@@ -10,8 +10,13 @@ inherit M_ALIASES;
 
 private string name;
 private object current_room;
+private nosave mapping predefined_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "l":"look"]);
+
+//forward declarations
 
 string query_save_folder();
+
+//end forward declarations
 
 #ifdef __INTERACTIVE_CATCH_TELL__
 void catch_tell(string str) {
@@ -113,6 +118,10 @@ string process_input(string arg)
 
     if (strsrch(arg, "alias") != -1) {
         return arg;
+    }
+
+    if (predefined_aliases[arg]) {
+        return predefined_aliases[arg];
     }
 
     tmp = explode(arg, " ");
