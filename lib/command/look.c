@@ -16,7 +16,7 @@ int main(string arg) {
         }
     }
 
-    desc = room->query_short() + " [ " + exits + "]\n\n" + room->query_long() + "\n";
+    desc = sprintf("%c["+(33)+"m", 27) + room->query_short() + sprintf("%c["+(0)+"m", 27) + " [ " + exits + "]\n\n" + room->query_long() + "\n";
     write(desc);
 
     foreach(object player in all_inventory(room)) {
