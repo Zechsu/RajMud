@@ -5,6 +5,6 @@ inherit LIB_ROOM;
 void create() {
     ::create();
     set_short("Testing room for test purposes");
-    set_long("This room is strictly only for testing!\nAny non test activities will defy the room name and thus lead to a paradox!");
+    set_long("Testing room 1");
     add_exit("north", "/domains/test/rooms/testr2");
 }
