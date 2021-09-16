@@ -11,12 +11,20 @@ inherit M_ALIASES;
 private string name;
 private string current_room;
 private nosave mapping predefined_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "l":"look"]);
-
+string short_desc;
 //forward declarations
 
 string query_save_folder();
 
 //end forward declarations
+
+void set_short(string new_short) {
+    short_desc = new_short;
+}
+
+string query_short() {
+    return short_desc;
+}
 
 #ifdef __INTERACTIVE_CATCH_TELL__
 void catch_tell(string str) {
@@ -115,7 +123,8 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
-
+    // since all aliases here are lower case, typing in 'L' or 'N' should also work
+    arg[0] = lower_case(arg)[0];
     if (strsrch(arg, "alias") != -1) {
         return arg;
     }
@@ -136,7 +145,6 @@ int commandHook(string arg)
     string cmd_path;
     object cobj;
     string verb = query_verb();
-    verb = lower_case(verb);
 
     foreach(string path in query_search_paths()) {
         cmd_path = path + verb;
