@@ -38,6 +38,7 @@
 
 // Components
 #define LIB_ROOM "/inherit/room"
+#define LIB_ITEM "/inherit/item"
 
 // classes for message() efun.
 #define M_STATUS "status"
