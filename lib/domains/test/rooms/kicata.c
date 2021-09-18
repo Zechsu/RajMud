@@ -7,4 +7,5 @@ void create() {
     set_short("Kicata ???");
     set_long("Whats the kica doing");
     add_exit("west", "/domains/test/rooms/testr2");
+    add_item("/domains/test/items/knife");
 }

@@ -43,3 +43,8 @@ void remove_exit(string exit) {
 mapping query_exits() {
     return exits;
 }
+
+void add_item(mixed item) {
+    item->move(this_object());
+    return;
+}
