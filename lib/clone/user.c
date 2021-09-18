@@ -10,11 +10,11 @@ inherit M_ALIASES;
 
 private string name;
 private string current_room;
-private nosave mapping predefined_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "l":"look"]);
 string short_desc;
 //forward declarations
 
 string query_save_folder();
+void save();
 
 //end forward declarations
 
@@ -129,10 +129,6 @@ string process_input(string arg)
         return arg;
     }
 
-    if (predefined_aliases[arg]) {
-        return predefined_aliases[arg];
-    }
-
     tmp = explode(arg, " ");
     for (int i = 0; i < sizeof(tmp); i++) {
         tmp[i] = get_alias(tmp[i]);
@@ -160,10 +156,6 @@ int call_verb(string verb, string arg) {
     string cmd_path;
     object cobj;
     verb = lower_case(verb);
-
-    if (!arg) {
-        arg = "";
-    }
 
     foreach(string path in query_search_paths()) {
         cmd_path = path + verb;
@@ -253,6 +245,7 @@ net_dead()
 #ifndef __NO_ENVIRONMENT__
     tell_room(environment(), query_name() + " is link-dead.\n");
 #endif
+    save();
 }
 
 // reconnect: called by the login.c object when a netdead player reconnects.
