@@ -1,41 +1,59 @@
 #include <command.h>
 
 string help();
+int add_alias(object tp, string alias, string expanded);
+int list_alias(object tp);
+int remove_alias(object tp, string alias);
 
-int main(string arg) {
-    string action, alias, command;
+int main(string str) {
+    string operation, arg;
+    object tp = this_player();
 
-    if (!arg) {
+    if (!str) {
         write(help());
         return 1;
     }
-    if (arg == "list") {
-        write(dump_variable(this_player()->query_aliases()));
-        return 1;
+    if (str == "list") {
+        return list_alias(tp);
     }
-
-    if (sscanf(arg, "%s %s %s", action, alias, command) == 3) {
-        if (action == "add") {
-            if (this_player()->add_alias(alias, command)) {
-                write("Bound " + alias + " to " + command + ".\n");
+    
+    if (sscanf(str, "%s %s", operation, arg) == 2) {
+        switch (operation) {
+            case "add": {
+                string alias, expanded;
+                if (sscanf(arg, "%s %s", alias, expanded) == 2) return add_alias(tp, alias, expanded);
+                write(help());
+                return 1;
             }
-            else {
-                write("Couldn't add alias.\n");
+            case "remove": {
+                return remove_alias(tp, arg);
             }
-        }
-        return 1;
-    }
-    else if (sscanf(arg, "%s %s", action, alias) == 2) {
-        if (action == "remove") {
-            if (this_player()->remove_alias(alias)) {
-                write("Removed alias " + alias + "\n");
-            } else {
-                write("No such alias.\n");
+            default: {
+                write(help());
+                return 1;
             }
         }
-        return 1;
     }
 
+    return 1;
+}
+
+int add_alias(object tp, string alias, string expanded) {
+    if (tp->add_alias(alias, expanded)) {
+        tell_object(tp, "Bound alias " + alias + " to " + expanded + ".\n");
+    }
+    return 1;
+}
+
+int remove_alias(object tp, string alias) {
+    if (tp->remove_alias(alias)) {
+        tell_object(tp, "Removed alias " + alias + ".\n");
+    }
+    return 1;
+}
+
+int list_alias(object tp) {
+    tell_object(tp, dump_variable(tp->query_aliases())+ "\n");
     return 1;
 }
 
