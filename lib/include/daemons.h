@@ -2,5 +2,6 @@
 #define __DAEMONS_H__
 
 #define SECURE_D   "daemon/secure_d"
+#define TERM_D     "daemon/terminal_d"
 
 #endif

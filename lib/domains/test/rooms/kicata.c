@@ -8,5 +8,4 @@ void create() {
     set_long("Whats the kica doing");
     add_exit("west", "/domains/test/rooms/testr2");
     add_item("/domains/test/items/knife");
-    add_item("/domains/test/items/rajeshka");
 }

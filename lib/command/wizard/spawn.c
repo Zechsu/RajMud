@@ -1,4 +1,5 @@
 #include <globals.h>
+#include <command.h>
 
 int spawn_item(object tp, string item, string domain);
 string help();
@@ -27,7 +28,7 @@ int spawn_item(object tp, string item, string domain) {
         tell_object(tp, "Spawned " + item + "\n");
         return 1;
     } else{
-        tell_object(tp, "Invalid domain");
+        tell_object(tp, "Invalid domain\n");
         return 1;
     }
     return 0;

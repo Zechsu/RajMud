@@ -19,7 +19,7 @@ int main(string arg) {
             cobj = load_object(COMMAND_PREFIX + arg + ".c");
             help = cobj->help();
             if (!help) {
-                help = "No help available on that command.";
+                help = "No help available on that command.\n";
             }
             if (help[sizeof(help)-1..] != "\n") {
                 help += "\n";
