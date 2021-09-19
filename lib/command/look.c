@@ -46,9 +46,10 @@ int look(object tp) {
             continue;
         }
         if (inherits(LIB_ITEM, ob)) {
-            tell_object(tp, ob->query_short() + " is on the ground.\n");
+            tell_object(tp, capitalize(ob->query_short()) + " is on the ground. ");
         }
     }
+    tell_object(tp, "\n");
     return 1;
 }
 
