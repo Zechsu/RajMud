@@ -15,6 +15,9 @@ int main(string arg) {
     if (sscanf(arg, "at %s", look_at_item) == 1) {
         return look_at(tp, look_at_item);
     }
+    else {
+        return look_at(tp, arg);
+    }
 
     return 1;
 }
@@ -35,7 +38,7 @@ int look(object tp) {
     }
 
     desc = sprintf("%c["+(33)+"m", 27) + room->query_short() + sprintf("%c["+(0)+"m", 27) + " [ " + exits + "]\n\n" + room->query_long() + "\n";
-    tell_object(tp, desc);
+    tell_object(tp, desc + "\n");
 
     foreach(object ob in all_inventory(room)) {
         if (interactive(ob) && tp != ob) {
@@ -51,9 +54,12 @@ int look(object tp) {
 
 int look_at(object tp, string look_at_item) {
     object room = environment(tp);
+    if (strsrch(look_at_item, "the") != -1) {
+        look_at_item = replace_string(look_at_item, "the ", "");
+    }
 
     foreach (object ob in all_inventory(room)) {
-        if (inherits(LIB_ITEM, ob) && ob->id(look_at_item)) {
+        if (inherits(LIB_ITEM, ob) && member_array(look_at_item, ob->query_ids()) != -1) {
             tell_object(tp, ob->query_long() + "\n");
             return 1;
         }
