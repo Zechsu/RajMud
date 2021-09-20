@@ -37,8 +37,13 @@ int look(object tp) {
         }
     }
 
-    desc = sprintf("%c["+(33)+"m", 27) + room->query_short() + sprintf("%c["+(0)+"m", 27) + " [ " + exits + "]\n\n" + room->query_long() + "\n";
+    desc = sprintf("%c["+(33)+"m", 27) + room->query_short() + sprintf("%c["+(0)+"m", 27) + " [ " + exits + "]\n\n" + room->query_long();
     tell_object(tp, desc + "\n");
+
+    // ugly fix for not putting a random \n after the room long description
+    if (sizeof(filter_array(all_inventory(room), (: $1 != this_player() :)))) {
+        tell_object(tp, "\n");
+    }
 
     foreach(object ob in all_inventory(room)) {
         if (interactive(ob) && tp != ob) {
@@ -46,10 +51,9 @@ int look(object tp) {
             continue;
         }
         if (inherits(LIB_ITEM, ob)) {
-            tell_object(tp, capitalize(ob->query_short()) + " is on the ground. ");
+            tell_object(tp, capitalize(ob->query_short()) + " is on the ground.\n");
         }
     }
-    tell_object(tp, "\n");
     return 1;
 }
 
