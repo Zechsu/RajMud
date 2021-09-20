@@ -1,14 +1,17 @@
 #include <command.h>
 
 int main(string arg) {
-    mapping exits = environment(this_player())->query_exits();
+    object tp = this_player();
+    mapping exits = environment(tp)->query_exits();
     if (!arg) {
         write("Go where?\n");
     }
     else if (member_array(arg, keys(exits)) != -1) {
         write("You walk " + arg + ".\n");
-        this_player()->move(exits[arg]);
-        this_player()->call_verb("look", "");
+        say(tp->query_name() + " heads " + arg + "\n");
+        tp->move(exits[arg]);
+        say(tp->query_name() + " comes from " + arg + "\n", tp);
+        tp->call_verb("look", "");
     }
     else {
         write("No such exit.\n");
