@@ -123,6 +123,10 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
+    // protects from sending empty commands
+    if (trim(arg) == "") {
+        return "";
+    }
     // since all aliases here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
     if (strsrch(arg, "alias") != -1) {
