@@ -11,7 +11,7 @@ inherit M_ALIASES;
 private string name;
 private string current_room;
 string short_desc;
-private object* inventory;
+private string* inventory;
 //forward declarations
 
 string query_save_folder();
@@ -258,7 +258,6 @@ net_dead()
 #ifndef __NO_ENVIRONMENT__
     tell_room(environment(), query_name() + " is link-dead.\n");
 #endif
-    save();
 }
 
 // reconnect: called by the login.c object when a netdead player reconnects.
@@ -291,6 +290,6 @@ string query_current_room() {
 }
 
 int get_item(mixed item) {
-    item->move(this_object());
-    inventory += ({item});
+    item->move(this_player());
+    inventory += ({file_name(item)});
 }
