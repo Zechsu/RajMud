@@ -10,7 +10,7 @@ int main(string arg) {
         write("You walk " + arg + ".\n");
         say(tp->query_name() + " heads " + arg + "\n");
         tp->move(exits[arg]);
-        say(tp->query_name() + " comes from " + arg + "\n", tp);
+        say(tp->query_name() + " comes from " + arg + "\n");
         tp->call_verb("look", "");
     }
     else {

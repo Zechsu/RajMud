@@ -21,6 +21,7 @@ int main(string str) {
         if (member_array(str, ob->query_ids()) != -1) {
             ob->move(this_player());
             tell_object(tp, "You picked up the " + ob->query_short() + ".\n");
+            say(tp->query_name() + " picks up " + ob->query_short() + "\n");
             return 1;
         }
     }
