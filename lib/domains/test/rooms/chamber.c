@@ -18,7 +18,7 @@ int do_push(string str) {
         return 0;
     }
     if (str == "button" || str == "the button") {
-        tell_object(this_player(), "The entrance closes up\n");
+        tell_object(this_player(), "The path closes up\n");
         "/domains/test/rooms/kicatabath"->remove_exit("in");
         remove_exit("out");
         return 1;
