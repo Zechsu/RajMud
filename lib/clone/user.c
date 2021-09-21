@@ -11,6 +11,7 @@ inherit M_ALIASES;
 private string name;
 private string current_room;
 string short_desc;
+private object* inventory;
 //forward declarations
 
 string query_save_folder();
@@ -230,6 +231,14 @@ void setup()
     if (!current_room) {
         current_room = TEST_ROOM;
     }
+    if (!inventory) {
+        inventory = ({});
+    } else {
+        foreach(object tmp in inventory) {
+            object ob = new(tmp);
+            ob->move(this_object());
+        }
+    }
 }
 
 // net_dead: called by the gamedriver when an interactive player loses
@@ -279,4 +288,9 @@ int move(mixed dest) {
 
 string query_current_room() {
     return current_room;
+}
+
+int get_item(mixed item) {
+    item->move(this_object());
+    inventory += ({item});
 }
