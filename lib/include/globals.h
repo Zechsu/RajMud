@@ -39,8 +39,9 @@
 #define M_EXITS       "/inherit/modules/m_exits"
 
 // Components
-#define LIB_ROOM "/inherit/room"
-#define LIB_ITEM "/inherit/item"
+#define LIB_ROOM      "/inherit/room"
+#define LIB_ITEM      "/inherit/item"
+#define LIB_PROP      "/inherit/prop"
 
 // classes for message() efun.
 #define M_STATUS "status"

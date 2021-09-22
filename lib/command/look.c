@@ -27,21 +27,25 @@ int look(object tp) {
     string exits = "";
     object room = environment(tp);
     string* exit_keys = keys(room->query_exits());
+    object* inv = all_inventory(room);
 
-    if (sizeof(exit_keys) == 1) {
-        exits = exit_keys[0] + " ";
+    if (sizeof(exit_keys) == 0) {
+        exits = "";
+    } 
+    else if (sizeof(exit_keys) == 1) {
+        exits = " [ " + exit_keys[0] + " ] ";
     }
     else {
-        foreach (string exit in exit_keys) {
-            exits = exits + exit + " ";
-        }
+        exits = " [ " + implode(exit_keys, " | ") + " ] ";
     }
 
-    desc = sprintf("%c["+(33)+"m", 27) + room->query_short() + sprintf("%c["+(0)+"m", 27) + " [ " + exits + "]\n\n" + room->query_long();
+    desc = sprintf("%c["+(33)+"m", 27) + room->query_short() + sprintf("%c["+(0)+"m", 27) + exits + "\n\n" + room->query_long();
     tell_object(tp, desc + "\n");
 
-    // ugly fix for not putting a random \n after the room long description
-    if (sizeof(filter_array(all_inventory(room), (: $1 != this_player() :)))) {
+    // ugly fix for not putting a random \n after the room long descriptions
+    inv -= ({tp});
+    inv = filter_array(inv, (: strsrch(file_name($1), "/inherit/prop") < 0 :));
+    if (sizeof(inv)) {
         tell_object(tp, "\n");
     }
 
@@ -68,8 +72,16 @@ int look_at(object tp, string look_at_item) {
             tell_object(tp, ob->query_long() + "\n");
             return 1;
         }
+        if (strsrch(file_name(ob), "/inherit/prop") != -1) {
+            if (ob->query_id() == look_at_item) {
+                tell_object(tp, ob->query_description() + "\n");
+                return 1;
+            }
+        }
     }
-    return 0;
+
+    tell_object(tp, "Couldn't find that here.\n");
+    return 1;
 }
 
 string help() {
