@@ -33,9 +33,10 @@
 #define COMMAND_PREFIX "/command/"
 
 // modules
-#define M_PRIVILEGES "/inherit/secure/m_privileges"
-#define M_ALIASES    "/inherit/secure/m_aliases"
-#define M_DESC       "/inherit/modules/m_description"
+#define M_PRIVILEGES  "/inherit/secure/m_privileges"
+#define M_ALIASES     "/inherit/secure/m_aliases"
+#define M_DESC        "/inherit/modules/m_description"
+#define M_EXITS       "/inherit/modules/m_exits"
 
 // Components
 #define LIB_ROOM "/inherit/room"
