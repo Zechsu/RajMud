@@ -24,9 +24,13 @@ int main(string str) {
             say(tp->query_name() + " picks up " + ob->query_short() + "\n");
             return 1;
         }
+        else {
+            tell_object(tp, "Couldn't find that here.\n");
+            return 1;
+        }
     }
 
-    tell_object(tp, help());
+    tell_object(tp, "Couldn't find that here.\n");
     return 1;
 }
 

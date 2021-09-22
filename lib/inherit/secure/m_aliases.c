@@ -1,7 +1,7 @@
 #include <globals.h>
 
 private mapping aliases = ([]);
-private nosave mapping predefined_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "l":"look", "i":"inventory"]);
+private nosave mapping predefined_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "l":"look", "i":"inventory", "in":"go in", "out":"go out"]);
 
 void create() {
     if (!sizeof(aliases)) {

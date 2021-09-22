@@ -23,6 +23,10 @@ int main(string str) {
             say(tp->query_name() + " drops " + ob->query_short() + "\n");
             return 1;
         }
+        else {
+            tell_object(tp, "You're not holding that.\n");
+            return 1;
+        }
     }
 
     tell_object(tp, help());

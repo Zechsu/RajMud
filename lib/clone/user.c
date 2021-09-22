@@ -130,7 +130,7 @@ string process_input(string arg)
     }
     // since all aliases here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
-    if (strsrch(arg, "alias") != -1) {
+    if (strsrch(arg, "alias") != -1 || strsrch(arg, "go") != -1) {
         return arg;
     }
 
