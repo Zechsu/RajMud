@@ -37,17 +37,6 @@ string query_message(string kind) {
     }
 }
 
-string query_plural() {
-    string short = query_short();
-    if (short[<2..] == "fe") {
-        short[<2..] = "ves";
-        return short;
-    }
-    else {
-        return short + "s";
-    }
-}
-
 void move(mixed dest) {
     move_object(dest);
 }
