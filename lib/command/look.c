@@ -72,8 +72,8 @@ int look_at(object tp, string look_at_item) {
             tell_object(tp, ob->query_long() + "\n");
             return 1;
         }
-        if (strsrch(file_name(ob), "/inherit/prop") != -1) {
-            if (ob->query_id() == look_at_item) {
+        if (base_name(ob) == "/inherit/prop") {
+            if (ob->id(look_at_item)) {
                 tell_object(tp, ob->query_description() + "\n");
                 return 1;
             }

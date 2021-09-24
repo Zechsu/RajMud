@@ -19,6 +19,10 @@ string query_id() {
     return id;
 }
 
+int id(string arg) {
+    return arg == id;
+}
+
 void move(mixed dest) {
     move_object(dest);
 }

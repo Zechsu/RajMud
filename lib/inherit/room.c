@@ -2,7 +2,6 @@
 
 inherit M_DESC;
 inherit M_EXITS;
-inherit CLEAN_UP;
 
 void create() {
 
