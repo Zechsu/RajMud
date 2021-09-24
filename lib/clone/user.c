@@ -124,14 +124,26 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
+    string* ignored = ({"alias", "go", "say"});
     // protects from sending empty commands
     if (trim(arg) == "") {
         return "";
     }
     // since all aliases here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
-    if (strsrch(arg, "alias") != -1 || strsrch(arg, "go") != -1) {
-        return arg;
+
+    foreach (string ign in ignored) {
+        if (strsrch(arg, ign) != -1) {
+            return arg;
+        }
+    }
+
+    if (member_array(arg, keys(query_predefined_aliases())) != -1) {
+        return get_alias(arg);
+    }
+
+    if (member_array(arg, keys(query_aliases())) != -1) {
+        return get_alias(arg);
     }
 
     tmp = explode(arg, " ");

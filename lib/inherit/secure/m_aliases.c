@@ -13,6 +13,10 @@ mapping query_aliases() {
     return aliases;
 }
 
+mapping query_predefined_aliases() {
+    return predefined_aliases;
+}
+
 int add_alias(string alias, string command) {
     aliases[alias] = command;
     return 1;
