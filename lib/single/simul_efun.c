@@ -218,5 +218,5 @@ string rgb(int r, int g, int b) {
 }
 
 string white() {
-    return "\033[38;2;0;0;0m";
+    return "\033[0m";
 }

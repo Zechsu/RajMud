@@ -1,10 +1,11 @@
 #include <globals.h>
+#include <daemons.h>
 
 private string short_desc;
 private string long_desc;
 
 int set_short(string new_short) {
-    short_desc = new_short;
+    short_desc = terminal_colour(new_short,TERM_D->colors());
     return 1;
 }
 

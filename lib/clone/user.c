@@ -7,25 +7,16 @@
 inherit BASE;
 inherit M_PRIVILEGES;
 inherit M_ALIASES;
+inherit LIB_BODY;
 
 private string name;
 private string current_room;
-string short_desc;
-private string* inventory;
 //forward declarations
 
 string query_save_folder();
 void save();
 
 //end forward declarations
-
-void set_short(string new_short) {
-    short_desc = new_short;
-}
-
-string query_short() {
-    return short_desc;
-}
 
 #ifdef __INTERACTIVE_CATCH_TELL__
 void catch_tell(string str) {
@@ -243,10 +234,10 @@ void setup()
     if (!current_room) {
         current_room = TEST_ROOM;
     }
-    if (!inventory) {
-        inventory = ({});
+    if (!query_inventory()) {
+        set_inventory(({}));
     } else {
-        foreach(object tmp in inventory) {
+        foreach(object tmp in query_inventory()) {
             object ob = new(tmp);
             ob->move(this_object());
         }
@@ -301,7 +292,6 @@ string query_current_room() {
     return current_room;
 }
 
-int get_item(mixed item) {
-    item->move(this_player());
-    inventory += ({file_name(item)});
+int set_race(string race) {
+
 }

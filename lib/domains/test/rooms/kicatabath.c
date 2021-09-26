@@ -8,6 +8,7 @@ void create() {
     set_long("Ew shit stain on the wall. Big sink in the middle.");
     add_exit("west", "/domains/test/rooms/inkicata");
     add_prop("sink", "Maybe you should try pushing it.");
+    add_item("/domains/test/items/raciststone");
 }
 
 void init() {
