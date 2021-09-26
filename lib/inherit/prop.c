@@ -3,6 +3,10 @@
 private string description;
 private string id;
 
+void create() {
+    printf("LIB_PROP created\n");
+}
+
 int set_description(string desc) {
     description = desc;
 }
@@ -25,4 +29,8 @@ int id(string arg) {
 
 void move(mixed dest) {
     move_object(dest);
+}
+
+int is_prop() {
+    return 1;
 }

@@ -44,7 +44,7 @@ int look(object tp) {
 
     // ugly fix for not putting a random \n after the room long descriptions
     inv -= ({tp});
-    inv = filter_array(inv, (: strsrch(file_name($1), "/inherit/prop") < 0 :));
+    inv = filter_array(inv, (: $1->is_prop() :));
     if (sizeof(inv)) {
         tell_object(tp, "\n");
     }
@@ -72,7 +72,7 @@ int look_at(object tp, string look_at_item) {
             tell_object(tp, ob->query_long() + "\n");
             return 1;
         }
-        if (base_name(ob) == "/inherit/prop") {
+        if (ob->is_prop()) {
             if (ob->id(look_at_item)) {
                 tell_object(tp, ob->query_description() + "\n");
                 return 1;
