@@ -18,3 +18,7 @@ void add_prop(string prop, string desc) {
     ob->set_description(desc);
     ob->move(this_object());
 }
+
+object* query_props() {
+    return filter_array(all_inventory(this_object()), (: $1->is_prop() :));
+}

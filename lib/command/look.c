@@ -44,7 +44,8 @@ int look(object tp) {
 
     // ugly fix for not putting a random \n after the room long descriptions
     inv -= ({tp});
-    inv = filter_array(inv, (: $1->is_prop() :));
+    // inv = filter_array(inv, (: $1->is_prop() :));
+    inv -= ({room->query_props()});
     if (sizeof(inv)) {
         tell_object(tp, "\n");
     }
