@@ -11,6 +11,7 @@ inherit LIB_BODY;
 
 private string name;
 private string current_room;
+string cwd;
 //forward declarations
 
 string query_save_folder();
@@ -26,10 +27,14 @@ void catch_tell(string str) {
 
 // replace this with a functioning version.
 
-string
-query_cwd()
+string query_cwd()
 {
-    return "";
+    return cwd;
+}
+
+int set_cwd(string str) {
+    cwd = str;
+    return 1;
 }
 
 // logon: move this to /single/login.c when login.c gets written.
@@ -199,6 +204,7 @@ create()
 #ifdef __PACKAGE_UIDS__
     seteuid(0); // so that login.c can export uid to us
 #endif
+   
 }
 
 // receive_message: called by the message() efun.
@@ -241,6 +247,9 @@ void setup()
             object ob = new(tmp);
             ob->move(this_object());
         }
+    }
+    if (cwd == 0 || !cwd || cwd == "") {
+        cwd = "/";
     }
 }
 
