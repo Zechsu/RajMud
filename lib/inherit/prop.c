@@ -4,7 +4,7 @@ private string description;
 private string id;
 
 void create() {
-    printf("LIB_PROP created\n");
+    
 }
 
 int set_description(string desc) {

@@ -29,7 +29,7 @@ string query_short() {
 
 int get_item(mixed item) {
     item->move(this_player());
-    inventory += ({file_name(item)});
+    inventory += ({base_name(item)});
 }
 
 mapping query_traits() {
