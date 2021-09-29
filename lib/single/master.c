@@ -107,13 +107,26 @@ update_file(string file)
 // Function name:       epilog
 // Return:              List of files to preload
 
-string *
-epilog(int)
+protected void epilog(int)
 {
-    string *items;
+    string err, *arr;
+    string str = read_file("/single/preload");
 
-    items = update_file(CONFIG_DIR + "/preload");
-    return items;
+    if (!str) return;
+
+    arr = explode(str, "\n");
+
+    for (int i = 0; i < sizeof(arr); i++) {
+        // If it starts with a # or there's nothing on the line
+        if (arr[i][0] == '#' || !arr[i] || arr[i] == "") continue;
+        
+        debug_message("Preloading : " + arr[i] + "...");
+        err = catch(load_object(arr[i]));
+
+        if (err != 0) {
+            debug_message("\nError " + err + " when loading " + arr[i] + "\n");
+        }
+    }
 }
 
 // preload an object
