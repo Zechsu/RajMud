@@ -1,0 +1,5 @@
+# Daemons for preloading
+
+/daemon/term_d
+
+/daemon/secure_d
