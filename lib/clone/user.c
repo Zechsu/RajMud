@@ -121,12 +121,18 @@ string process_input(string arg)
     // possible to modify player input here before driver parses it.
     string* tmp;
     string* ignored = ({"alias", "go", "say"});
+
     // protects from sending empty commands
     if (trim(arg) == "") {
         return "";
     }
+
+    arg = replace_string(arg, "%^", "");
+    arg = replace_string(arg, "%#", "");
+
     // since all aliases here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
+
 
     foreach (string ign in ignored) {
         if (strsrch(arg, ign) != -1) {
@@ -213,6 +219,7 @@ void
 receive_message(string newclass, string msg)
 {
     // the meaning of 'class' is at the mudlib's discretion
+    msg = TERM_D->parse_pinkfish(msg);
     receive(msg);
 }
 

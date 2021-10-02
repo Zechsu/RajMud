@@ -220,3 +220,9 @@ string rgb(int r, int g, int b) {
 string white() {
     return "\033[0m";
 }
+
+void write(string msg)
+{
+    if(this_player())  message("write", msg + "", this_player());
+    else debug_message(msg) ;
+}

@@ -10,6 +10,11 @@ void catch_tell(string str) {
 }
 #endif
 
+void receive_message(string newclass, string msg) {
+    msg = TERM_D->parse_pinkfish(msg, 1);
+    receive(msg);
+}
+
 void
 logon()
 { 

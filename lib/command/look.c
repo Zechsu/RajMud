@@ -44,8 +44,7 @@ int look(object tp) {
 
     // ugly fix for not putting a random \n after the room long descriptions
     inv -= ({tp});
-    // inv = filter_array(inv, (: $1->is_prop() :));
-    inv -= ({room->query_props()});
+    inv = filter_array(inv, (: !$1->is_prop() :));
     if (sizeof(inv)) {
         tell_object(tp, "\n");
     }
@@ -56,7 +55,7 @@ int look(object tp) {
             continue;
         }
         if (inherits(LIB_ITEM, ob)) {
-            tell_object(tp, ob->query_message("on_ground") + "\n");
+            write(ob->query_message("on_ground") + "\n");
         }
     }
     return 1;

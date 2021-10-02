@@ -4,7 +4,7 @@ inherit LIB_ITEM;
 
 void create() {
     ::create();
-    set_short(rgb(250, 250, 250) + "stone" + white());
+    set_short("%#e8e8e8%#stone%^RESET%^");
     set_long("It's pretty round. Give it a rub.");
     set_ids(({"stone"}));
     set_message("on_ground", "a $N is on the ground.");
