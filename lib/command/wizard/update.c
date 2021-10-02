@@ -4,19 +4,25 @@ int
 main(string file)
 {
     object obj;
+    object tp = this_player();
 
     // need to call resolve_path() and query_cwd()
     if (!file) {
-#ifndef __NO_ADD_ACTION__
-    return notify_fail("update what?\n");
-#else
-    write("update what?\n");
-    return 1;
-#endif
+        return notify_fail("update what?\n");
     }
-    if (obj = find_object(file)) {
-    destruct(obj);
+    if (strsrch(file, "/") != -1) {
+        if (obj = find_object(file)) {
+            destruct(obj);
+            write("Updated " + file + "\n");
+        }
+        load_object(file);
     }
-    load_object(file);
+    else {
+        if (obj = find_object(tp->query_cwd() + file)) {
+            destruct(obj);
+            write("Updated " + file + "\n");
+        }
+        load_object(tp->query_cwd() + file);
+    }
     return 1;
 }
