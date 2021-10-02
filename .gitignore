@@ -21,3 +21,4 @@ lib/log/domain_stats
 lib/u/passwords/
 lib/data/secure/
 lib/data/
+lib/tmp_eval_file.c
