@@ -73,7 +73,7 @@ int look_at(object tp, string look_at_item) {
             return 1;
         }
         if (ob->is_prop()) {
-            if (ob->id(look_at_item)) {
+            if (ob->key(look_at_item)) {
                 tell_object(tp, ob->query_description() + "\n");
                 return 1;
             }

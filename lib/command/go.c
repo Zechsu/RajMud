@@ -12,6 +12,7 @@ int main(string arg) {
         tp->move(exits[arg]);
         say(tp->query_name() + " comes from " + arg + "\n");
         tp->call_verb("look", "");
+        return 1;
     }
     else {
         write("No such exit.\n");

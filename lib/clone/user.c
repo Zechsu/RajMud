@@ -120,7 +120,7 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
-    string* ignored = ({"alias", "go", "say"});
+    string* ignored = ({"alias", "go", "say", "open", "close"});
 
     // protects from sending empty commands
     if (trim(arg) == "") {
@@ -299,9 +299,11 @@ void save() {
     save_object(query_save_folder());
 }
 
-int move(mixed dest) {
+varargs int move(mixed dest, int flag) {
     ::move(dest);
-    current_room = dest;
+    if (!flag) {
+        current_room = dest;
+    }
 }
 
 string query_current_room() {
