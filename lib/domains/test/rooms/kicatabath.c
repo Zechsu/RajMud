@@ -2,6 +2,8 @@
 
 inherit LIB_ROOM;
 
+int opened = 0;
+
 void create() {
     ::create();
     set_short("Kicata Toilets");
@@ -20,9 +22,18 @@ int do_push(string str) {
         return 0;
     }
     if (str == "sink" || str == "the sink") {
-        tell_object(this_player(), "A secret path opens.\n");
-        add_exit("in", "/domains/test/rooms/chamber");
-        return 1;
+        if (!opened) {
+            object door = new(LIB_DOOR);
+            tell_object(this_player(), "A secret path opens.\n");
+            door->add_side("in", "/domains/test/rooms/chamber", "out");
+            door->open();
+            opened = 1;
+            return 1;
+        }
+        else {
+            write("The sink is already pushed in.\n");
+            return 1;
+        }
     }
     return 0;
 }

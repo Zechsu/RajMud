@@ -21,3 +21,28 @@ void remove_exit(string exit) {
 mapping query_exits() {
     return exits;
 }
+
+int add_door(string side, object door, string destination) {
+    // Adds a door to an existing exit
+    if (!destination) {
+        if (exits[side]) {
+            exits[side] = (["destination":exits[side], "door":door]);
+            return 1;
+        }
+        debug_message("Side does not exist\n");
+        return 0;
+    }
+    else {
+        exits[side] = (["destination":destination, "door":door]);
+        return 1;
+    }
+}
+
+int is_door(string side) {
+    if (mapp(exits[side])) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}

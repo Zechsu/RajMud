@@ -42,6 +42,7 @@
 #define LIB_ROOM      "/inherit/room"
 #define LIB_ITEM      "/inherit/item"
 #define LIB_PROP      "/inherit/prop"
+#define LIB_DOOR      "/inherit/door"
 #define LIB_BODY      "/inherit/body"
 #define LIB_RACE      "/inherit/race"
 
