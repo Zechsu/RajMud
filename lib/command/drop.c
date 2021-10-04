@@ -18,19 +18,14 @@ int main(string str) {
 
     foreach(object ob in inv) {
         if (member_array(str, ob->query_ids()) != -1) {
-            ob->move(environment(tp));
+            ob->event_drop(tp);
             tell_object(tp, "You drop " + ob->query_short() + "\n");
             say(tp->query_name() + " drops " + ob->query_short() + "\n");
             return 1;
         }
-        else {
-            tell_object(tp, "You're not holding that.\n");
-            return 1;
-        }
     }
 
-    tell_object(tp, help());
-    return 1;
+    return notify_fail("You're not holding that.\n");
 }
 
 string help() {

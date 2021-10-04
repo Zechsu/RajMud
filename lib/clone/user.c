@@ -5,6 +5,7 @@
 #include <globals.h>
 
 inherit BASE;
+inherit CLEAN_UP;
 inherit M_PRIVILEGES;
 inherit M_ALIASES;
 inherit LIB_BODY;
@@ -242,17 +243,19 @@ void setup()
 #else
     set_this_player(this_object());
 #endif
-    m_privileges::create();
     restore_object(query_save_folder());
     if (!current_room) {
         current_room = TEST_ROOM;
     }
     if (!query_inventory()) {
-        set_inventory(({}));
-    } else {
-        foreach(object tmp in query_inventory()) {
-            object ob = new(tmp);
-            ob->move(this_object());
+        set_inventory(([]));
+    } 
+    else {
+        foreach(object tmp, int am in query_inventory()) {
+            for (int i = 0; i < am; i++) {
+                object ob = new(tmp);
+                ob->move(this_player());
+            }
         }
     }
     if (cwd == 0 || !cwd || cwd == "") {

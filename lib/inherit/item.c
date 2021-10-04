@@ -1,6 +1,7 @@
 #include <globals.h>
 
 inherit M_DESC;
+inherit CLEAN_UP;
 
 private nosave string* ids;
 private mapping messages;
@@ -39,4 +40,28 @@ string query_message(string kind) {
 
 void move(mixed dest) {
     move_object(dest);
+}
+
+int event_get(object player, int amount) {
+    if (!player) {
+        player = this_player();
+    }
+    if (!amount)
+    {
+        amount = 1;
+    }
+
+    move(player);
+    player->add_item_to_inventory(this_object(), amount);
+    return 1;
+}
+
+int event_drop(object player) {
+    if (!player) {
+        player = this_player();
+    }
+
+    move(environment(player));
+    player->remove_item_from_inventory(this_object());
+    return 1;
 }

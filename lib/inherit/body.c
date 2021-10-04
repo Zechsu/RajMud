@@ -1,7 +1,7 @@
 #include <globals.h>
 
 private string short_desc;
-private string* inventory;
+private mapping inventory;
 private mapping traits = ([]);
 
 void create() {
@@ -10,11 +10,11 @@ void create() {
     }
 }
 
-string* query_inventory() {
+mapping query_inventory() {
     return inventory;
 }
 
-int set_inventory(string* inv) {
+int set_inventory(mapping inv) {
     inventory = inv;
     return 1;
 }
@@ -27,9 +27,30 @@ string query_short() {
     return short_desc;
 }
 
-int get_item(mixed item) {
-    item->move(this_player());
-    inventory += ({base_name(item)});
+int add_item_to_inventory(mixed item, int amount) {
+    if (!amount) {
+        amount = 1;
+    }
+
+    inventory[base_name(item)] += amount;
+    return 1;
+}
+
+int remove_item_from_inventory(mixed item) {
+    string basename = base_name(item);
+
+    if (inventory[basename]) {
+        inventory[basename] -= 1;
+        if (inventory[basename] <= 0) {
+            map_delete(inventory, basename);
+        }
+    }
+    
+    return 0;
+}
+
+int query_item_amount(mixed item) {
+    return inventory[base_name(item)];
 }
 
 mapping query_traits() {
