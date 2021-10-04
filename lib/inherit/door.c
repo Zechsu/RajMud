@@ -32,6 +32,11 @@ int open() {
 }
 
 int close() {
-    is_opened = 0;
-    return 1;
+    if (is_opened == 1) {
+        is_opened = 0;
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
