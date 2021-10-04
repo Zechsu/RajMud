@@ -6,7 +6,7 @@ int get(object tp, mixed item);
 int main(string str) {
     object tp = this_player();
     object room = environment(tp);
-    object* inv = filter_array(all_inventory(room), (: !living($1) :));
+    object* inv = room->query_items();
 
     if (!str || !sizeof(trim(str))) {
         tell_object(tp, help());
@@ -20,18 +20,13 @@ int main(string str) {
     foreach(object ob in inv) {
         if (member_array(str, ob->query_ids()) != -1) {
             ob->event_get(tp);
-            tell_object(tp, "You picked up the " + ob->query_short() + ".\n");
+            write("You picked up the " + ob->query_short() + ".\n");
             say(tp->query_name() + " picks up " + ob->query_short() + "\n");
-            return 1;
-        }
-        else {
-            tell_object(tp, "Couldn't find that here.\n");
             return 1;
         }
     }
 
-    tell_object(tp, "Couldn't find that here.\n");
-    return 1;
+    return notify_fail("Couldn't find that here.\n");
 }
 
 string help() {

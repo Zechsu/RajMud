@@ -1,9 +1,7 @@
 #include <globals.h>
 
-inherit CLEAN_UP;
-
 private string description;
-private string key;
+private string id;
 
 void create() {
     
@@ -17,16 +15,16 @@ string query_description() {
     return description;
 }
 
-int set_key(string new_key) {
-    key = new_key;
+int set_id(string new_id) {
+    id = new_id;
 }
 
-string query_key() {
-    return key;
+string query_id() {
+    return id;
 }
 
-int key(string arg) {
-    return arg == key;
+int id(string arg) {
+    return arg == id;
 }
 
 void move(mixed dest) {

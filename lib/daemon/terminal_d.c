@@ -70,9 +70,7 @@ varargs string parse_pinkfish(string msg, int flag)
     
     msg = implode(words, "");
     
-    if (!flag) {
-        msg = parse_html(msg);
-    }
+    msg = parse_html(msg, flag);
     
     return msg;
 }
@@ -85,7 +83,7 @@ mixed html_color(string str) {
     {
         return "";
     }
-
+    
     str = upper_case(str);
     if(!regexp(str, "[A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9]"))
     {
@@ -103,7 +101,7 @@ mixed html_color(string str) {
     return ({ r, g, b });
 }
 
-varargs string parse_html(string msg)
+varargs string parse_html(string msg, int flag)
 {
     string *words;
     int size;
@@ -111,14 +109,22 @@ varargs string parse_html(string msg)
     words = explode(msg + "%#", "%#");
     size = sizeof(words);
 
-    while(size--)
-    {
-        int* rgbs = html_color(words[size]);
-        if (sizeof(rgbs) == 3) {
-            words[size] = rgb(rgbs[0], rgbs[1], rgbs[2]);
+    if (flag) {
+        while(size--) {
+            if (regexp(upper_case(words[size]), "[A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9][A-F0-9]")) {
+                words[size] = "";
+            }
         }
     }
-
+    else {
+        while(size--)
+        {
+            int* rgbs = html_color(words[size]);
+            if (sizeof(rgbs) == 3) {
+                words[size] = rgb(rgbs[0], rgbs[1], rgbs[2]);
+            }
+        }
+    }
 
     msg = implode(words, "");
 

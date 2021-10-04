@@ -1,38 +1,24 @@
 #include <command.h>
 
-int
-main(string arg)
+int main(string arg)
 {
-    object obj;
+    object tp = this_player();
+    object* inv = all_inventory(environment(tp));
 
     if (!arg) {
-#ifndef __NO_ADD_ACTION__
         return notify_fail("usage: dest object\n");
-#else
-        write("usage: dest object\n");
-        return 1;
-#endif
     }
-    obj = find_object(arg);
-#ifndef __NO_ENVIRONMENT__
-    if (!obj) {
-        obj = present(arg);
-        if (!obj) {
-            obj = present(arg, environment(previous_object()));
+
+    inv = filter_array(inv, (: !living($1) :));
+    inv = filter_array(inv, (: !$1->is_prop() :));
+
+    foreach(object ob in inv) {
+        if (member_array(arg, ob->query_ids()) != -1) {
+            ob->remove();
+            write("Destroyed " + arg + "\n");
+            return 1;
         }
     }
-#endif
-    if (!obj) {
-#ifndef __NO_ADD_ACTION__
-        return notify_fail("can't find that.\n");
-#else
-        write("can't find that.\n");
-        return 1;
-#endif
-    }
-    obj->remove();
-    if (obj) {
-        destruct(obj);
-    }
-    return 1;
+
+    return notify_fail("Object not found.\n");
 }

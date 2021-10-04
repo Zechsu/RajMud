@@ -5,7 +5,6 @@
 #include <globals.h>
 
 inherit BASE;
-inherit CLEAN_UP;
 inherit M_PRIVILEGES;
 inherit M_ALIASES;
 inherit LIB_BODY;
@@ -13,6 +12,7 @@ inherit LIB_BODY;
 private string name;
 private string current_room;
 string cwd;
+private int no_color = 0;
 //forward declarations
 
 string query_save_folder();
@@ -36,6 +36,10 @@ string query_cwd()
 int set_cwd(string str) {
     cwd = str;
     return 1;
+}
+
+void set_color(int to) {
+    no_color = to;
 }
 
 // logon: move this to /single/login.c when login.c gets written.
@@ -69,6 +73,14 @@ int
 id(string arg)
 {
     return (arg == query_name()) || base::id(arg);
+}
+
+string query_save_folder() {
+    return sprintf("/data/users/%c/%s", lower_case(name)[0], name);
+}
+
+void save() {
+    save_object(query_save_folder());
 }
 
 #ifndef __OLD_ED__
@@ -220,7 +232,12 @@ void
 receive_message(string newclass, string msg)
 {
     // the meaning of 'class' is at the mudlib's discretion
-    msg = TERM_D->parse_pinkfish(msg);
+    if (no_color != 0) {
+        msg = TERM_D->parse_pinkfish(msg);
+    }
+    else {
+        msg = TERM_D->parse_pinkfish(msg, 1);
+    }
     receive(msg);
 }
 
@@ -243,6 +260,7 @@ void setup()
 #else
     set_this_player(this_object());
 #endif
+    m_privileges::create();
     restore_object(query_save_folder());
     if (!current_room) {
         current_room = TEST_ROOM;
@@ -292,14 +310,6 @@ reconnect()
     tell_room(environment(), "Reconnected.\n");
     tell_room(environment(), query_name() + " has reconnected.\n");
 #endif
-}
-
-string query_save_folder() {
-    return sprintf("/data/users/%c/%s", lower_case(name)[0], name);
-}
-
-void save() {
-    save_object(query_save_folder());
 }
 
 varargs int move(mixed dest, int flag) {

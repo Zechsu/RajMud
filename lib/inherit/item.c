@@ -1,7 +1,6 @@
 #include <globals.h>
 
 inherit M_DESC;
-inherit CLEAN_UP;
 
 private nosave string* ids;
 private mapping messages;
@@ -40,6 +39,11 @@ string query_message(string kind) {
 
 void move(mixed dest) {
     move_object(dest);
+}
+
+void remove()
+{
+    destruct(this_object());
 }
 
 int event_get(object player, int amount) {
