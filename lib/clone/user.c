@@ -146,6 +146,9 @@ string process_input(string arg)
     // since all aliases here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
 
+    if (dir_aliases[arg]) {
+        return dir_aliases[arg];
+    }
 
     foreach (string ign in ignored) {
         if (strsrch(arg, ign) != -1) {

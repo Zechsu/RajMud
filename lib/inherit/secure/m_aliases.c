@@ -1,7 +1,8 @@
 #include <globals.h>
 
 private mapping aliases = ([]);
-private nosave mapping predefined_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "l":"look", "i":"inventory", "in":"go in", "out":"go out"]);
+private nosave mapping predefined_aliases = (["l":"look", "i":"inventory"]);
+nosave mapping dir_aliases = (["n":"go north", "w":"go west", "s":"go south", "e":"go east", "in":"go in", "out":"go out"]);
 
 void create() {
     if (!sizeof(aliases)) {
@@ -38,4 +39,13 @@ string get_alias(string alias) {
         return predefined_aliases[alias];
     }
     return alias;
+}
+
+int is_dir_alias(string alias) {
+    if (dir_aliases[alias]) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
