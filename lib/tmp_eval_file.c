@@ -1,1 +1,1 @@
-mixed eval() { return environment(this_player())->query_exits(); }
+mixed eval() { return objects(); }

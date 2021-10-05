@@ -39,8 +39,8 @@ int look(object tp) {
         exits = " [ " + implode(exit_keys, " | ") + " ] ";
     }
 
-    desc = sprintf("%c["+(33)+"m", 27) + room->query_short() + sprintf("%c["+(0)+"m", 27) + exits + "\n\n" + room->query_long();
-    tell_object(tp, desc + "\n");
+    desc = "%^YELLOW%^" + room->query_short() + "%^RESET%^" + exits + "\n\n" + room->query_long();
+    write(desc + "\n");
 
     // ugly fix for not putting a random \n after the room long descriptions
     inv -= ({tp});
@@ -69,11 +69,11 @@ int look_at(object tp, string look_at_item) {
 
     foreach (object ob in all_inventory(room)) {
         if (inherits(LIB_ITEM, ob) && member_array(look_at_item, ob->query_ids()) != -1) {
-            tell_object(tp, ob->query_long() + "\n");
+            write(ob->query_long() + "\n");
             return 1;
         }
         if (ob->is_prop()) {
-            if (ob->key(look_at_item)) {
+            if (ob->id(look_at_item)) {
                 tell_object(tp, ob->query_description() + "\n");
                 return 1;
             }

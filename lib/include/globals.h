@@ -11,6 +11,8 @@
 #include "tests.h"
 #include "daemons.h"
 
+#define MUD_VERSION     "0.1"
+
 #define SINGLE_DIR "/single"
 #define CONFIG_DIR "/etc"
 #define LOG_DIR    "/log"
