@@ -6,7 +6,7 @@ int main(string str) {
     if (!str || !sizeof(trim(str))) {
         tell_object(tp, "You currently hold: \n");
         foreach(object ob in all_inventory(tp)) {
-            tell_object(tp, ob->query_short() + "\n");
+            write(ob->query_short() + "\n");
         }
         return 1;
     } else {

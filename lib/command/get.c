@@ -19,10 +19,15 @@ int main(string str) {
 
     foreach(object ob in inv) {
         if (member_array(str, ob->query_ids()) != -1) {
-            ob->event_get(tp);
-            write("You picked up the " + ob->query_short() + ".\n");
-            say(tp->query_name() + " picks up " + ob->query_short() + "\n");
-            return 1;
+            if (ob->can_get()) {
+                ob->event_get(tp);
+                write("You pick up the " + ob->query_short() + ".\n");
+                say(tp->query_name() + " picks up " + ob->query_short() + "\n");
+                return 1;
+            }
+            else {
+                return notify_fail("You can't get that.\n");
+            }
         }
     }
 

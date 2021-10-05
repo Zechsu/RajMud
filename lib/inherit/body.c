@@ -44,6 +44,7 @@ int remove_item_from_inventory(mixed item) {
         if (inventory[basename] <= 0) {
             map_delete(inventory, basename);
         }
+        return 1;
     }
     
     return 0;

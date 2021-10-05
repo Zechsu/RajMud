@@ -23,6 +23,15 @@ string* query_ids() {
     return ids;
 }
 
+int id(string id) {
+    if (member_array(id, ids) != -1) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 int set_message(string kind, string mess) {
     mess = replace_string(mess, "$N", query_short());
     messages[kind] = mess;
@@ -67,5 +76,9 @@ int event_drop(object player) {
 
     move(environment(player));
     player->remove_item_from_inventory(this_object());
+    return 1;
+}
+
+int can_get() {
     return 1;
 }
