@@ -5,23 +5,30 @@
 
 inherit LIB_ITEM;
 
-int health = 12;
-int attack = 1;
+int health;
+int attack;
 string owner;
 
 int idx = secure_random(sizeof(SPECIES));
-string col = KABUTO_COLORS[idx];
-string specie = SPECIES[idx];
+string col;
+string specie;
 
 void set_stats();
 int set_owner(string ow);
+void setup();
 
 void create() {
     ::create();
+    setup();
     set_short(col + "kabuto%^RESET%^");
     set_long("A lovely " + col + "kabuto%^RESET%^!");
     set_ids(({"kabuto"}));
     set_stats();
+}
+
+void setup() {
+    col = KABUTO_COLORS[idx];
+    specie = SPECIES[idx];
 }
 
 void init() {
@@ -61,16 +68,18 @@ int put_in_arena(string str) {
 
 void set_stats() {
     if (specie == SPECIES[0]) {
-        attack += 2;
-        health += 2;
+        attack = 3;
+        health = 14;
         return;
     }
     if (specie == SPECIES[1]) {
-        attack += 3;
+        attack = 4;
+        health = 12;
         return;
     }
     if (specie == SPECIES[2]) {
-        health += 3;
+        health = 15;
+        attack = 2;
         return;
     }
     return;
@@ -132,4 +141,20 @@ int do_attack(object target, int dmg) {
     else {
         return 0;
     }
+}
+
+int set_specie(mixed spec) {
+    if (stringp(spec)) {
+        idx = member_array(spec, SPECIES);
+    }
+    else if (intp(spec) && spec >= 0) {
+        if (spec < sizeof(SPECIES)) {
+            idx = spec;
+        }
+        else {
+            return 0;
+        }
+    }
+    create();
+    return 1;
 }
