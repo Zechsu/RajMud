@@ -65,12 +65,14 @@ int put_kabuto(object kab) {
                 kab1 = kab;
                 kab->move(this_object());
                 tp->remove_item_from_inventory(kab);
+                say(tp->query_name() + " puts his " + kab1->query_short() + " in the arena.\n");
                 return 1;
             }
             if (!kab2) {
                 kab2 = kab;
                 kab->move(this_object());
                 tp->remove_item_from_inventory(kab);
+                say(tp->query_name() + " puts his " + kab2->query_short() + " in the arena.\n");
                 set_heart_beat(3);
                 return 1;
             }
