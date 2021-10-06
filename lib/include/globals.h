@@ -11,6 +11,10 @@
 #include "tests.h"
 #include "daemons.h"
 
+#define ENV(x)      environment(x)
+#define TO()        this_object()
+#define TP()        this_player()
+
 #define MUD_VERSION     "0.1"
 
 #define SINGLE_DIR "/single"

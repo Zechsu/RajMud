@@ -1,18 +1,20 @@
 #include <globals.h>
 
-#define KABUTO_COLORS       ({"%#6d551d%#", "%#846828%#", "%#907843%#"})
+#define KABUTO_COLORS       ({"%#b2633e%#", "%#6a2f18%#", "%#98723b%#"})
 #define SPECIES             ({"Allomyrina dichotoma dichotoma", "Allomyrina dichotoma inchachina", "Allomyrina dichotoma septentrionalis"})
 
 inherit LIB_ITEM;
 
-int health = 10;
+int health = 12;
 int attack = 1;
+string owner;
 
 int idx = secure_random(sizeof(SPECIES));
 string col = KABUTO_COLORS[idx];
 string specie = SPECIES[idx];
 
 void set_stats();
+int set_owner(string ow);
 
 void create() {
     ::create();
@@ -35,12 +37,13 @@ int put_in_arena(string str) {
 
     str = replace_string(str, "the", "");
 
-    if (str == "kabuto in arena") {
+    if (str == "kabuto arena" || str == "kabuto in arena") {
         object* inv = environment(tp)->query_items();
         inv = filter_array(inv, (: $1->id("kabuto arena") :));
         if (sizeof(inv) != 0) {
             if (inv[0]->put_kabuto(this_object())) {
                 write("You put the " + query_short() + " in the arena.\n");
+                set_owner(tp->query_name());
                 return 1;
             }
             else {
@@ -58,16 +61,16 @@ int put_in_arena(string str) {
 
 void set_stats() {
     if (specie == SPECIES[0]) {
-        attack += 1;
+        attack += 2;
         health += 2;
         return;
     }
     if (specie == SPECIES[1]) {
-        attack += 2;
+        attack += 3;
         return;
     }
     if (specie == SPECIES[2]) {
-        health += 2;
+        health += 3;
         return;
     }
     return;
@@ -92,5 +95,41 @@ string query_specie() {
     }
     else {
         return ret;
+    }
+}
+
+int get_damage() {
+    return secure_random(attack+1);
+}
+
+string query_owner() {
+    return owner;
+}
+
+int set_owner(string ow) {
+    owner = ow;
+    return 1;
+}
+
+int take_damage(int dmg) {
+    health -= dmg;
+    if (health <= 0) {
+        health = 0;
+        return 0;
+    }
+    return 1;
+}
+
+int is_dead() {
+    return health <= 0;
+}
+
+int do_attack(object target, int dmg) {
+    if (target->is_kabuto()) {
+        target->take_damage(dmg);
+        return 1;
+    }
+    else {
+        return 0;
     }
 }
