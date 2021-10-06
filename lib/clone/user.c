@@ -133,7 +133,7 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
-    string* ignored = ({"alias", "go", "say", "open", "close"});
+    string* ignored = ({"alias", "go", "say", "open", "close", "tp"});
 
     // protects from sending empty commands
     if (trim(arg) == "") {
