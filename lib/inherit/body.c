@@ -27,6 +27,15 @@ string query_short() {
     return short_desc;
 }
 
+object query_item_from_inventory(string item) {
+    foreach(object ob in all_inventory(this_player())) {
+        if (ob->id(item)) {
+            return ob;
+        }
+    }
+    return 0;
+}
+
 int add_item_to_inventory(mixed item, int amount) {
     if (!amount) {
         amount = 1;
