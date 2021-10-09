@@ -43,6 +43,7 @@
 #define M_ALIASES     "/inherit/secure/m_aliases"
 #define M_DESC        "/inherit/modules/m_description"
 #define M_EXITS       "/inherit/modules/m_exits"
+#define M_INVENTORY   "/inherit/modules/m_inventory"
 
 // Components
 #define LIB_ROOM      "/inherit/room"
