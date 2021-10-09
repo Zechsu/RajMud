@@ -39,19 +39,20 @@
 #define COMMAND_PREFIX "/command/"
 
 // modules
-#define M_PRIVILEGES  "/inherit/secure/m_privileges"
-#define M_ALIASES     "/inherit/secure/m_aliases"
-#define M_DESC        "/inherit/modules/m_description"
-#define M_EXITS       "/inherit/modules/m_exits"
-#define M_INVENTORY   "/inherit/modules/m_inventory"
+#define M_PRIVILEGES        "/inherit/secure/m_privileges"
+#define M_ALIASES           "/inherit/secure/m_aliases"
+#define M_DESC              "/inherit/modules/m_description"
+#define M_EXITS             "/inherit/modules/m_exits"
+#define M_INVENTORY         "/inherit/modules/m_inventory"
 
 // Components
-#define LIB_ROOM      "/inherit/room"
-#define LIB_ITEM      "/inherit/item"
-#define LIB_PROP      "/inherit/prop"
-#define LIB_DOOR      "/inherit/door"
-#define LIB_BODY      "/inherit/body"
-#define LIB_RACE      "/inherit/race"
+#define LIB_ROOM            "/inherit/room"
+#define LIB_ITEM            "/inherit/item"
+#define LIB_PROP            "/inherit/prop"
+#define LIB_DOOR            "/inherit/door"
+#define LIB_CONTAINER       "/inherit/container"
+#define LIB_BODY            "/inherit/body"
+#define LIB_RACE            "/inherit/race"
 
 // classes for message() efun.
 #define M_STATUS "status"

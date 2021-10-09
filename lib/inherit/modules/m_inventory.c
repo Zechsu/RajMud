@@ -2,6 +2,7 @@
 
 private mapping inventory;
 private int capacity;
+private int item_count;
 
 void create() {
     if (!inventory) {

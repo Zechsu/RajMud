@@ -60,6 +60,13 @@ int event_drop(object player) {
     return 1;
 }
 
+int event_put(object who, object where) {
+    who->remove_item_from_inventory(this_object());
+    move(where);
+    where->add_item_to_inventory(this_object());
+    return 1;
+}
+
 int can_get() {
     return 1;
 }
