@@ -234,3 +234,13 @@ varargs void say(string msg, mixed exclude) {
     else if (!exclude) exclude = ({ me });
     message("say", msg, environment(me), exclude);
 }
+
+object present(mixed str, object ob) {
+    if (!ob) {
+        ob = this_player();
+        return efun::present(str, ob) || efun::present(str, ENV(TP()));
+    }
+    else {
+        return efun::present(str, ob);
+    }
+}
