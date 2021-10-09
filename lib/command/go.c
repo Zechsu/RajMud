@@ -10,24 +10,34 @@ int main(string arg) {
 
     if (environment(tp)->is_door(arg)) {
         if (exits[arg]["door"]->is_open()) {
-            write("You walk " + arg + ".\n");
-            say(tp->query_name() + " heads " + arg + "\n");
-            tp->move(exits[arg]["destination"]);
-            say(tp->query_name() + " comes from " + arg + "\n");
-            tp->call_verb("look", "");
-            return 1;
+            if (exits[arg]["destination"]->event_enter(tp)) {
+                write("You walk " + arg + ".\n");
+                say(tp->query_name() + " heads " + arg + "\n");
+                tp->move(exits[arg]["destination"]);
+                say(tp->query_name() + " comes from " + arg + "\n");
+                tp->call_verb("look", "");
+                return 1;
+            }
+            else {
+                return notify_fail("You cannot go there.\n");
+            }
         }
         else {
             return notify_fail("It is closed.\n");
         }
     }
     else if (member_array(arg, keys(exits)) != -1) {
-        write("You walk " + arg + ".\n");
-        say(tp->query_name() + " heads " + arg + "\n");
-        tp->move(exits[arg]);
-        say(tp->query_name() + " comes from " + arg + "\n");
-        tp->call_verb("look", "");
-        return 1;
+        if (exits[arg]->event_enter()) {
+            write("You walk " + arg + ".\n");
+            say(tp->query_name() + " heads " + arg + "\n");
+            tp->move(exits[arg]);
+            say(tp->query_name() + " comes from " + arg + "\n");
+            tp->call_verb("look", "");
+            return 1;
+        }
+        else {
+            return notify_fail("You cannot go there.\n");
+        }
     }
     else {
         write("No such exit.\n");
