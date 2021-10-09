@@ -33,9 +33,9 @@ string query_message(string kind) {
     }
 }
 
-int event_get(object player, int amount) {
-    if (!player) {
-        player = this_player();
+int event_get(object who, int amount) {
+    if (!who) {
+        who = this_player();
     }
     if (!amount)
     {
@@ -43,8 +43,8 @@ int event_get(object player, int amount) {
     }
 
     if (can_get()) {
-        move(player);
-        player->add_item_to_inventory(this_object(), amount);
+        move(who);
+        who->add_item_to_inventory(this_object(), amount);
         return 1;
     }
     return 0;
