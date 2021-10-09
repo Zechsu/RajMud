@@ -12,6 +12,10 @@ int main(string arg) {
         return look(tp);
     }
 
+    if (arg == "here") {
+        return look(tp);
+    }
+
     if (sscanf(arg, "at %s", look_at_item) == 1) {
         return look_at(tp, look_at_item);
     }
