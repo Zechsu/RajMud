@@ -209,10 +209,6 @@ author_file(string)
 
 void simul() {}
 
-string sprintfc(string str, int wrap, int indent) {
-    return terminal_colour(str, TERM_D->colors(), wrap, indent);
-}
-
 string rgb(int r, int g, int b) {
     return "\033[38;2;" + r + ";" + g + ";" + b + "m";
 }

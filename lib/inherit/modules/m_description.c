@@ -5,7 +5,7 @@ private string short_desc;
 private string long_desc;
 
 int set_short(string new_short) {
-    short_desc = terminal_colour(new_short,TERM_D->colors());
+    short_desc = new_short;
     return 1;
 }
 
