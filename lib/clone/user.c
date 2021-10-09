@@ -133,7 +133,7 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
-    string* ignored = ({"alias", "go", "say", "open", "close"});
+    string* ignored = ({"alias", "go", "say", "open", "close", "tp"});
 
     // protects from sending empty commands
     if (trim(arg) == "") {
@@ -146,6 +146,9 @@ string process_input(string arg)
     // since all aliases here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
 
+    if (dir_aliases[arg]) {
+        return dir_aliases[arg];
+    }
 
     foreach (string ign in ignored) {
         if (strsrch(arg, ign) != -1) {

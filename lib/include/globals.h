@@ -11,6 +11,10 @@
 #include "tests.h"
 #include "daemons.h"
 
+#define ENV(x)      environment(x)
+#define TO()        this_object()
+#define TP()        this_player()
+
 #define MUD_VERSION     "0.1"
 
 #define SINGLE_DIR "/single"
@@ -39,6 +43,7 @@
 #define M_ALIASES     "/inherit/secure/m_aliases"
 #define M_DESC        "/inherit/modules/m_description"
 #define M_EXITS       "/inherit/modules/m_exits"
+#define M_INVENTORY   "/inherit/modules/m_inventory"
 
 // Components
 #define LIB_ROOM      "/inherit/room"
@@ -53,3 +58,4 @@
 #define M_SAY    "say"
 
 #define CLEAN_UP "/inherit/clean_up"
+

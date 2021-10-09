@@ -1,1 +1,0 @@
-mixed eval() { return objects(); }

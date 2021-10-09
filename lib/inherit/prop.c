@@ -1,18 +1,18 @@
 #include <globals.h>
 
-private string description;
+private string long_desc;
 private string id;
 
 void create() {
     
 }
 
-int set_description(string desc) {
-    description = desc;
+int set_long(string desc) {
+    long_desc = desc;
 }
 
-string query_description() {
-    return description;
+string query_long() {
+    return long_desc;
 }
 
 int set_id(string new_id) {

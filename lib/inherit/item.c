@@ -1,8 +1,9 @@
 #include <globals.h>
+#include "include/item.h"
 
+inherit BASE;
 inherit M_DESC;
 
-private nosave string* ids;
 private mapping messages;
 
 void create() {
@@ -13,11 +14,6 @@ void create() {
         messages = ([]);
     }
 }
-
- int set_ids(string* new_ids) {
-     ids = new_ids;
-     return 1;
- }
 
 string* query_ids() {
     return ids;
@@ -37,15 +33,6 @@ string query_message(string kind) {
     }
 }
 
-void move(mixed dest) {
-    move_object(dest);
-}
-
-void remove()
-{
-    destruct(this_object());
-}
-
 int event_get(object player, int amount) {
     if (!player) {
         player = this_player();
@@ -55,9 +42,12 @@ int event_get(object player, int amount) {
         amount = 1;
     }
 
-    move(player);
-    player->add_item_to_inventory(this_object(), amount);
-    return 1;
+    if (can_get()) {
+        move(player);
+        player->add_item_to_inventory(this_object(), amount);
+        return 1;
+    }
+    return 0;
 }
 
 int event_drop(object player) {
@@ -67,5 +57,9 @@ int event_drop(object player) {
 
     move(environment(player));
     player->remove_item_from_inventory(this_object());
+    return 1;
+}
+
+int can_get() {
     return 1;
 }

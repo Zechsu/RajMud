@@ -9,7 +9,7 @@ varargs string parse_html(string msg, int flag);
 
 void create() {
     data = ([
-        "RESET":ANSI("0;37;40"), "BOLD":ANSI(1), "FLASH":ANSI(5),
+        "RESET":ANSI("0"), "BOLD":ANSI(1), "FLASH":ANSI(5),
         "BLACK":ANSI(30), "RED":ANSI(31), "GREEN":ANSI(32),
         "YELLOW": ANSI(33), "BLUE": ANSI(34), "CYAN":ANSI(36),
         "MAGENTA":ANSI(35), "BLACK":ANSI(30), "WHITE": ANSI(37),

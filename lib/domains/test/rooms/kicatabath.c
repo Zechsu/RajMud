@@ -34,6 +34,6 @@ int do_push(string str) {
             write("The sink is already pushed in.\n");
             return 1;
         }
+        return 0;
     }
-    return 0;
 }

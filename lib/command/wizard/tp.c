@@ -1,0 +1,43 @@
+#include <command.h>
+
+string help() {
+    return "Usage: tp <player1> <player2>\nIf no player2, you'll be teleported to player1\n";
+}
+
+int main(string str) {
+    string pl1, pl2;
+    if (!str) {
+        return notify_fail(help());
+    }
+    if (sscanf(str, "%s %s", pl1, pl2) == 2) {
+        object player1, player2;
+        if (pl2 == "me") {
+            player2 = this_player();
+        }
+        else {
+            player2 = find_player(pl2);
+        }
+        player1 = find_player(pl1);
+
+        if (player1 && player2) {
+            player1->move(environment(player2));
+            if (pl2 == "me") {
+                write("You teleport " + pl1 + " to you.\n");
+            }
+            else {
+                write("You teleport " + pl1 + " to " + pl2 + ".\n");
+            }
+            return 1;
+        }
+    }
+    if (sscanf(str, "%s", pl1) == 1) {
+        object target = find_player(pl1);
+        if (target) {
+            this_player()->move(environment(target));
+            write("You teleport to " + pl1 + ".\n");
+            return 1;
+        }
+    }
+
+    return notify_fail(help());
+}

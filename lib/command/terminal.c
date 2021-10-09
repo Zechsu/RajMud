@@ -19,5 +19,5 @@ int main(string str) {
 }
 
 string help() {
-    return "Usage:\nterminal <color> or\nterminal <none>";
+    return "Usage:\nterminal <color> or\nterminal <none>\n";
 }
