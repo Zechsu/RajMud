@@ -133,7 +133,7 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
-    string* ignored = ({"alias", "go", "say", "open", "close", "tp"});
+    // string* ignored = ({"alias", "go", "say", "open", "close", "tp", "look"});
 
     // protects from sending empty commands
     if (trim(arg) == "") {
@@ -150,23 +150,16 @@ string process_input(string arg)
         return dir_aliases[arg];
     }
 
-    foreach (string ign in ignored) {
-        if (strsrch(arg, ign) != -1) {
-            return arg;
-        }
-    }
-
-    if (member_array(arg, keys(query_predefined_aliases())) != -1) {
-        return get_alias(arg);
-    }
-
-    if (member_array(arg, keys(query_aliases())) != -1) {
-        return get_alias(arg);
-    }
+    // foreach (string ign in ignored) {
+    //     if (strsrch(arg, ign) != -1) {
+    //         return arg;
+    //     }
+    // }
 
     tmp = explode(arg, " ");
     for (int i = 0; i < sizeof(tmp); i++) {
         tmp[i] = get_alias(tmp[i]);
+        break;
     }
     return implode(tmp[0..], " ");
 }
