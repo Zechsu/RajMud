@@ -1,7 +1,5 @@
 #include <globals.h>
 
-inherit M_INVENTORY;
-
 private mapping traits = ([]);
 
 void create() {

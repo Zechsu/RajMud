@@ -19,6 +19,10 @@ int main(string str) {
     }
 
     if (sscanf(str, "%s from %s", item, cont) == 2) {
+	    return 1;
+        return get_from(tp, item, cont);
+    }
+    else if (sscanf(str, "%s %s", item, cont) == 2) {
         return get_from(tp, item, cont);
     }
     else {
@@ -65,7 +69,7 @@ int get_from(object tp, string item, string from) {
             }
         }
         else {
-            return notify_fail("That is not a container.\n");
+            return notify_fail("Not a container.\n");
         }
     }
     else {
@@ -74,5 +78,5 @@ int get_from(object tp, string item, string from) {
 }
 
 string help() {
-    return "Usage: get <item>\n";
+    return "Usage: get <item>\nget <item> from <container>\n";
 }

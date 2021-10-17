@@ -3,6 +3,7 @@
 
 inherit BASE;
 inherit M_DESC;
+inherit LIB_PERSIST;
 
 private mapping messages;
 
@@ -69,4 +70,13 @@ int event_put(object who, object where) {
 
 int can_get() {
     return 1;
+}
+
+protected mixed* add_save(mixed* vars) {
+    if (!vars) vars = ({});
+    return persist::add_save(vars);
+}
+
+string* query_save() {
+    return persist::query_csaved();
 }

@@ -5,6 +5,8 @@
 #include <globals.h>
 #include <lpctypes.h>
 
+inherit "/single/sefuns/misc";
+
 int
 same(mixed x, mixed y) {
     if (typeof(x) != typeof(y)) return 0;
@@ -243,4 +245,8 @@ object present(mixed str, object ob) {
     else {
         return efun::present(str, ob);
     }
+}
+
+string player_save_file(string name) {
+    return PLAYERS_DIR + "/" + lower_case(name[0..0]) + "/" + name + ".o";
 }

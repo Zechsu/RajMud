@@ -34,8 +34,15 @@ int look(object tp) {
     string desc;
     string exits = "";
     object room = environment(tp);
-    string* exit_keys = keys(room->query_exits());
-    object* inv = all_inventory(room);
+    string* exit_keys;
+    object* inv;
+
+    if (!room) {
+        return notify_fail("You're in the void.\n");
+    }
+
+    exit_keys = keys(room->query_exits());
+    inv = all_inventory(room);
 
     if (sizeof(exit_keys) == 0) {
         exits = "";
@@ -70,7 +77,7 @@ int look(object tp) {
 }
 
 int look_at(object tp, string look_at_item) {
-    object room = environment(tp);
+    //object room = environment(tp);
     object ob;
 
     if (strsrch(look_at_item, "the") != -1) {
@@ -103,7 +110,7 @@ int look_in(object tp, string look_at_item) {
 
     if (ob = present(look_at_item)) {
         if (ob->is_container()) {
-            write(ob->query_contents() + "\n");
+            write(ob->query_contents_mess() + "\n");
             return 1;
         }
     }

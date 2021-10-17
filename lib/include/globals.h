@@ -22,6 +22,7 @@
 #define LOG_DIR    "/log"
 #define DAEMON_DIR "/daemon"
 #define DOMAINS_DIR "/domains"
+#define PLAYERS_DIR "/data/users"
 
 #define VIRTUAL_D  "/single/virtual"
 
@@ -51,8 +52,10 @@
 #define LIB_PROP            "/inherit/prop"
 #define LIB_DOOR            "/inherit/door"
 #define LIB_CONTAINER       "/inherit/container"
+#define LIB_PERSIST         "/inherit/persist"
 #define LIB_BODY            "/inherit/body"
 #define LIB_RACE            "/inherit/race"
+#define LIB_AUTOSAVE        "/inherit/user/autosave"
 
 // classes for message() efun.
 #define M_STATUS "status"
