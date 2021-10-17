@@ -52,3 +52,5 @@ nomask void save_player() {
     ret =  save_object(file, 1);
     inventory = 0;
 }
+
+// TODO: Implement heart_beat for autosaving

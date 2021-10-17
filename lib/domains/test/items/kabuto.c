@@ -6,14 +6,17 @@
 inherit LIB_ITEM;
 
 int health;
+int max_health;
 int attack;
 string owner;
 
 int idx = secure_random(sizeof(SPECIES));
 string col;
 string specie;
+int has_horn;
 
 void set_stats();
+int set_horn(int horn);
 int set_owner(string ow);
 void setup();
 
@@ -21,9 +24,10 @@ void create() {
     ::create();
     setup();
     set_short(col + "kabuto%^RESET%^");
-    set_long("A lovely " + col + "kabuto%^RESET%^!");
+    set_long("A lovely " + col + "kabuto!%^RESET%^");
     set_ids(({"kabuto"}));
     set_stats();
+    set_horn(1);
 }
 
 void setup() {
@@ -33,6 +37,11 @@ void setup() {
 
 void init() {
     add_action("put_in_arena", "put");
+}
+
+string query_long() {
+    string ret = item::query_long();
+    return has_horn? ret : ret + " Its horn is missing!";
 }
 
 int put_in_arena(string str) {
@@ -68,21 +77,29 @@ int put_in_arena(string str) {
 
 void set_stats() {
     if (specie == SPECIES[0]) {
-        attack = 3;
-        health = 14;
+        attack = 4;
+        health = 35;
+        max_health = 35;
         return;
     }
     if (specie == SPECIES[1]) {
-        attack = 4;
-        health = 12;
+        attack = 5;
+        health = 30;
+        max_health = 30;
         return;
     }
     if (specie == SPECIES[2]) {
-        health = 15;
-        attack = 2;
+        attack = 3;
+        health = 39;
+        max_health = 39;
         return;
     }
     return;
+}
+
+int set_horn(int horn) {
+    has_horn = horn;
+    return 1;
 }
 
 int is_kabuto() {
@@ -97,6 +114,10 @@ int query_attack() {
     return attack;
 }
 
+int query_horn() {
+    return has_horn;
+}
+
 string query_specie() {
     string ret = lower_case(specie);
     if (ret[0] == 'a') {
@@ -108,7 +129,12 @@ string query_specie() {
 }
 
 int get_damage() {
-    return secure_random(attack+1);
+    if (has_horn) {
+        return secure_random(attack+1);
+    }
+    else {
+        return secure_random(attack);
+    }
 }
 
 string query_owner() {
@@ -157,4 +183,17 @@ int set_specie(mixed spec) {
     }
     create();
     return 1;
+}
+
+int heal() {
+    health = max_health;
+    return 1;
+}
+
+int lose_horn() {
+    if (has_horn == 1) {
+        has_horn = 0;
+        return 1;
+    }
+    return 0;
 }
