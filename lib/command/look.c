@@ -2,6 +2,7 @@
 
 int look(object tp);
 int look_at(object tp, string look_at_item);
+int look_in(object tp, string look_at_item);
 string help();
 
 int main(string arg) {
@@ -12,8 +13,15 @@ int main(string arg) {
         return look(tp);
     }
 
+    if (arg == "here") {
+        return look(tp);
+    }
+
     if (sscanf(arg, "at %s", look_at_item) == 1) {
         return look_at(tp, look_at_item);
+    }
+    else if (sscanf(arg, "in %s", look_at_item) == 1) {
+        return look_in(tp, look_at_item);
     }
     else {
         return look_at(tp, arg);
@@ -26,8 +34,15 @@ int look(object tp) {
     string desc;
     string exits = "";
     object room = environment(tp);
-    string* exit_keys = keys(room->query_exits());
-    object* inv = all_inventory(room);
+    string* exit_keys;
+    object* inv;
+
+    if (!room) {
+        return notify_fail("You're in the void.\n");
+    }
+
+    exit_keys = keys(room->query_exits());
+    inv = all_inventory(room);
 
     if (sizeof(exit_keys) == 0) {
         exits = "";
@@ -62,18 +77,14 @@ int look(object tp) {
 }
 
 int look_at(object tp, string look_at_item) {
-    object room = environment(tp);
+    //object room = environment(tp);
     object ob;
 
     if (strsrch(look_at_item, "the") != -1) {
         look_at_item = replace_string(look_at_item, "the ", "");
     }
 
-    if (ob = present(look_at_item, tp)) {
-        write(ob->query_long() + "\n");
-        return 1;
-    }
-    if (ob = present(look_at_item, room)) {
+    if (ob = present(look_at_item)) {
         write(ob->query_long() + "\n");
         return 1;
     }
@@ -92,6 +103,19 @@ int look_at(object tp, string look_at_item) {
     // }
 
     return notify_fail("Couldn't find that.\n");
+}
+
+int look_in(object tp, string look_at_item) {
+    object ob;
+
+    if (ob = present(look_at_item)) {
+        if (ob->is_container()) {
+            write(ob->query_contents_mess() + "\n");
+            return 1;
+        }
+    }
+
+    return notify_fail("Can't find that.\n");
 }
 
 string help() {

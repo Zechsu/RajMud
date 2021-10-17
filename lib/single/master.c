@@ -289,3 +289,11 @@ int valid_hide() {
 int valid_compile_to_c() {
     return 1;
 }
+
+void create_save() {
+    string str;
+    if (!stringp(str = previous_object()->query_name())) return;
+    if (file_size(PLAYERS_DIR+"/"+lower_case(str[0..0])) == -2) return;
+    if(str[0] < 'a' || str[0] > 'z') return;
+    mkdir(PLAYERS_DIR+"/"+lower_case(str[0..0]));
+}

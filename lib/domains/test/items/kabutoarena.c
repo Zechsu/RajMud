@@ -87,35 +87,52 @@ int can_get() {
     return 0;
 }
 
+string get_attack_mess(object kab, object target) {
+    string kab_name = sprintf("%s [%s]", kab->query_short(), kab->query_owner());
+    string target_name = sprintf("%s [%s]", target->query_short(), target->query_owner());
+    string ret = "";
+    switch(secure_random(2)) {
+        case 0: {
+            ret = sprintf("%s strikes!\n", kab_name);
+            break;
+        }
+        case 1: {
+            ret = sprintf("%s bashes %s\n", kab_name, target_name);
+            break;
+        }
+        default: {
+            ret = sprintf("%s strikes!\n", kab_name);
+            break;
+        }
+    }
+
+    return ret;
+}
+
+void do_fight(object kab, object target) {
+    int dmg = kab->get_damage();
+    if (dmg == 0) {
+        say(kab->query_short() + " [" + kab->query_owner() +"] goes for an attack, but it misses!\n");
+    }
+    else {
+        say(get_attack_mess(kab, target));
+        if (secure_random(21) == 0) {
+            target->lose_horn();
+            say(sprintf("%s [%s] loses its horn!\n", target->query_short(), target->query_owner()));
+        }
+        if (target->take_damage(dmg) == 0) {
+            say(target->query_short() + " [" + target->query_owner() + "] falls down!\n");
+            destruct(target);
+        }
+    }
+}
+
 void heart_beat() {
     if (kab1 && kab2) {
-        int dmg1 = kab1->get_damage();
-        int dmg2 = kab2->get_damage();
-        if (dmg1 == 0) {
-            say("The " + kab1->query_short() + " [" + kab1->query_owner() +"] goes for an attack, but it misses!\n");
-        }
-        else {
-            say("The " + kab1->query_short() + " [" + kab1->query_owner() + "] strikes!\n");
-            if (kab2->take_damage(dmg1) == 0) {
-                say("The " + kab2->query_short() + " [" + kab1->query_owner() + "] falls down!\n");
-                destruct(kab2);
-                kab2 = 0;
-                set_heart_beat(0);
-                return;
-            }
-        }
-        if (dmg2 == 0) {
-            say("The " + kab2->query_short() + " [" + kab2->query_owner() + "] goes for an attack, but it misses!\n");
-        }
-        else {
-            say("The " + kab2->query_short() + " [" + kab2->query_owner() + "] strikes back!\n");
-            if (kab1->take_damage(dmg1) == 0) {
-                say("The " + kab1->query_short() + " [" + kab2->query_owner() +"] falls down!\n");
-                destruct(kab1);
-                kab1 = 0;
-                set_heart_beat(0);
-                return;
-            }
-        }
+        do_fight(kab1, kab2);
+        do_fight(kab2, kab1);
+    }
+    else {
+        set_heart_beat(0);
     }
 }

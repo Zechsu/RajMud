@@ -3,6 +3,7 @@
 
 inherit BASE;
 inherit M_DESC;
+inherit LIB_PERSIST;
 
 private mapping messages;
 
@@ -33,9 +34,9 @@ string query_message(string kind) {
     }
 }
 
-int event_get(object player, int amount) {
-    if (!player) {
-        player = this_player();
+int event_get(object who, int amount) {
+    if (!who) {
+        who = this_player();
     }
     if (!amount)
     {
@@ -43,8 +44,8 @@ int event_get(object player, int amount) {
     }
 
     if (can_get()) {
-        move(player);
-        player->add_item_to_inventory(this_object(), amount);
+        move(who);
+        who->add_item_to_inventory(this_object(), amount);
         return 1;
     }
     return 0;
@@ -60,6 +61,22 @@ int event_drop(object player) {
     return 1;
 }
 
+int event_put(object who, object where) {
+    who->remove_item_from_inventory(this_object());
+    move(where);
+    where->add_item_to_inventory(this_object());
+    return 1;
+}
+
 int can_get() {
     return 1;
+}
+
+protected mixed* add_save(mixed* vars) {
+    if (!vars) vars = ({});
+    return persist::add_save(vars);
+}
+
+string* query_save() {
+    return persist::query_csaved();
 }

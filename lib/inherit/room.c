@@ -29,3 +29,14 @@ object* query_items() {
     ret = filter_array(ret, (: !$1->is_prop() :));
     return ret;
 }
+
+int can_enter(object who) {
+    return 1;
+}
+
+int event_enter(object who) {
+    if (can_enter(who)) {
+        return 1;
+    }
+    return 0;
+}

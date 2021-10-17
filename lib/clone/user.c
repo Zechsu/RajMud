@@ -8,6 +8,7 @@ inherit BASE;
 inherit M_PRIVILEGES;
 inherit M_ALIASES;
 inherit LIB_BODY;
+inherit LIB_AUTOSAVE;
 
 private string name;
 private string current_room;
@@ -75,14 +76,6 @@ id(string arg)
     return (arg == query_name()) || base::id(arg);
 }
 
-string query_save_folder() {
-    return sprintf("/data/users/%c/%s", lower_case(name)[0], name);
-}
-
-void save() {
-    save_object(query_save_folder());
-}
-
 #ifndef __OLD_ED__
 void
 write_prompt() {
@@ -133,7 +126,7 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
-    string* ignored = ({"alias", "go", "say", "open", "close", "tp"});
+    // string* ignored = ({"alias", "go", "say", "open", "close", "tp", "look"});
 
     // protects from sending empty commands
     if (trim(arg) == "") {
@@ -150,23 +143,16 @@ string process_input(string arg)
         return dir_aliases[arg];
     }
 
-    foreach (string ign in ignored) {
-        if (strsrch(arg, ign) != -1) {
-            return arg;
-        }
-    }
-
-    if (member_array(arg, keys(query_predefined_aliases())) != -1) {
-        return get_alias(arg);
-    }
-
-    if (member_array(arg, keys(query_aliases())) != -1) {
-        return get_alias(arg);
-    }
+    // foreach (string ign in ignored) {
+    //     if (strsrch(arg, ign) != -1) {
+    //         return arg;
+    //     }
+    // }
 
     tmp = explode(arg, " ");
     for (int i = 0; i < sizeof(tmp); i++) {
         tmp[i] = get_alias(tmp[i]);
+        break;
     }
     return implode(tmp[0..], " ");
 }
@@ -264,20 +250,10 @@ void setup()
     set_this_player(this_object());
 #endif
     m_privileges::create();
-    restore_object(query_save_folder());
+    autosave::restore_player();
+    autosave::restore_inventory();
     if (!current_room) {
         current_room = TEST_ROOM;
-    }
-    if (!query_inventory()) {
-        set_inventory(([]));
-    } 
-    else {
-        foreach(object tmp, int am in query_inventory()) {
-            for (int i = 0; i < am; i++) {
-                object ob = new(tmp);
-                ob->move(this_player());
-            }
-        }
     }
     if (cwd == 0 || !cwd || cwd == "") {
         cwd = "/";

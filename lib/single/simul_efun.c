@@ -5,6 +5,8 @@
 #include <globals.h>
 #include <lpctypes.h>
 
+inherit "/single/sefuns/misc";
+
 int
 same(mixed x, mixed y) {
     if (typeof(x) != typeof(y)) return 0;
@@ -233,4 +235,18 @@ varargs void say(string msg, mixed exclude) {
     else if(pointerp(exclude)) exclude += ({ me });
     else if (!exclude) exclude = ({ me });
     message("say", msg, environment(me), exclude);
+}
+
+object present(mixed str, object ob) {
+    if (!ob) {
+        ob = this_player();
+        return efun::present(str, ob) || efun::present(str, ENV(TP()));
+    }
+    else {
+        return efun::present(str, ob);
+    }
+}
+
+string player_save_file(string name) {
+    return PLAYERS_DIR + "/" + lower_case(name[0..0]) + "/" + name + ".o";
 }
