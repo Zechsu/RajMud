@@ -39,6 +39,7 @@ private void create_user_object(string name) {
     SECURE_D->make_user(name);
     user->setup();
     user->move(user->query_current_room());
+    user->set_ids(({name}));
     destruct(this_object());
 }
 
