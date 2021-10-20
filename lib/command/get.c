@@ -36,7 +36,8 @@ int get(object tp, string item) {
     object room = environment(tp);
     object ob;
     if (ob = present(item, room)) {
-        if (ob->event_get()) {
+        if (ob->can_get()) {
+            ob->move(tp);
             write("You pick up the " + ob->query_short() + ".\n");
             say(tp->query_name() + " picks up " + ob->query_short() + "\n");
             return 1;
@@ -52,28 +53,22 @@ int get(object tp, string item) {
 // TODO: please
 int get_from(object tp, string item, string from) {
     object cont, ob;
-    if (cont = present(from)) {
-        if (cont->is_container()) {
-            if (ob = present(item, cont)) {
-                if (ob->event_get(tp)) {
-                    write("You get " + ob->query_short() + " from " + cont->query_short() + ".\n");
-                    cont->remove_item_from_inventory(ob);
-                    return 1;
-                }
-                else {
-                    return notify_fail("You can't get that.\n");
-                }
-            }
-            else {
-                return notify_fail("Couldn't find that inside.\n");
-            }
-        }
-        else {
-            return notify_fail("Not a container.\n");
-        }
+    if (!cont = present(from)) {
+        return notify_fail("Couldn't find " + from + " here.\n");
+    }
+    if (!cont->is_container()) {
+        return notify_fail(cont->query_short() + " is not a container.\n");
+    }
+    if (!ob = present(item, cont)) {
+        return notify_fail("Couldn't find " + item + " inside " + cont->query_short());
+    }
+    if (ob->can_get()) {
+        write("You get " + ob->query_short() + " from " + cont->query_short() + ".\n");
+        cont->remove_item_from_inventory(ob);
+        return 1;
     }
     else {
-        return notify_fail("Couldn't find that.\n");
+        return notify_fail("You can't get that.\n");
     }
 }
 

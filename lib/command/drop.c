@@ -17,7 +17,7 @@ int main(string str) {
     }
 
     if (ob = present(str, tp)) {
-        ob->event_drop(tp);
+        ob->move(environment(tp));
         write("You drop the " + ob->query_short() + ".\n");
         say(tp->query_name() + " drops " + ob->query_short() + "\n");
         return 1;

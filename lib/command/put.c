@@ -20,7 +20,7 @@ int main(string str) {
             return notify_fail(help());
         }
         if (container->is_container()) {
-            item->event_put(tp, container);
+            item->move(container);
             write("You put " + item->query_short() + " in " + container->query_short() + ".\n");
             return 1;
         }
