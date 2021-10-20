@@ -2,6 +2,7 @@ private mixed* inventory = 0;
 private nosave int  last_save  = time();
 
 string query_name();
+void refresh_play_time();
 nomask void save_player(string nom);
 nomask void restore_inventory();
 
@@ -46,7 +47,8 @@ nomask int restore_player() {
 nomask void save_player() {
     string file;
     mixed ret;
-
+    
+    refresh_play_time();
     inventory = filter(map(all_inventory(), (: $1->query_save_string() :)), (: $1 :));
     file = player_save_file(query_name());
     ret =  save_object(file, 1);

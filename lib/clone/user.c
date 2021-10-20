@@ -14,6 +14,9 @@ private string name;
 private string current_room;
 string cwd;
 private int no_color = 0;
+private nosave int start_play = time();
+private nosave int end_play = 0;
+private int play_time = 0;
 //forward declarations
 
 string query_save_folder();
@@ -304,4 +307,15 @@ string query_current_room() {
 
 int set_race(string race) {
 
+}
+
+void refresh_play_time() {
+    end_play = time();
+    play_time += end_play - start_play;
+    start_play = time();
+}
+
+int query_play_time() {
+    refresh_play_time();
+    return play_time;
 }
