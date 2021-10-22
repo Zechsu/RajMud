@@ -1,5 +1,7 @@
 #include <globals.h>
 
+inherit M_DESC;
+
 private mapping traits = ([]);
 
 string query_name();

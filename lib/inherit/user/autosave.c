@@ -3,7 +3,7 @@ private nosave int  last_save  = time();
 
 string query_name();
 void refresh_play_time();
-nomask void save_player(string nom);
+nomask void save_player();
 nomask void restore_inventory();
 
 int setup() {
