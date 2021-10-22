@@ -2,6 +2,8 @@
 
 int opened;
 
+int is_locked();
+
 int is_open() {
     return opened;
 }
@@ -18,14 +20,18 @@ varargs int can_open(object who) {
 }
 
 // TODO: Figure out if can_open() should be called inside the event.
-int event_open() {
-    if (can_open()) {
-        if (!opened) {
-            opened = 1;
-            return 1;
-        }
+mixed event_open() {
+    if (!can_open()) {
+        return "You can't open that.\n";
     }
-    return 0;
+    if (is_locked()) {
+        return "It is locked.\n";
+    }
+    if (opened) {
+        return "It is open already.\n";
+    }
+    opened = 1;
+    return 1;
 }
 
 int event_close() {

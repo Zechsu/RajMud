@@ -2,6 +2,7 @@
 
 inherit CLEAN_UP;
 inherit M_OPEN;
+inherit M_LOCK;
 
 int is_opened = 0;
 
