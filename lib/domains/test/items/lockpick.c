@@ -25,6 +25,9 @@ int do_pick(string str) {
     }
     if (ob = present(str)) {
         res = ob->event_pick_lock();
+        if (stringp(res)) {
+            return notify_fail(res);
+        }
         write("You pick the lock.\n");
     }
     if (stringp(res)) {

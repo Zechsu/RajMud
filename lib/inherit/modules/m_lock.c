@@ -35,6 +35,9 @@ mixed event_pick_lock(object who) {
     if (!who) {
         who = this_player();
     }
+    if (!locked) {
+        return "It's already unlocked.\n";
+    }
     locked = 0;
     return 1;
 }
