@@ -13,7 +13,7 @@ inherit LIB_AUTOSAVE;
 private string name;
 private string current_room;
 string cwd;
-private int no_color = 0;
+private int no_color = 1;
 private nosave int start_play = time();
 private nosave int end_play = 0;
 private int play_time = 0;
@@ -43,7 +43,12 @@ int set_cwd(string str) {
 }
 
 void set_color(int to) {
-    no_color = to;
+    if (to == 1) {
+        no_color = 0;
+    }
+    else {
+        no_color = 1;
+    }
 }
 
 // logon: move this to /single/login.c when login.c gets written.
@@ -224,7 +229,7 @@ void
 receive_message(string newclass, string msg)
 {
     // the meaning of 'class' is at the mudlib's discretion
-    if (no_color != 0) {
+    if (no_color == 0) {
         msg = TERM_D->parse_pinkfish(msg);
     }
     else {
