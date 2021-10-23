@@ -6,3 +6,5 @@
 #define M_INVENTORY         "/inherit/modules/m_inventory"
 #define M_OPEN              "/inherit/modules/m_open"
 #define M_LOCK              "/inherit/modules/m_lock"
+#define M_SKILLS            "/inherit/modules/m_skills"
+#define M_TRAITS            "/inherit/modules/m_traits"
