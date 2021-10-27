@@ -12,8 +12,12 @@ int main(string str) {
         tell_object(tp, help());
         return 1;
     }
-
-    file = tp->query_cwd() + str + ".c";
+    if (str[0] == '/') {
+        file = str + ".c";
+    }
+    else {
+        file = tp->query_cwd() + str + ".c";
+    }
     if (stat(file) != ({})) {
         ob = new(file);
         if (inherits(LIB_ITEM, ob)) {
