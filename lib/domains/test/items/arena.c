@@ -2,7 +2,7 @@
 
 inherit LIB_CONTAINER;
 
-object kab1, kab2;
+object beetle1, beetle2;
 
 void create() {
     ::create();
@@ -15,11 +15,11 @@ void create() {
 void update_kabs() {
     object* inv = all_inventory(this_object());
     if (sizeof(inv) == 1) {
-        kab1 = inv[0];
+        beetle1 = inv[0];
     }
     if (sizeof(inv) == 2) {
-        kab1 = inv[0];
-        kab2 = inv[1];
+        beetle1 = inv[0];
+        beetle2 = inv[1];
     }
 }
 
@@ -49,7 +49,7 @@ mixed event_recieve_item(object item, object who) {
     if (!who) {
         who = this_player();
     }
-    if (!item->is_kabuto()) {
+    if (!item->is_fighter_beetle()) {
         return "That is not a fighter beetle!\n";
     }
     b = ::event_recieve_item(item, who);
@@ -57,7 +57,7 @@ mixed event_recieve_item(object item, object who) {
         say(sprintf("%s puts %s in the arena!\n", who->query_name(), item->query_short()));
         item->set_owner(who->query_name());
         update_kabs();
-        if (kab1 && kab2) {
+        if (beetle1 && beetle2) {
             set_heart_beat(3);
         }
     }
@@ -109,9 +109,9 @@ void do_fight(object kab, object target) {
 }
 
 void heart_beat() {
-    if (kab1 && kab2) {
-        do_fight(kab1, kab2);
-        do_fight(kab2, kab1);
+    if (beetle1 && beetle2) {
+        do_fight(beetle1, beetle2);
+        do_fight(beetle2, beetle1);
     }
     else {
         set_heart_beat(0);
