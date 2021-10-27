@@ -49,6 +49,9 @@ mixed event_recieve_item(object item, object who) {
     if (!who) {
         who = this_player();
     }
+    if (!item->is_kabuto()) {
+        return "That is not a fighter beetle!\n";
+    }
     b = ::event_recieve_item(item, who);
     if (b == 1) {
         say(sprintf("%s puts %s in the arena!\n", who->query_name(), item->query_short()));
