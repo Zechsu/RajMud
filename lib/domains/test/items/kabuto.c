@@ -35,44 +35,19 @@ void setup() {
     specie = SPECIES[idx];
 }
 
-void init() {
-    add_action("put_in_arena", "put");
-}
-
 string query_long() {
     string ret = item::query_long();
     return has_horn? ret : ret + " Its horn is missing!";
 }
 
-int put_in_arena(string str) {
-    object tp = this_player();
-
-    if (!str) {
-        return notify_fail("Put what?\n");
-    }
-
-    str = replace_string(str, "the", "");
-
-    if (str == "kabuto arena" || str == "kabuto in arena") {
-        object* inv = environment(tp)->query_items();
-        inv = filter_array(inv, (: $1->id("kabuto arena") :));
-        if (sizeof(inv) != 0) {
-            if (inv[0]->put_kabuto(this_object())) {
-                write("You put the " + query_short() + " in the arena.\n");
-                set_owner(tp->query_name());
-                return 1;
-            }
-            else {
-                return notify_fail("The arena is full.\n");
-            }
-        }
-        else {
-            return notify_fail("There's no arena here.\n");
+int can_get(object who) {
+    object env = ENV(this_object());
+    if (env->is_kabuto_arena()) {
+        if (env->is_full()) {
+            return 0;
         }
     }
-    else {
-        return 0;
-    }
+    return 1;
 }
 
 void set_stats() {

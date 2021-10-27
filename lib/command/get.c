@@ -19,7 +19,6 @@ int main(string str) {
     }
 
     if (sscanf(str, "%s from %s", item, cont) == 2) {
-	    return 1;
         return get_from(tp, item, cont);
     }
     else if (sscanf(str, "%s %s", item, cont) == 2) {
@@ -50,7 +49,6 @@ int get(object tp, string item) {
     return notify_fail("Couldn't find that here.\n");
 }
 
-// TODO: please
 int get_from(object tp, string item, string from) {
     object cont, ob;
     if (!cont = present(from)) {
@@ -60,16 +58,14 @@ int get_from(object tp, string item, string from) {
         return notify_fail(cont->query_short() + " is not a container.\n");
     }
     if (!ob = present(item, cont)) {
-        return notify_fail("Couldn't find " + item + " inside " + cont->query_short());
+        return notify_fail("Couldn't find " + item + " inside " + cont->query_short() + "\n");
     }
     if (ob->can_get()) {
+        ob->move((tp));
         write("You get " + ob->query_short() + " from " + cont->query_short() + ".\n");
-        cont->remove_item_from_inventory(ob);
         return 1;
     }
-    else {
-        return notify_fail("You can't get that.\n");
-    }
+    return notify_fail("You can't get that.\n");
 }
 
 string help() {
