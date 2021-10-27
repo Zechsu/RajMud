@@ -40,3 +40,10 @@ int event_enter(object who) {
     }
     return 0;
 }
+
+mixed event_searched(object who) {
+    if (!who) {
+        who = this_player();
+    }
+    return "You did not find anything interesting.\n";
+}
