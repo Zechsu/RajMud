@@ -30,43 +30,15 @@ int set_inventory(mapping inv) {
 }
 
 int is_full() {
-    return item_count == capacity;
+    return sizeof(all_inventory()) == capacity;
 }
 
 object query_item_from_inventory(string item) {
-    foreach(object ob in all_inventory(this_player())) {
-        if (ob->id(item)) {
-            return ob;
-        }
+    object ob;
+    if (ob = present(item, all_inventory(TP()))) {
+        return ob;
     }
     return 0;
-}
-
-int add_item_to_inventory(mixed item, int amount) {
-    if (!amount) {
-        amount = 1;
-    }
-
-    inventory[base_name(item)] += 1;
-    return 1;
-}
-
-int remove_item_from_inventory(mixed item) {
-    string basename = base_name(item);
-
-    if (inventory[basename]) {
-        inventory[basename] -= 1;
-        if (inventory[basename] <= 0) {
-            map_delete(inventory, basename);
-        }
-        return 1;
-    }
-
-    return 0;
-}
-
-int query_item_amount(mixed item) {
-    return inventory[base_name(item)];
 }
 
 protected void event_load_inventory() {
