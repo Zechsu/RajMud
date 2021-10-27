@@ -116,7 +116,7 @@ void do_fight(object kab, object target) {
     }
     else {
         say(get_attack_mess(kab, target));
-        if (secure_random(21) == 0) {
+        if (secure_random(41) == 0) {
             target->lose_horn();
             say(sprintf("%s [%s] loses its horn!\n", target->query_short(), target->query_owner()));
         }
