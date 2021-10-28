@@ -5,7 +5,6 @@ string help() {
 }
 
 int main(string str) {
-    object tp = this_player();
     mixed item, container, res;
 
     if (!str) {
