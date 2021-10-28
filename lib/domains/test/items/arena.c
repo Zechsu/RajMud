@@ -58,6 +58,8 @@ mixed event_recieve_item(object item, object who) {
         item->set_owner(who->query_name());
         update_kabs();
         if (beetle1 && beetle2) {
+            beetle1->set_target(beetle2);
+            beetle2->set_target(beetle1);
             set_heart_beat(3);
         }
     }
@@ -72,6 +74,10 @@ string get_attack_mess(object kab, object target) {
     string kab_name = sprintf("%s [%s]", kab->query_short(), kab->query_owner());
     string target_name = sprintf("%s [%s]", target->query_short(), target->query_owner());
     string ret = "";
+    mixed res = kab->event_special_attack();
+    if (stringp(res)) {
+        return res;
+    }
     switch(secure_random(2)) {
         case 0: {
             ret = sprintf("%s strikes!\n", kab_name);

@@ -5,8 +5,12 @@ inherit M_SKILLS;
 
 int has_horn;
 string owner;
+object target;
+int special_attack_chance;
+function special_attack;
 
 void heal();
+void set_special_attack_chance(int chance);
 
 void create() {
     ::create();
@@ -15,6 +19,7 @@ void create() {
     set_ids(({"beetle"}));
     set_skill_level("attack", 1);
     set_skill_level("max_health", 5);
+    set_special_attack_chance(0);
     heal();
 }
 
@@ -33,6 +38,14 @@ string query_owner() {
 int set_owner(string ow) {
     owner = ow;
     return 1;
+}
+
+void set_target(object t) {
+    target = t;
+}
+
+object query_target() {
+    return target;
 }
 
 string query_long() {
@@ -75,22 +88,41 @@ int take_damage(int dmg) {
     return 1;
 }
 
-int do_attack(object target, int dmg) {
-    if (target->is_kabuto()) {
-        target->take_damage(dmg);
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
-
 int lose_horn() {
     if (has_horn == 1) {
         has_horn = 0;
         return 1;
     }
     return 0;
+}
+
+void set_special_attack(function f) {
+    special_attack = f;
+}
+
+mixed event_special_attack() {
+    if (special_attack_chance && special_attack) {
+        if (secure_random(special_attack_chance+1) <= 100) {
+            return (*special_attack)();
+        }
+    }
+    return 0;
+}
+
+void set_special_attack_chance(int chance) {
+    if (chance > 100) {
+        special_attack_chance = 100;
+    }
+    else if (chance < 0) {
+        special_attack_chance = 0;
+    }
+    else {
+        special_attack_chance = chance;
+    }
+}
+
+int test_special_attack() {
+    return (*special_attack)();
 }
 
 void heal() {
