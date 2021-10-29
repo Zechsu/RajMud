@@ -76,3 +76,7 @@ mixed event_unlock(object who, object key) {
     locked = 0;
     return 1;
 }
+
+int has_lock() {
+    return 1;
+}

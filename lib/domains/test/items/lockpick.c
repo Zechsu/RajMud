@@ -24,6 +24,9 @@ int do_pick(string str) {
         res = "Invalid target.\n";
     }
     if (ob = present(str)) {
+        if (!ob->has_lock()) {
+            return notify_fail("That does not have a lock.\n");
+        }
         res = ob->event_pick_lock();
         if (stringp(res)) {
             return notify_fail(res);

@@ -9,8 +9,7 @@ int main(string arg)
 {
     string name = (string)previous_object()->query_name();
     if (!arg || trim(arg) == "") {
-        write("Say what?\n");
-	return 1;
+        return notify_fail("Say what?\n");
     }
     if (SECURE_D->query_wizard(name)) {
         write("You say " +sprintf("%c["+(1)+"m", 27)+sprintf("%c["+(33)+"m", 27) + "\"" + arg + "\"" + sprintf("%c["+(0)+"m", 27) + "\n");
