@@ -31,6 +31,7 @@
 #define USER_OB    "/clone/user"
 #define VOID_OB    "/single/void"
 #define TEST_ROOM  "/domains/test/rooms/testr"
+#define VOID_ROOM  "/domains/void/void"
 
 #define ROOT_UID     "Root"
 #define BACKBONE_UID "Backbone"
