@@ -2,7 +2,7 @@
 
 int main(string str) {
     object tp = this_player();
-    mixed res;
+    mixed result;
     object ob;
     
     if (!str) {
