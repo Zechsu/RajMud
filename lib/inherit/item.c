@@ -41,6 +41,13 @@ int can_get(object who) {
     return 1;
 }
 
+varargs mixed event_recieved(object who) {
+    if (!who) {
+        who = this_player();
+    }
+    return 0;
+}
+
 protected mixed* add_save(mixed* vars) {
     if (!vars) vars = ({});
     return persist::add_save(vars);
@@ -48,4 +55,8 @@ protected mixed* add_save(mixed* vars) {
 
 string* query_save() {
     return persist::query_csaved();
+}
+
+void move(mixed dest) {
+   ::move(dest);
 }

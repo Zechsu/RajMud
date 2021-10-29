@@ -10,6 +10,7 @@ void create() {
     if (!inventory) {
         inventory = ([]);
     }
+    capacity = -1;
 }
 
 mapping query_inventory() {
@@ -30,6 +31,9 @@ int set_inventory(mapping inv) {
 }
 
 int is_full() {
+    if (capacity == -1) {
+        return 0;
+    }
     return sizeof(all_inventory()) == capacity;
 }
 

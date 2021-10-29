@@ -37,6 +37,7 @@ int get(object tp, string item) {
     if (ob = present(item, room)) {
         if (ob->can_get()) {
             ob->move(tp);
+            ob->event_recieved(tp);
             write("You pick up the " + ob->query_short() + ".\n");
             say(tp->query_name() + " picks up " + ob->query_short() + "\n");
             return 1;
@@ -62,6 +63,7 @@ int get_from(object tp, string item, string from) {
     }
     if (ob->can_get()) {
         ob->move((tp));
+        ob->event_recieved(tp);
         write("You get " + ob->query_short() + " from " + cont->query_short() + ".\n");
         return 1;
     }
