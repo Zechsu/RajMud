@@ -7,5 +7,5 @@ void create() {
     ::create();
     set_short("Bedechka lake");
     set_long("A small lake. There might be beetles around.");
-    set_search_table(([0:90, "std/obj/beetles/dung":10]));
+    set_search_table(([0:84, "std/obj/beetles/dung":15, "std/obj/beetles/rainbow":1]));
 }

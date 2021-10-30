@@ -3,7 +3,7 @@
 inherit "std/obj/beetle";
 
 string do_special() {
-    query_target()->take_damage(5);
+    query_target()->take_damage(2);
     return "dung beetle throws some shit around\n";
 }
 
