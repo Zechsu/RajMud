@@ -286,6 +286,7 @@ net_dead()
     tell_room(environment(), query_name() + " is link-dead.\n");
 #endif
     save_player();
+    remove();
 }
 
 // reconnect: called by the login.c object when a netdead player reconnects.
