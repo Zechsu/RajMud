@@ -8,3 +8,4 @@
 #define M_LOCK              "/inherit/modules/m_lock"
 #define M_SKILLS            "/inherit/modules/m_skills"
 #define M_TRAITS            "/inherit/modules/m_traits"
+#define M_SEARCH            "/inherit/modules/m_search"

@@ -8,5 +8,6 @@ int main(string str) {
         if (stringp(result)) {
             return notify_fail(result);
         }
+        return notify_fail("You did not find anything interesting.\n");
     }
 }
