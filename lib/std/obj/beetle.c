@@ -15,7 +15,7 @@ void set_special_attack_chance(int chance);
 void create() {
     ::create();
     set_short("beetle");
-    set_long("A lovely beetle!");
+    set_long("A lovely " + query_short() + "!");
     set_ids(({"beetle"}));
     set_skill_level("attack", 1);
     set_skill_level("max_health", 5);
