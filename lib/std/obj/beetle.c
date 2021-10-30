@@ -1,0 +1,130 @@
+#include <globals.h>
+
+inherit LIB_ITEM;
+inherit M_SKILLS;
+
+int has_horn;
+string owner;
+object target;
+int special_attack_chance;
+function special_attack;
+
+void heal();
+void set_special_attack_chance(int chance);
+
+void create() {
+    ::create();
+    set_short("beetle");
+    set_long("A lovely " + query_short() + "!");
+    set_ids(({"beetle"}));
+    set_skill_level("attack", 1);
+    set_skill_level("max_health", 5);
+    set_special_attack_chance(0);
+    heal();
+}
+
+int has_horn() {
+    return has_horn;
+}
+
+int is_fighter_beetle() {
+    return 1;
+}
+
+string query_owner() {
+    return owner;
+}
+
+int set_owner(string ow) {
+    owner = ow;
+    return 1;
+}
+
+void set_target(object t) {
+    target = t;
+}
+
+object query_target() {
+    return target;
+}
+
+string query_long() {
+    string ret = item::query_long();
+    if (has_horn) {
+        ret += " It's horn is missing!";
+    }
+    return ret;
+}
+
+int can_get(object who) {
+    object env = ENV(this_object());
+    if (env->is_kabuto_arena()) {
+        if (env->is_full()) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int get_damage() {
+    if (has_horn) {
+        return secure_random(query_skill_level("attack")+2);
+    }
+    else {
+        return secure_random(query_skill_level("attack")+1);
+    }
+}
+
+int is_dead() {
+    return query_skill_level("health") <= 0;
+}
+
+int take_damage(int dmg) {
+    set_skill_level("health", query_skill_level("health") - dmg);
+    if (query_skill_level("health") <= 0) {
+        set_skill_level("health", 0);
+        return 0;
+    }
+    return 1;
+}
+
+int lose_horn() {
+    if (has_horn == 1) {
+        has_horn = 0;
+        return 1;
+    }
+    return 0;
+}
+
+void set_special_attack(function f) {
+    special_attack = f;
+}
+
+mixed event_special_attack() {
+    if (special_attack_chance && special_attack) {
+        if (secure_random(special_attack_chance+1) <= 100) {
+            return (*special_attack)();
+        }
+    }
+    return 0;
+}
+
+void set_special_attack_chance(int chance) {
+    if (chance > 100) {
+        special_attack_chance = 100;
+    }
+    else if (chance < 0) {
+        special_attack_chance = 0;
+    }
+    else {
+        special_attack_chance = chance;
+    }
+}
+
+int test_special_attack() {
+    return (*special_attack)();
+}
+
+void heal() {
+    set_skill_level("health", query_skill_level("max_health"));
+}

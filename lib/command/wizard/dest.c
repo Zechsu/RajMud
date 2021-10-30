@@ -14,8 +14,8 @@ int main(string arg)
 
     foreach(object ob in inv) {
         if (member_array(arg, ob->query_ids()) != -1) {
+            write("Destroyed " + ob->query_short() + "\n");
             ob->remove();
-            write("Destroyed " + arg + "\n");
             return 1;
         }
     }

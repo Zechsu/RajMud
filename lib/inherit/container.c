@@ -32,3 +32,28 @@ string query_contents_mess() {
     }
     return ret;
 }
+
+int can_put(object who) {
+    if (!who) {
+        who = this_player();
+    }
+    return 1;
+}
+
+mixed event_recieve_item(object item, object who) {
+    if (!who) {
+        who = this_player();
+    }
+    if (!item) {
+        debug_message("NO ITEM ON EVENT_RECIEVE_ITEM\n");
+        return 0;
+    }
+    if (!can_put(who)) {
+        return "You can't do that!\n";
+    }
+    if (is_full()) {
+        return "It's full!\n";
+    }
+    item->move(this_object());
+    return 1;
+}

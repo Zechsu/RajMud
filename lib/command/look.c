@@ -77,7 +77,6 @@ int look(object tp) {
 }
 
 int look_at(object tp, string look_at_item) {
-    //object room = environment(tp);
     object ob;
 
     if (strsrch(look_at_item, "the") != -1) {
@@ -88,19 +87,6 @@ int look_at(object tp, string look_at_item) {
         write(ob->query_long() + "\n");
         return 1;
     }
-
-    // foreach (object ob in all_inventory(room)) {
-    //     if (inherits(LIB_ITEM, ob) && member_array(look_at_item, ob->query_ids()) != -1) {
-    //         write(ob->query_long() + "\n");
-    //         return 1;
-    //     }
-    //     if (ob->is_prop()) {
-    //         if (ob->id(look_at_item)) {
-    //             tell_object(tp, ob->query_description() + "\n");
-    //             return 1;
-    //         }
-    //     }
-    // }
 
     return notify_fail("Couldn't find that.\n");
 }

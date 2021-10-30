@@ -10,12 +10,13 @@
 
 #include "tests.h"
 #include "daemons.h"
+#include "modules.h"
 
 #define ENV(x)      environment(x)
 #define TO()        this_object()
 #define TP()        this_player()
 
-#define MUD_VERSION     "0.1"
+#define MUD_VERSION     "0.1.2"
 
 #define SINGLE_DIR "/single"
 #define CONFIG_DIR "/etc"
@@ -30,6 +31,7 @@
 #define USER_OB    "/clone/user"
 #define VOID_OB    "/single/void"
 #define TEST_ROOM  "/domains/test/rooms/testr"
+#define VOID_ROOM  "/domains/void/void"
 
 #define ROOT_UID     "Root"
 #define BACKBONE_UID "Backbone"
@@ -38,13 +40,6 @@
 #define OVERRIDES_FILE  "/single/simul_efun"
 
 #define COMMAND_PREFIX "/command/"
-
-// modules
-#define M_PRIVILEGES        "/inherit/secure/m_privileges"
-#define M_ALIASES           "/inherit/secure/m_aliases"
-#define M_DESC              "/inherit/modules/m_description"
-#define M_EXITS             "/inherit/modules/m_exits"
-#define M_INVENTORY         "/inherit/modules/m_inventory"
 
 // Components
 #define LIB_ROOM            "/inherit/room"

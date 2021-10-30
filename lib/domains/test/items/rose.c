@@ -12,9 +12,8 @@ void create() {
     set_ids(({"rose"}));
 }
 
-int event_get(object player, int amount) {
+mixed event_recieved(object who) {
     if (random(5) == 1) {
         write("You prick your finger on the thorns!\n");
     }
-    ::event_get(player, amount);
 }

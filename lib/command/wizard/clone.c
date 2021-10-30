@@ -12,18 +12,22 @@ int main(string str) {
         tell_object(tp, help());
         return 1;
     }
-
-    file = tp->query_cwd() + str + ".c";
+    if (str[0] == '/') {
+        file = str + ".c";
+    }
+    else {
+        file = tp->query_cwd() + str + ".c";
+    }
     if (stat(file) != ({})) {
         ob = new(file);
         if (inherits(LIB_ITEM, ob)) {
             ob->move(environment(tp));
-            tell_object(tp, "Cloned " + str + ".\n");
+            write(sprintf("Cloned %s\n", ob->query_short()));
             return 1;   
         }
         else {
             destruct(ob);
-            tell_object(tp, "Cannot clone that.\n");
+            write("Cannot clone that.\n");
             return 1;
         }
     }

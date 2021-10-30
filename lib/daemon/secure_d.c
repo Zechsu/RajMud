@@ -60,6 +60,10 @@ nomask int query_user(string user) {
   return 0;
 }
 
+nomask string* query_all_wizards() {
+    return keys(wizards);
+}
+
 string* query_search_paths(string user) {
   string* ret = ({});
   if (query_user(user)) {

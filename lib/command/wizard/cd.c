@@ -6,24 +6,25 @@ int main(string str) {
 
     if (!str) {
         tp->set_cwd("/");
+        write("/");
         return 1;
     }
 
     if (str == "..") {
         cwd[strsrch(cwd[0..<2], "/", -1)..] = "";
         tp->set_cwd(cwd + "/");
-        tell_object(tp, tp->query_cwd() + "\n");
+        tp->call_verb("ls", "");
         return 1;
     }
 
     if (stat(cwd + str + "/")) {
         tp->set_cwd(cwd + str + "/");
-        tell_object(tp, tp->query_cwd() + "\n");
+        tp->call_verb("ls", "");
         return 1;
     }
     else if (stat(str) != ({})) {
         tp->set_cwd(str);
-        tell_object(tp, tp->query_cwd() + "\n");
+        tp->call_verb("ls", "");
         return 1;
     }
     else {
