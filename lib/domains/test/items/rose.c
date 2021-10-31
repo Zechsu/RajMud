@@ -2,8 +2,9 @@
 
 inherit LIB_ITEM;
 
-private string* rose_colors = ({"%#eb0909%#", "%#f1ebeb%#", "%#e88c6e%#", "%#ec9755%#", "%#ec5575%#", "%#ecd355%#"});
-private string col = element_of(rose_colors);
+#define COLORS ({"%#eb0909%#", "%#f1ebeb%#", "%#e88c6e%#", "%#ec9755%#", "%#ec5575%#", "%#ecd355%#"})
+
+private string col = element_of(COLORS);
 
 void create() {
     ::create();
