@@ -18,12 +18,13 @@
 
 #define MUD_VERSION     "0.1.2"
 
-#define SINGLE_DIR "/single"
-#define CONFIG_DIR "/etc"
-#define LOG_DIR    "/log"
-#define DAEMON_DIR "/daemon"
+#define SINGLE_DIR  "/single"
+#define CONFIG_DIR  "/etc"
+#define LOG_DIR     "/log"
+#define DAEMON_DIR  "/daemon"
 #define DOMAINS_DIR "/domains"
 #define PLAYERS_DIR "/data/users"
+#define RACES_DIR   "/std/race"
 
 #define VIRTUAL_D  "/single/virtual"
 

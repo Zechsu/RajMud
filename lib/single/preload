@@ -3,3 +3,5 @@
 /daemon/term_d
 
 /daemon/secure_d
+
+/daemon/race_d
