@@ -25,7 +25,7 @@ nomask void make_wizard(string wizard) {
         return;
     }
     wizards[wizard] = 1;
-    find_player(wizard)->refresh_paths();
+    find_player(wizard)->refresh_search_paths();
     save_object(ACCESS_SAVE);
 }
 
@@ -37,7 +37,8 @@ nomask void delete_wizard(string wizard) {
         return;
     }
     map_delete(wizards, wizard);
-    find_player(wizard)->refresh_paths();
+    find_player(wizard)->refresh_search_paths();
+    save_object(ACCESS_SAVE);
 }
 
 nomask void make_user(string user) {
@@ -46,7 +47,15 @@ nomask void make_user(string user) {
     }
     users[user] = 1;
     save_object(ACCESS_SAVE);
-    find_player(user)->refresh_paths();
+}
+
+nomask void delete_user(string user) {
+    if (!users[user]) {
+        return;
+    }
+    map_delete(users, user);
+    find_player(user)->refresh_search_paths();
+    save_object(ACCESS_SAVE);
 }
 
 nomask int query_wizard(string wizard) {

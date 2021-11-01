@@ -220,7 +220,6 @@ create()
 #ifdef __PACKAGE_UIDS__
     seteuid(0); // so that login.c can export uid to us
 #endif
-   
 }
 
 // receive_message: called by the message() efun.
