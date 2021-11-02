@@ -13,8 +13,8 @@
 #include "modules.h"
 
 #define ENV(x)      environment(x)
-#define TO()        this_object()
-#define TP()        this_player()
+#define TO        this_object()
+#define TP        this_player()
 
 #define MUD_VERSION     "0.1.2"
 
