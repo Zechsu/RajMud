@@ -8,6 +8,7 @@ void create() {
         string name;
 
         if (!load_object(tmp)) {
+            debug_message("Couldn't load race " + tmp + "\n");
             continue;
         }
         name = tmp->query_race_name();
