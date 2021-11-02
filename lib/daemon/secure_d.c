@@ -76,13 +76,16 @@ nomask string* query_all_wizards() {
     return keys(wizards);
 }
 
-string* query_search_paths(string user) {
-    string* ret = ({});
-    if (query_user(user)) {
-        ret += ({COMMAND_PREFIX});
+string* query_search_paths(mixed user) {
+    if (stringp(user)) {
+        string* ret = ({});
+        if (query_user(user)) {
+            ret += ({COMMAND_PREFIX});
+        }
+        if (query_wizard(user)) {
+            ret += ({"/command/wizard/"});
+        }
+        return ret;
     }
-    if (query_wizard(user)) {
-        ret += ({"/command/wizard/"});
-    }
-    return ret;
+    return 0;
 }
