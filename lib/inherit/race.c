@@ -1,14 +1,17 @@
 #include <globals.h>
 
-private mapping limbs;
+inherit LIB_BODY;
 
 void create() {
-    if (!sizeof(limbs)) {
-        limbs = ([]);
-    }
+    body::create();
 }
 
-int set_limbs(mapping new_limbs) {
-    limbs = new_limbs;
-    return 1;
-} 
+string query_race_name() {
+  return "Undefined race name\n";
+}
+
+mapping query_race_body() {
+    // this should return a limbs mapping for when we create a new body
+    // returns an empty mapping in case we forget to set one up lol
+    return ([]);
+}

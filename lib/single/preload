@@ -4,4 +4,5 @@
 
 /daemon/secure_d
 
+# since on create() race_d will load all races, which have multiple calls to this_player() it is impossible to reload it
 /daemon/race_d

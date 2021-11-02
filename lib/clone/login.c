@@ -34,7 +34,7 @@ private void create_user_object(string name) {
     object user;
     SECURE_D->make_user(name);
 
-    user = new("clone/user");
+    user = new("/std/race/human");
     user->set_name(name);
     exec(user, this_object());
     user->setup();

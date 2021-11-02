@@ -7,12 +7,11 @@
 inherit BASE;
 inherit M_PRIVILEGES;
 inherit M_ALIASES;
-inherit LIB_BODY;
 inherit LIB_AUTOSAVE;
 
 private string name;
 private string current_room;
-string cwd;
+private string cwd;
 private int no_color = 1;
 private nosave int start_play = time();
 private nosave int end_play = 0;
