@@ -11,7 +11,7 @@ int main(string str) {
     if (sscanf(str, "%s %s", what, change) == 2) {
         switch (what) {
         case "short":
-            env = ENV(TP());
+            env = ENV(TP);
             bname = base_name(env);
             code = explode(read_file(bname + ".c"), "\n");
             for (int i = 0; i < sizeof(code); i++) {
@@ -23,7 +23,7 @@ int main(string str) {
             env->set_short(change);
             return 1;
         case "long":
-            env = ENV(TP());
+            env = ENV(TP);
             bname = base_name(env);
             code = explode(read_file(bname + ".c"), "\n");
             for (int i = 0; i < sizeof(code); i++) {

@@ -12,7 +12,7 @@ int main (string str) {
         file = str;
     }
     else {
-        file = TP()->query_cwd() + str;
+        file = TP->query_cwd() + str;
     }
 
     if (file_size(file) == -2 || file_size(file) == -1) {
@@ -30,7 +30,7 @@ int main (string str) {
     }
     result = implode(words, "");
     if (stringp(result)) {
-        tell_object(TP(), result + "\n");
+        tell_object(TP, result + "\n");
     }
     return 1;
 }
