@@ -9,3 +9,5 @@
 #define M_SKILLS            "/inherit/modules/m_skills"
 #define M_TRAITS            "/inherit/modules/m_traits"
 #define M_SEARCH            "/inherit/modules/m_search"
+#define M_SHELL             "/inherit/modules/m_shell"
+#define M_PLAYTIME          "/inherit/modules/m_playtime"

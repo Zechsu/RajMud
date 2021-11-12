@@ -16,6 +16,10 @@ void create() {
     }
 }
 
+int is_valid_race(string race) {
+    return races[race]? 1 : 0;
+}
+
 string query_race_filename(string race) {
     return races[race];
 }

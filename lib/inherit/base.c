@@ -1,7 +1,7 @@
 // set to 'private static' so that inheritor won't be able to directly
 // access this variable and so that save_object() won't save it to the .o file
 
-string *ids;
+private nosave string *ids;
 
 void
 remove()

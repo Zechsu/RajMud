@@ -1,33 +1,51 @@
 #include <globals.h>
+#include "include/race.h"
 
-inherit USER_OB;
+inherit BASE;
 inherit M_DESC;
 inherit M_SKILLS;
 inherit M_TRAITS;
 
 private mapping limbs = ([]);
+private string current_room;
 
-string query_name();
-mapping query_race_body();
+void create_new_body(string);
 
 void create() {
-    user::create();
-    m_description::create();
-    m_skills::create();
-}
-
-string query_long() {
-    return sprintf("%s is nondescript.", query_name());
+     m_description::create();
+     m_skills::create();
+     if (!current_room) {
+          current_room = TEST_ROOM;
+     }
+     if (!limbs) {
+          limbs = ([]);
+     }
 }
 
 mapping query_limbs() {
-    return limbs;
+     return limbs;
 }
 
-void new_body(string race) {
-    if (!race) {
-        debug_message("No race given for body creation\n");
-        return;
-    }
-    limbs = RACE_D->query_race_filename(race)->query_race_body();
+int create_new_body(string race) {
+     if (!race) {
+          debug_message("No race given for body creation\n");
+          return 0;
+     }
+     if (!RACE_D->is_valid_race(race)) {
+          debug_message("Invalid race as argument for create_new_body() - Race given: " + race + "\n");
+          return 0;
+     }
+     limbs = RACE_D->query_race_filename(race)->query_race_body();
+     return 1;
+}
+
+varargs int move(mixed dest, int flag) {
+     ::move(dest);
+     if (!flag) {
+          current_room = dest;
+     }
+}
+
+string query_current_room() {
+     return current_room;
 }
