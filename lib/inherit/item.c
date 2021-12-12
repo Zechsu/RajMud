@@ -9,17 +9,14 @@ private string name;
 private mapping messages;
 
 void create() {
-    if (!sizeof(ids)) {
-        ids = ({});
+    if (!sizeof(query_ids())) {
+        set_ids(({}));
     }
     if (!sizeof(messages)) {
         messages = ([]);
     }
 }
 
-string* query_ids() {
-    return ids;
-}
 
 int set_message(string kind, string mess) {
     mess = replace_string(mess, "$N", query_short());

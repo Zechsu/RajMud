@@ -1,5 +1,3 @@
-string something;
-
 void create() {
 
 }

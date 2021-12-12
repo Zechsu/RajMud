@@ -9,7 +9,7 @@ inherit M_TRAITS;
 private mapping limbs = ([]);
 private string current_room;
 
-void create_new_body(string);
+string create_new_body(string);
 
 void create() {
      m_description::create();

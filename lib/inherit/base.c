@@ -36,3 +36,7 @@ id(string arg)
     }
     return (member_array(arg, ids) != -1);
 }
+
+string* query_ids() {
+    return ids;
+}
