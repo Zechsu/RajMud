@@ -19,6 +19,11 @@ int main(string arg) {
             cobj = load_object(COMMAND_PREFIX + arg + ".c");
             help = cobj->help();
             if (!help) {
+                string helpfile = read_file("/etc/helpfiles/" + arg);
+                if (helpfile) {
+                    write(helpfile);
+                    return 1;
+                } 
                 help = "No help available on that command.\n";
             }
             if (help[sizeof(help)-1..] != "\n") {
