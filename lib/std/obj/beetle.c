@@ -102,7 +102,8 @@ void set_special_attack(function f) {
 
 mixed event_special_attack() {
     if (special_attack_chance && special_attack) {
-        if (secure_random(special_attack_chance+1) <= 100) {
+        int roll = secure_random(101);
+        if (roll > 100-special_attack_chance) {
             return (*special_attack)();
         }
     }

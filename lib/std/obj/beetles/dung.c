@@ -13,5 +13,5 @@ void create() {
     set_long("A lovely dung beetle!");
     set_ids(({"beetle", "dung", "dung beetle"}));
     set_special_attack((:do_special:));
-    set_special_attack_chance(100);
+    set_special_attack_chance(20);
 }
