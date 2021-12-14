@@ -71,7 +71,7 @@ int can_get(object who) {
 }
 
 string get_attack_mess(object kab, object target) {
-    string kab_name = sprintf("%s [%s]", kab->query_short(), kab->query_owner());
+    string kab_name = capitalize(sprintf("%s [%s]", kab->query_short(), kab->query_owner()));
     string target_name = sprintf("%s [%s]", target->query_short(), target->query_owner());
     string ret = "";
     switch(secure_random(2)) {
@@ -100,20 +100,20 @@ void do_fight(object kab, object target) {
     else {
         int dmg = kab->get_damage();
         if (dmg == 0) {
-            say(kab->query_short() + " [" + kab->query_owner() +"] goes for an attack, but it misses!\n");
+            say(capitalize(kab->query_short()) + " [" + kab->query_owner() +"] goes for an attack, but it misses!\n");
         }
         
         else {
             say(get_attack_mess(kab, target));
             if (secure_random(41) == 0) {
                 target->lose_horn();
-                say(sprintf("%s [%s] loses its horn!\n", target->query_short(), target->query_owner()));
+                say(sprintf("%s [%s] loses its horn!\n", capitalize(target->query_short()), target->query_owner()));
             }
             target->take_damage(dmg);
         }
     }
     if (target->is_dead()) {
-            say(target->query_short() + " [" + target->query_owner() + "] falls down!\n");
+            say(capitalize(target->query_short()) + " [" + target->query_owner() + "] falls down!\n");
             destruct(target);
     }
 }

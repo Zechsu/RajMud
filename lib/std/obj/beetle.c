@@ -1,4 +1,5 @@
 #include <globals.h>
+#include "include/beetle.h"
 
 inherit LIB_ITEM;
 inherit M_SKILLS;
@@ -8,9 +9,6 @@ string owner;
 object target;
 int special_attack_chance;
 function special_attack;
-
-void heal();
-void set_special_attack_chance(int chance);
 
 void create() {
     ::create();
@@ -122,10 +120,16 @@ void set_special_attack_chance(int chance) {
     }
 }
 
-int test_special_attack() {
-    return (*special_attack)();
-}
-
-void heal() {
-    set_skill_level("health", query_skill_level("max_health"));
+varargs void heal(int amt) {
+    int maxhp = query_skill_level("max_health");
+    if (!amt) {
+        set_skill_level("health", maxhp);
+    }
+    if (amt > maxhp) {
+        set_skill_level("health", maxhp);
+    }
+    else {
+        set_skill_level("health", query_skill_level("health")+amt);
+    }
+    
 }
