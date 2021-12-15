@@ -6,7 +6,7 @@ mixed rubber_soul() {
     int dmg = get_damage();
     query_target()->take_damage(dmg);
     heal(dmg);
-    return "Ringo beetle [" + query_owner() + "] used「Rubber Soul」\n";
+    return "Ringo beetle [" + query_owner() + "] used 「Rubber Soul」\n";
 }
 
 void create() {
