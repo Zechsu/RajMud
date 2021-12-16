@@ -41,7 +41,7 @@ int look(object tp) {
         return notify_fail("You're in the void.\n");
     }
 
-    exit_keys = keys(room->query_exits());
+    exit_keys = room->query_exit_keys();
     inv = all_inventory(room);
 
     if (sizeof(exit_keys) == 0) {

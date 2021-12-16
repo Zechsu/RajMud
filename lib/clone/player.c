@@ -69,6 +69,8 @@ string process_input(string arg)
 {
     // possible to modify player input here before driver parses it.
     string* tmp;
+    string* exits = ENV(TP)->query_exit_keys();
+    int idx;
     // string* ignored = ({"alias", "go", "say", "open", "close", "tp", "look"});
 
     // protects from sending empty commands
@@ -79,11 +81,28 @@ string process_input(string arg)
     arg = replace_string(arg, "%^", "");
     arg = replace_string(arg, "%#", "");
 
-    // since all aliases here are lower case, typing in 'L' or 'N' should also work
+    // since all verbs here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
 
-    if (dir_aliases[arg]) {
-        return dir_aliases[arg];
+    // expand aliases, it breaks so only 1 alias is expanded
+    tmp = explode(arg, " ");
+    for (int i = 0; i < sizeof(tmp); i++) {
+        tmp[i] = get_alias(tmp[i]);
+        break;
+    }
+
+    arg = implode(tmp[0..], " ");
+
+    idx = member_array(arg, exits);
+    if (idx != -1) {
+        return "go " + exits[idx];
+    }
+    else {
+        string* inits = map_array(exits, (: $1[0..0] :));
+        idx = member_array(arg, inits);
+        if (idx != -1) {
+            return "go " + exits[idx];
+        }
     }
 
     // foreach (string ign in ignored) {
@@ -97,7 +116,7 @@ string process_input(string arg)
         tmp[i] = get_alias(tmp[i]);
         break;
     }
-    return implode(tmp[0..], " ");
+    return arg;
 }
 
 int commandHook(string arg)

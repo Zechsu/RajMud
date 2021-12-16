@@ -19,7 +19,11 @@ void remove_exit(string exit) {
 }
 
 mapping query_exits() {
-    return exits;
+    return copy(exits);
+}
+
+string* query_exit_keys() {
+    return (exits? keys(exits) : 0);
 }
 
 int add_door(string side, object door, string destination) {
@@ -44,5 +48,17 @@ int is_door(string side) {
     }
     else {
         return 0;
+    }
+}
+
+object query_door(string dir) {
+    if (exits[dir]["door"]) {
+        return exits[dir]["door"];
+    }
+}
+
+string query_destination(string dir) {
+    if (exits[dir]["destination"]) {
+        return exits[dir]["destination"];
     }
 }

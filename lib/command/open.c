@@ -10,7 +10,7 @@ int main(string str) {
     }
 
     if (environment(tp)->is_door(str)) {
-        result = ENV(tp)->query_exits()[str]["door"]->event_open();
+        result = ENV(tp)->query_door(str)->event_open();
         if (stringp(result)) {
             return notify_fail(result);
         }
