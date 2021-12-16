@@ -198,6 +198,10 @@ void setup()
     m_privileges::create();
     autosave::restore_player();
     autosave::restore_inventory();
+
+    if(!query_current_room()) {
+        move(TEST_ROOM);
+    }
 }
 
 // net_dead: called by the gamedriver when an interactive player loses
