@@ -190,14 +190,12 @@ void receive_message(string newclass, string msg)
 
 void setup()
 {
-    set_heart_beat(1);
     seteuid(getuid(this_object()));
     set_living_name(query_name());
     enable_commands();
     add_action("commandHook", "", 1);
     m_privileges::create();
-    autosave::restore_player();
-    autosave::restore_inventory();
+    autosave::setup();
 
     if(!query_current_room()) {
         move(TEST_ROOM);
@@ -219,6 +217,5 @@ void net_dead()
 
 void reconnect()
 {
-    set_heart_beat(1);
     debug_message(query_name() + " has reconnected.\n");
 }

@@ -4,12 +4,14 @@ private nosave int  last_save  = time();
 string query_name();
 void refresh_play_time();
 nomask void save_player();
+nomask int restore_player();
 nomask void restore_inventory();
 
 int setup() {
     master()->create_save();
-    call_other((: save_player, query_name() :), 2);
+    restore_player();
     restore_inventory();
+    call_out("save_player", 5);
 }
 
 nomask void restore_inventory() {
@@ -53,6 +55,5 @@ nomask void save_player() {
     file = player_save_file(query_name());
     ret =  save_object(file, 1);
     inventory = 0;
+    call_out("save_player", 30);
 }
-
-// TODO: Implement heart_beat for autosaving
