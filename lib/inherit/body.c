@@ -9,7 +9,7 @@ inherit M_TRAITS;
 private mapping limbs = ([]);
 private string current_room;
 
-string create_new_body(string);
+int create_new_body(string);
 
 void create() {
      m_description::create();
@@ -23,7 +23,7 @@ void create() {
 }
 
 mapping query_limbs() {
-     return limbs;
+     return (limbs? keys(limbs) : 0);
 }
 
 int create_new_body(string race) {

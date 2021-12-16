@@ -1,46 +1,31 @@
-#include <globals.h>
-
-inherit LIB_RACE;
+inherit STD_RACE;
 
 void create() {
-    ::create();
-}
-
-string query_race_name() {
-    return "human";
-}
-
-mapping query_race_body() {
-    return ([
-             "head":([
-                      "critical":1,
-                      "children":0,
-                      ]),
-             "upper body":([
-                            "critical":0,
-                            "children":([
-                                         "right arm":([
-                                                       "critical":0,
-                                                       "children":0
-                                                       ]),
-                                         "left arm":([
-                                                      "critical":0,
-                                                      "children":0
-                                                      ])
-                                         ])
-                            ]),
-             "lower body":([
-                            "critical":0,
-                            "children":([
-                                         "right leg":([
-                                                       "critical":0,
-                                                       "children":0
-                                                       ]),
-                                         "left leg":([
-                                                      "critical":0,
-                                                      "children":0
-                                                      ])
-                                         ])
-                            ])
-             ]);
+    set_race_name("human");
+    set_race_body(([
+        "head":([
+            "critical":1,
+            "parent":0,
+        ]),
+        "torso":([
+            "critical":1,
+            "parent":0,
+        ]),
+        "right arm":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+        "left arm":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+        "right leg":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+        "left leg":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+    ]));
 }

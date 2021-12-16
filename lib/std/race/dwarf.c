@@ -1,15 +1,31 @@
-#include <globals.h>
-
-inherit LIB_BODY;
+inherit STD_RACE;
 
 void create() {
-    ::create();
-}
-
-string query_race_name() {
-    return "dwarf";
-}
-
-mapping query_race_body() {
-    return (["head":(["critical":1, "parent":0])]);
+    set_race_name("dwarf");
+    set_race_body(([
+        "head":([
+            "critical":1,
+            "parent":0,
+        ]),
+        "torso":([
+            "critical":1,
+            "parent":0,
+        ]),
+        "right arm":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+        "left arm":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+        "right leg":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+        "left leg":([
+            "critical":0,
+            "parent":"torso",
+        ]),
+    ]));
 }

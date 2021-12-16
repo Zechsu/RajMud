@@ -58,5 +58,8 @@
 #define M_STATUS "status"
 #define M_SAY    "say"
 
+// GENERICS
+#define STD_RACE            "/std/race"
+
 #define CLEAN_UP "/inherit/clean_up"
 
