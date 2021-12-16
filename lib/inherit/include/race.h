@@ -1,8 +1,8 @@
-#ifndef RACE_H_
-#define RACE_H_
+#ifndef l_race_h
+#define l_race_h
 
-string query_race();
+string query_race_name();
 mapping query_race_body();
 int set_race(string);
 
-#endif // RACE_H_
+#endif // l_race_h
