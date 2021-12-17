@@ -71,13 +71,9 @@ int can_get(object who) {
 }
 
 string get_attack_mess(object kab, object target) {
-    string kab_name = sprintf("%s [%s]", kab->query_short(), kab->query_owner());
+    string kab_name = capitalize(sprintf("%s [%s]", kab->query_short(), kab->query_owner()));
     string target_name = sprintf("%s [%s]", target->query_short(), target->query_owner());
     string ret = "";
-    mixed res = kab->event_special_attack();
-    if (stringp(res)) {
-        return res;
-    }
     switch(secure_random(2)) {
         case 0: {
             ret = sprintf("%s strikes!\n", kab_name);
@@ -97,20 +93,28 @@ string get_attack_mess(object kab, object target) {
 }
 
 void do_fight(object kab, object target) {
-    int dmg = kab->get_damage();
-    if (dmg == 0) {
-        say(kab->query_short() + " [" + kab->query_owner() +"] goes for an attack, but it misses!\n");
+    mixed result = kab->event_special_attack();
+    if (stringp(result)) {
+        say(result);
     }
     else {
-        say(get_attack_mess(kab, target));
-        if (secure_random(41) == 0) {
-            target->lose_horn();
-            say(sprintf("%s [%s] loses its horn!\n", target->query_short(), target->query_owner()));
+        int dmg = kab->get_damage();
+        if (dmg == 0) {
+            say(capitalize(kab->query_short()) + " [" + kab->query_owner() +"] goes for an attack, but it misses!\n");
         }
-        if (target->take_damage(dmg) == 0) {
-            say(target->query_short() + " [" + target->query_owner() + "] falls down!\n");
+        
+        else {
+            say(get_attack_mess(kab, target));
+            if (secure_random(41) == 0) {
+                target->lose_horn();
+                say(sprintf("%s [%s] loses its horn!\n", capitalize(target->query_short()), target->query_owner()));
+            }
+            target->take_damage(dmg);
+        }
+    }
+    if (target->is_dead()) {
+            say(capitalize(target->query_short()) + " [" + target->query_owner() + "] falls down!\n");
             destruct(target);
-        }
     }
 }
 

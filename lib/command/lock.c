@@ -7,7 +7,7 @@ int main(string str) {
         return notify_fail("Lock what?\n");
     }
     if (ENV(tp)->is_door(str)) {
-        door = ENV(tp)->query_exits()[str]["door"]->event_lock(tp);
+        door = ENV(tp)->query_door(str)->event_lock(tp);
         if (stringp(door)) {
             return notify_fail(door);
         }

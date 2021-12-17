@@ -10,7 +10,7 @@ int main(string str) {
     }
 
     if (environment(tp)->is_door(str)) {
-        if (environment(tp)->query_exits()[str]["door"]->event_close()) {
+        if (environment(tp)->query_door(str)->event_close()) {
             write("You close the door.\n");
             return 1;
         }

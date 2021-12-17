@@ -41,7 +41,7 @@ int look(object tp) {
         return notify_fail("You're in the void.\n");
     }
 
-    exit_keys = keys(room->query_exits());
+    exit_keys = room->query_exit_keys();
     inv = all_inventory(room);
 
     if (sizeof(exit_keys) == 0) {
@@ -65,7 +65,7 @@ int look(object tp) {
     }
 
     foreach(object ob in all_inventory(room)) {
-        if (interactive(ob) && tp != ob) {
+        if (ob->is_living() && tp != ob) {
             tell_object(tp, ob->query_name() + " stands here.\n");
             continue;
         }

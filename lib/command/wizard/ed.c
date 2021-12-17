@@ -7,10 +7,10 @@ main(string file)
         return notify_fail("No filename\n");
     }
     if (file[0] == '/') {
-        file = TP()->query_cwd() + ".c";
+        file = TP->query_cwd() + ".c";
     }
     else {
-        file = TP()->query_cwd() + file + ".c";
+        file = TP->query_cwd() + file + ".c";
     }
     // need to call resolve_path() and query_cwd()
 #ifdef __OLD_ED__

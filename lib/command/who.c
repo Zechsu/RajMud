@@ -3,17 +3,15 @@
 int
 main(string arg)
 {
-    object *list;
+    object *list = users();
     int j;
 
-    printf("%-25s idle\n", "name (*edit, +input)");
-    printf("--------------------      ----\n");
-    for (list = users(), j = 0; j < sizeof(list); j++) {
-        printf("%-25s %4d\n", (string)list[j]->query_name() +
-        (in_edit(this_player()) ? "*" : "") +
-        (in_input(this_player()) ? "+" : ""),
-        query_idle(this_player()) / 60
-        );
+    printf("+-------------------------------------+\n"
+           " Players online %d\n" +
+           "+-------------------------------------+\n",
+           sizeof(list));
+    for (j = 0; j < sizeof(list); j++) {
+        printf(" %s\n", list[j]->query_name());
     }
     return 1;
 }

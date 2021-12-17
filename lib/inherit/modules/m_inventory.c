@@ -39,7 +39,7 @@ int is_full() {
 
 object query_item_from_inventory(string item) {
     object ob;
-    if (ob = present(item, all_inventory(TP()))) {
+    if (ob = present(item, all_inventory(TP))) {
         return ob;
     }
     return 0;

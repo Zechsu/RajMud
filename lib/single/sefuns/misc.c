@@ -1,5 +1,10 @@
 #include <globals.h>
 #include <lpctypes.h>
+#include "colors.h"
+
+// returns a white ansi color for resetting colors
+// defined in sefuns.c
+string white();
 
 mixed* decompose(mixed* org) {
     int i = 0, j;
@@ -102,4 +107,14 @@ mixed element_of_weighted(mapping data)
         //then that's our guy.
         if(roll_result < next_position) return elems[index];
     }
+}
+
+// Will return a rainbow colored version of the string
+string make_rainbow(string sh) {
+    string str = "";
+    for (int i = 0; i < sizeof(sh); i++) {
+        // RAINBOW_ARR defined in "include/colors.h" has 7 elements
+        str += RAINBOW_ARR[i % 7] + sh[i..i];
+    }
+    return str + white();
 }

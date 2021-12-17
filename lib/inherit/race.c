@@ -1,14 +1,26 @@
 #include <globals.h>
 
-private mapping limbs;
+inherit LIB_BODY;
+
+private string race;
 
 void create() {
-    if (!sizeof(limbs)) {
-        limbs = ([]);
+    body::create();
+    if (!race) {
+        race = "Undefined race";
     }
 }
 
-int set_limbs(mapping new_limbs) {
-    limbs = new_limbs;
+string query_race() {
+  return race;
+}
+
+int set_race(string r) {
+    if (!RACE_D->is_valid_race(r)) {
+        debug_message("Invalid race as arg for set_race() - Race given: " + r + "\n");
+        return 0;
+    }
+    race = RACE_D->query_race_file(r)->query_race_name();
+    create_new_body(race);
     return 1;
-} 
+}

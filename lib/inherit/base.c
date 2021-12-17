@@ -1,7 +1,7 @@
 // set to 'private static' so that inheritor won't be able to directly
 // access this variable and so that save_object() won't save it to the .o file
 
-string *ids;
+private nosave string *ids;
 
 void
 remove()
@@ -35,4 +35,8 @@ id(string arg)
         return 0;
     }
     return (member_array(arg, ids) != -1);
+}
+
+string* query_ids() {
+    return ids;
 }

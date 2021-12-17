@@ -34,12 +34,13 @@ private void create_user_object(string name) {
     object user;
     SECURE_D->make_user(name);
 
-    user = new("clone/user");
+    user = new(PLAYER_OB);
     user->set_name(name);
     exec(user, this_object());
     user->setup();
+    // until chargen
+    user->set_race("human");
     user->move(user->query_current_room());
-    user->set_ids(({name}));
     destruct(this_object());
 }
 

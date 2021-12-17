@@ -13,10 +13,10 @@
 #include "modules.h"
 
 #define ENV(x)      environment(x)
-#define TO()        this_object()
-#define TP()        this_player()
+#define TO        this_object()
+#define TP        this_player()
 
-#define MUD_VERSION     "0.1.2"
+#define MUD_VERSION     "0.1.3"
 
 #define SINGLE_DIR  "/single"
 #define CONFIG_DIR  "/etc"
@@ -29,7 +29,7 @@
 #define VIRTUAL_D  "/single/virtual"
 
 #define LOGIN_OB   "/clone/login"
-#define USER_OB    "/clone/user"
+#define PLAYER_OB  "/clone/player"
 #define VOID_OB    "/single/void"
 #define TEST_ROOM  "/domains/test/rooms/testr"
 #define VOID_ROOM  "/domains/void/void"
@@ -52,10 +52,14 @@
 #define LIB_BODY            "/inherit/body"
 #define LIB_RACE            "/inherit/race"
 #define LIB_AUTOSAVE        "/inherit/user/autosave"
+#define LIB_LIVING          "/inherit/living"
 
 // classes for message() efun.
 #define M_STATUS "status"
 #define M_SAY    "say"
+
+// GENERICS
+#define STD_RACE            "/std/race"
 
 #define CLEAN_UP "/inherit/clean_up"
 

@@ -240,7 +240,7 @@ varargs void say(string msg, mixed exclude) {
 object present(mixed str, object ob) {
     if (!ob) {
         ob = this_player();
-        return efun::present(str, ob) || efun::present(str, ENV(TP()));
+        return efun::present(str, ob) || efun::present(str, ENV(TP));
     }
     else {
         return efun::present(str, ob);
