@@ -1,28 +1,16 @@
 #include <globals.h>
 #include "include/race.h"
-
-inherit BASE;
-inherit M_DESC;
-inherit M_SKILLS;
-inherit M_TRAITS;
+#include "include/body.h"
 
 private mapping limbs = ([]);
-private string current_room;
-
-int create_new_body(string);
 
 void create() {
-     m_description::create();
-     m_skills::create();
-     if (!current_room) {
-          current_room = TEST_ROOM;
-     }
      if (!limbs) {
           limbs = ([]);
      }
 }
 
-mapping query_limbs() {
+string* query_limbs() {
      return (limbs? keys(limbs) : 0);
 }
 
@@ -35,17 +23,6 @@ int create_new_body(string race) {
           debug_message("Invalid race as argument for create_new_body() - Race given: " + race + "\n");
           return 0;
      }
-     limbs = RACE_D->query_race_filename(race)->query_race_body();
+     limbs = RACE_D->query_race_file(race)->query_race_body();
      return 1;
-}
-
-varargs int move(mixed dest, int flag) {
-     ::move(dest);
-     if (!flag) {
-          current_room = dest;
-     }
-}
-
-string query_current_room() {
-     return current_room;
 }

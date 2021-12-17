@@ -3,16 +3,6 @@ private nosave int  last_save  = time();
 
 string query_name();
 void refresh_play_time();
-nomask void save_player();
-nomask int restore_player();
-nomask void restore_inventory();
-
-int setup() {
-    master()->create_save();
-    restore_player();
-    restore_inventory();
-    call_out("save_player", 5);
-}
 
 nomask void restore_inventory() {
     if (inventory) {
@@ -56,4 +46,11 @@ nomask void save_player() {
     ret =  save_object(file, 1);
     inventory = 0;
     call_out("save_player", 30);
+}
+
+int setup() {
+    master()->create_save();
+    restore_player();
+    restore_inventory();
+    call_out("save_player", 5);
 }

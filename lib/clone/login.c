@@ -41,7 +41,6 @@ private void create_user_object(string name) {
     // until chargen
     user->set_race("human");
     user->move(user->query_current_room());
-    user->set_ids(({name}));
     destruct(this_object());
 }
 

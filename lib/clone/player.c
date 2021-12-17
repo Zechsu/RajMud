@@ -11,7 +11,6 @@ inherit M_ALIASES;
 inherit M_SHELL;
 inherit M_PLAYTIME;
 
-private string name;
 private int no_color = 1;
 //forward declarations
 
@@ -27,20 +26,6 @@ void set_color(int to) {
 }
 
 // query_name: called by various objects needing to know this user's name.
-
-string
-query_name()
-{
-    return name;
-}
-
-void
-set_name(string arg)
-{
-//  may wish to add security to prevent just anyone from changing
-//  someone else's name.
-    name = arg;
-}
 
 #ifndef __OLD_ED__
 void write_prompt() {
@@ -93,17 +78,17 @@ string process_input(string arg)
 
     arg = implode(tmp[0..], " ");
 
-    idx = member_array(arg, exits);
-    if (idx != -1) {
-        return "go " + exits[idx];
-    }
-    else {
-        string* inits = map_array(exits, (: $1[0..0] :));
-        idx = member_array(arg, inits);
-        if (idx != -1) {
-            return "go " + exits[idx];
-        }
-    }
+     idx = member_array(arg, exits);
+     if (idx != -1) {
+         return "go " + exits[idx];
+     }
+     else {
+         string* inits = map_array(exits, (: $1[0..0] :));
+         idx = member_array(arg, inits);
+         if (idx != -1) {
+             return "go " + exits[idx];
+         }
+     }
 
     // foreach (string ign in ignored) {
     //     if (strsrch(arg, ign) != -1) {

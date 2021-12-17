@@ -65,7 +65,7 @@ int look(object tp) {
     }
 
     foreach(object ob in all_inventory(room)) {
-        if (interactive(ob) && tp != ob) {
+        if (ob->is_living() && tp != ob) {
             tell_object(tp, ob->query_name() + " stands here.\n");
             continue;
         }
