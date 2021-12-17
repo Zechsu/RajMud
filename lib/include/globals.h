@@ -16,7 +16,7 @@
 #define TO        this_object()
 #define TP        this_player()
 
-#define MUD_VERSION     "0.1.2"
+#define MUD_VERSION     "0.1.3"
 
 #define SINGLE_DIR  "/single"
 #define CONFIG_DIR  "/etc"
