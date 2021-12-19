@@ -45,12 +45,16 @@ nomask void save_player() {
     file = player_save_file(query_name());
     ret =  save_object(file, 1);
     inventory = 0;
-    call_out("save_player", 30);
 }
 
 int setup() {
     master()->create_save();
     restore_player();
     restore_inventory();
-    call_out("save_player", 5);
+    call_out("autosave", 5);
+}
+
+void autosave() {
+    save_player();
+    call_out("autosave", 30);
 }
