@@ -6,7 +6,6 @@ int force_me(string arg) {
 }
 
 int main(string arg) {
-    object act_ob;
     mapping before, after;
     int stime, usertime, eval_cost;
 
