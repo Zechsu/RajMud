@@ -43,3 +43,7 @@ varargs int move(mixed dest, int flag) {
 string query_current_room() {
      return current_room;
 }
+
+int force_me(string cmd) {
+    return command(cmd);
+}
