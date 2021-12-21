@@ -7,7 +7,6 @@ void create() {
     set_short("%#e8e8e8%#stone%^RESET%^");
     set_long("It's pretty round. Give it a rub.");
     set_ids(({"stone"}));
-    set_message("on_ground", "a $N is on the ground.");
 }
 
 void init() {

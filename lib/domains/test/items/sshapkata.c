@@ -7,7 +7,6 @@ void create() {
     set_short("sshapkata");
     set_long("I kiseloto mlqko nqkoga e bilo prqsno.");
     set_ids(({"sshapkata"}));
-    set_message("on_ground", "$N is on the ground.");
 }
 
 void init() {

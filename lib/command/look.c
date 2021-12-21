@@ -36,8 +36,9 @@ int look(object tp) {
     object room = environment(tp);
     string* exit_keys;
     object* inv;
-    object* players;
+    object* living;
     object* items;
+    string ret = "";
 
     if (!room) {
         return notify_fail("You're in the void.\n");
@@ -66,17 +67,25 @@ int look(object tp) {
         tell_object(tp, "\n");
     }
 
-    players = filter_array(inv, (:$1->is_living():);
+    living = filter_array(inv, (:$1->is_living():));
+    items = filter_array(inv, (: $1->is_item():));
 
-    foreach(object ob in all_inventory(room)) {
-        if (ob->is_living() && tp != ob) {
-            write(ob->query_position_string() + "\n");
-            continue;
-        }
-        if (inherits(LIB_ITEM, ob)) {
-            write(ob->query_message("on_ground") + "\n");
+    if (sizeof(living)) {
+        foreach(object liv in living) {
+            write(liv->query_position_string() + "\n");
         }
     }
+    if (sizeof(items)) {
+        ret = "You see ";
+        for (int j = 0; j < sizeof(items); j++) {
+            ret += sprintf("%s %s", items[j]->query_indefinite_article(), items[j]->query_short());
+            if (j < sizeof(items) - 1) {
+                ret += ", ";
+            }
+        }
+        write(ret + "\n");
+    } 
+
     return 1;
 }
 

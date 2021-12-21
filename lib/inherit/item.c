@@ -5,7 +5,6 @@ inherit BASE;
 inherit M_DESC;
 inherit LIB_PERSIST;
 
-private string name;
 private mapping messages;
 
 void create() {
@@ -17,19 +16,11 @@ void create() {
     }
 }
 
-
-int set_message(string kind, string mess) {
-    mess = replace_string(mess, "$N", query_short());
-    messages[kind] = mess;
-}
-
-string query_message(string kind) {
-    if (messages[kind]) {
-        return messages[kind];
+string query_indefinite_article() {
+    if (query_short()[0] == 'a') {
+        return "an";
     }
-    else {
-        return sprintf("a %s is on the ground.", query_short());
-    }
+    return "a";
 }
 
 int can_get(object who) {
@@ -59,10 +50,6 @@ void move(mixed dest) {
    ::move(dest);
 }
 
-void set_name(string n) {
-    name = n;
-}
-
-string query_name() {
-    return name;
+int is_item() {
+    return 1;
 }
