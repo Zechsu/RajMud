@@ -64,6 +64,8 @@ int look(object tp) {
         tell_object(tp, "\n");
     }
 
+    inv = sort_array(inv, (: $1->is_living()? 0 : 1 :));
+
     foreach(object ob in all_inventory(room)) {
         if (ob->is_living() && tp != ob) {
             write(ob->query_position_string() + "\n");
