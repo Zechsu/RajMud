@@ -1,10 +1,5 @@
 #include <command.h>
 
-int force_me(string arg) {
-    TP->call_verb(arg, "");
-    return 1;
-}
-
 int main(string arg) {
     mapping before, after;
     int stime, usertime, eval_cost;
