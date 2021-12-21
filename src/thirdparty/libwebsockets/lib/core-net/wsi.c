@@ -547,6 +547,24 @@ lws_get_ssl(struct lws *wsi)
 #endif
 
 int
+lws_has_buffered_out(struct lws *wsi)
+{
+	if (wsi->buflist_out)
+		return 1;
+
+#if defined(LWS_ROLE_H2)
+	{
+		struct lws *nwsi = lws_get_network_wsi(wsi);
+
+		if (nwsi->buflist_out)
+			return 1;
+	}
+#endif
+
+	return 0;
+}
+
+int
 lws_partial_buffered(struct lws *wsi)
 {
 	return lws_has_buffered_out(wsi);
@@ -1217,21 +1235,6 @@ lws_mux_mark_immortal(struct lws *wsi)
 	nwsi->immortal_substream_count++;
 	if (nwsi->immortal_substream_count == 1)
 		lws_set_timeout(nwsi, NO_PENDING_TIMEOUT, 0);
-}
-
-int
-lws_tls_session_is_reused(struct lws *wsi)
-{
-#if defined(LWS_WITH_CLIENT)
-	struct lws *nwsi = lws_get_network_wsi(wsi);
-
-	if (!nwsi)
-		return 0;
-
-	return nwsi->tls_session_reused;
-#else
-	return 0;
-#endif
 }
 
 int

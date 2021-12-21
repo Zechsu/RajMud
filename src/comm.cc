@@ -498,6 +498,7 @@ void shutdown_external_ports() {
     if (!port.port) {
       continue;
     }
+    if (port.ssl) tls_server_close(port.ssl);
     // will also close the FD.
     if (port.ev_conn) evconnlistener_free(port.ev_conn);
     if (port.lws_context) close_websocket_context(port.lws_context);
@@ -655,7 +656,19 @@ int flush_message(interactive_t *ip) {
     // For socket based bufferevent, bufferevent_flush is actually a no-op, thus we have to
     // implement our own.
     if (ip->ssl) {
-      // TODO: implement this
+      auto *ssl = bufferevent_openssl_get_ssl(ip->ev_buffer);
+      auto *output = bufferevent_get_output(ip->ev_buffer);
+      auto len = evbuffer_get_length(output);
+      if (len > 0) {
+        evbuffer_unfreeze(output, 1);
+        auto *data = evbuffer_pullup(output, len);
+        auto wrote = SSL_write(ssl, data, len);
+        if (wrote > 0) {
+          evbuffer_drain(output, wrote);
+        }
+        evbuffer_freeze(output, 1);
+        return wrote > 0;
+      }
     } else {
       auto fd = bufferevent_getfd(ip->ev_buffer);
       if (fd == -1) {

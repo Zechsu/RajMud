@@ -1,14 +1,26 @@
 #include "base/package_api.h"
 
 #include <chrono>
-#include <iomanip>
 #include <string>
+#include <iomanip>
 #include <sstream>
 
 #ifdef F_PERF_COUNTER_NS
 void f_perf_counter_ns() {
+#ifdef _WIN32
+  static LARGE_INTEGER Frequency{};
+  if (Frequency.QuadPart == 0) {
+    QueryPerformanceFrequency(&Frequency);
+  }
+
+  LARGE_INTEGER t;
+  QueryPerformanceCounter(&t);
+
+  push_number(t.QuadPart * 1000000 / Frequency.QuadPart);
+#else
   auto now = std::chrono::high_resolution_clock::now();
   push_number(std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()).count());
+#endif
 }
 #endif
 
@@ -105,40 +117,45 @@ void f_localtime(void) {
 #ifdef F_STRFTIME
 void f_strftime() {
   auto arg_time = sp->u.number;
-  auto arg_fmt = (sp - 1)->u.string;
+  const auto *arg_fmt = (sp - 1)->u.string;
 
   time_t lt = arg_time;
   if (lt <= 0) lt = get_current_time();
   struct tm res = {};
-  auto tm = localtime_r(&lt, &res);
-  if (!tm) {
+  const struct tm *res_tm = localtime_r(&lt, &res);
+  if (!res_tm) {
     error("Invalid time passed to strftime");
   }
 
-  std::ostringstream ss;
-  ss << std::put_time(tm, arg_fmt);
-  if (ss.fail()) {
-    error("strftime() failed.");
-  }
+  const auto max_string_length = CONFIG_INT(__MAX_STRING_LENGTH__);
+  char buf[max_string_length];
+  int size = strftime(buf, sizeof(buf), arg_fmt, res_tm);
+  buf[size] = '\0';
 
   pop_2_elems();
-  auto result = ss.str();
-  copy_and_push_string(result.c_str());
+  copy_and_push_string(buf);
 }
 #endif
 
 #ifdef F_STRPTIME
 void f_strptime() {
-  auto arg_timestr = (sp)->u.string;
-  auto arg_fmt = (sp - 1)->u.string;
+  const auto *arg_timestr = (sp)->u.string;
+  const auto *arg_fmt = (sp - 1)->u.string;
 
   struct tm res = {};
+  res.tm_isdst = -1;  // make sure mktime check local dst time
+#ifndef _WIN32
+  auto *p = strptime(arg_timestr, arg_fmt, &res);
+  if (p == nullptr) {
+    error("strptime() parse failed.");
+  }
+#else
   std::istringstream ss(arg_timestr);
   ss >> std::get_time(&res, arg_fmt);
-
   if (ss.fail()) {
     error("strptime() parse failed.");
   }
+#endif
   pop_2_elems();
   push_number(mktime(&res));
 }

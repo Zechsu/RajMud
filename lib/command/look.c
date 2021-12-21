@@ -36,6 +36,8 @@ int look(object tp) {
     object room = environment(tp);
     string* exit_keys;
     object* inv;
+    object* players;
+    object* items;
 
     if (!room) {
         return notify_fail("You're in the void.\n");
@@ -64,7 +66,7 @@ int look(object tp) {
         tell_object(tp, "\n");
     }
 
-    inv = sort_array(inv, (: $1->is_living()? 0 : 1 :));
+    players = filter_array(inv, (:$1->is_living():);
 
     foreach(object ob in all_inventory(room)) {
         if (ob->is_living() && tp != ob) {
