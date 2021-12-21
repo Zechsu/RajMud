@@ -53,6 +53,7 @@
 #define LIB_RACE            "/inherit/race"
 #define LIB_AUTOSAVE        "/inherit/user/autosave"
 #define LIB_LIVING          "/inherit/living"
+#define LIB_POSITION        "/inherit/living/position"
 
 // classes for message() efun.
 #define M_STATUS "status"

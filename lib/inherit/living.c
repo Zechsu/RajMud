@@ -2,6 +2,7 @@
 
 inherit BASE;
 inherit LIB_RACE;
+inherit LIB_POSITION;
 inherit M_DESC;
 inherit M_SKILLS;
 inherit M_TRAITS;
@@ -11,9 +12,10 @@ private string current_room;
 
 void create() {
     ::create();
-     if (!current_room) {
-          current_room = TEST_ROOM;
-     }
+    position::create();
+    if (!current_room) {
+        current_room = TEST_ROOM;
+    }
 }
 
 void set_name(string n) {
@@ -26,7 +28,7 @@ string query_name() {
 }
 
 string query_long() {
-     return sprintf("%s is nondescript.", name);
+    return sprintf("%s is nondescript.", name);
 }
 
 int is_living() {
@@ -34,14 +36,14 @@ int is_living() {
 }
 
 varargs int move(mixed dest, int flag) {
-     ::move(dest);
-     if (!flag) {
-          current_room = dest;
-     }
+    ::move(dest);
+    if (!flag) {
+        current_room = dest;
+    }
 }
 
 string query_current_room() {
-     return current_room;
+    return current_room;
 }
 
 int force_me(string cmd) {

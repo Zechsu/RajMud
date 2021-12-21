@@ -154,6 +154,7 @@ void init()
 void create()
 {
     seteuid(0); // so that login.c can export uid to us
+    ::create();
 }
 
 // receive_message: called by the message() efun.
