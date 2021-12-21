@@ -13,8 +13,11 @@ int main(string str) {
         return 1;
     }
 
-    if (sscanf(str, "item %s %s", item, domain) == 2) {
+    if (sscanf(str, "item %s %s", domain, item) == 2) {
         return spawn_item(tp, item, domain);
+    }
+    else if (sscanf(str, "item %s", domain) == 1) {
+        return notify_fail("Enter an item.\n");
     }
     return 1;
 }
