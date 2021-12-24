@@ -26,7 +26,7 @@ int do_push(string str) {
             object door = new(LIB_DOOR);
             tell_object(this_player(), "A secret path opens.\n");
             door->add_side("in", "/domains/test/rooms/chamber", "out");
-            door->open();
+            door->toggle_opened();
             opened = 1;
             return 1;
         }
