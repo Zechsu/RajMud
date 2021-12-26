@@ -78,17 +78,17 @@ string process_input(string arg)
 
     arg = implode(tmp[0..], " ");
 
-     idx = member_array(arg, exits);
-     if (idx != -1) {
-         return "go " + exits[idx];
-     }
-     else {
-         string* inits = map_array(exits, (: $1[0..0] :));
-         idx = member_array(arg, inits);
-         if (idx != -1) {
-             return "go " + exits[idx];
-         }
-     }
+    idx = member_array(arg, exits);
+    if (idx != -1) {
+        return "go " + exits[idx];
+    }
+    else {
+        string* inits = map_array(exits, (: $1[0..0] :));
+        idx = member_array(arg, inits);
+        if (idx != -1) {
+            return "go " + exits[idx];
+        }
+    }
 
     // foreach (string ign in ignored) {
     //     if (strsrch(arg, ign) != -1) {
