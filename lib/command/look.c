@@ -63,12 +63,13 @@ int look(object tp) {
     // ugly fix for not putting a random \n after the room long descriptions
     inv -= ({tp});
     inv = filter_array(inv, (: !$1->is_prop() :));
-    if (sizeof(inv)) {
-        tell_object(tp, "\n");
-    }
 
     living = filter_array(inv, (:$1->is_living():));
-    items = filter_array(inv, (: $1->is_item():));
+    items = filter_array(inv, (: $1->is_visible():));
+
+    if (sizeof(items) || sizeof(living)) {
+        tell_object(tp, "\n");
+    }
 
     if (sizeof(living)) {
         foreach(object liv in living) {
@@ -78,7 +79,11 @@ int look(object tp) {
     if (sizeof(items)) {
         ret = "You see ";
         for (int j = 0; j < sizeof(items); j++) {
-            ret += sprintf("%s %s", items[j]->query_indefinite_article(), items[j]->query_short());
+            string short = items[j]->query_short();
+            if (!short) {
+                continue;
+            }
+            ret += sprintf("%s %s", items[j]->query_indefinite_article(), short);
             if (j < sizeof(items) - 1) {
                 ret += ", ";
             }

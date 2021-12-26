@@ -3,11 +3,13 @@
 
 inherit BASE;
 inherit M_DESC;
+inherit M_VISIBLE;
 inherit LIB_PERSIST;
 
 private mapping messages;
 
 void create() {
+    ::create();
     if (!sizeof(query_ids())) {
         set_ids(({}));
     }

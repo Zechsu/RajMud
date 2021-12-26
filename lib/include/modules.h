@@ -11,3 +11,4 @@
 #define M_SEARCH            "/inherit/modules/m_search"
 #define M_SHELL             "/inherit/modules/m_shell"
 #define M_PLAYTIME          "/inherit/modules/m_playtime"
+#define M_VISIBLE           "/inherit/modules/m_visible"
