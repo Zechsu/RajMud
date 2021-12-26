@@ -6,9 +6,9 @@ object beetle1, beetle2;
 
 void create() {
     ::create();
-    set_short("kabuto arena");
-    set_long("An empty kabuto arena");
-    set_ids(({"kabuto arena", "arena"}));
+    set_short("beetle arena");
+    set_long("An empty beetle arena");
+    set_ids(({"beetle arena", "arena"}));
     set_capacity(2);
 }
 
@@ -23,7 +23,7 @@ void update_kabs() {
     }
 }
 
-int is_kabuto_arena() {
+int is_beetle_arena() {
     return 1;
 }
 
