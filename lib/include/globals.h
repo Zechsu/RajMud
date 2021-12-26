@@ -54,6 +54,7 @@
 #define LIB_AUTOSAVE        "/inherit/user/autosave"
 #define LIB_LIVING          "/inherit/living"
 #define LIB_POSITION        "/inherit/living/position"
+#define LIB_GATHERABLE      "/inherit/gatherable"
 
 // classes for message() efun.
 #define M_STATUS "status"
