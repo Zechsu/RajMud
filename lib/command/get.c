@@ -6,7 +6,6 @@ int get_from(object tp, string item, string from);
 
 int main(string str) {
     object tp = this_player();
-    object ob;
     string item, cont;
 
     if (!str || !sizeof(trim(str))) {
@@ -35,39 +34,26 @@ int get(object tp, string item) {
     object room = environment(tp);
     object ob;
     if (ob = present(item, room)) {
-        if (ob->can_get()) {
-            ob->move(tp);
-            ob->event_recieved(tp);
-            write("You pick up the " + ob->query_short() + ".\n");
-            say(tp->query_name() + " picks up " + ob->query_short() + "\n");
-            return 1;
-        }
-        else {
-            return notify_fail("You can't get that.\n");
-        }
+        return ob->event_get(tp);
     }
 
     return notify_fail("Couldn't find that here.\n");
 }
 
 int get_from(object tp, string item, string from) {
-    object cont, ob;
-    if (!cont = present(from)) {
+    object cont;
+    cont = present(from, tp);
+    if (!cont) cont = present(from, ENV(tp));
+
+    if (!cont) {
         return notify_fail("Couldn't find " + from + " here.\n");
     }
     if (!cont->is_container()) {
         return notify_fail(cont->query_short() + " is not a container.\n");
     }
-    if (!ob = present(item, cont)) {
-        return notify_fail("Couldn't find " + item + " inside " + cont->query_short() + "\n");
-    }
-    if (ob->can_get()) {
-        ob->move((tp));
-        ob->event_recieved(tp);
-        write("You get " + ob->query_short() + " from " + cont->query_short() + ".\n");
-        return 1;
-    }
-    return notify_fail("You can't get that.\n");
+    cont->event_get_from(tp, item);
+    return 1;
+    // return notify_fail("You can't get that.\n");
 }
 
 string help() {

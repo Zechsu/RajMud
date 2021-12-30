@@ -2,7 +2,6 @@
 
 int main(string str) {
     object tp = this_player();
-    mixed result;
     object ob;
     
     if (!str) {
@@ -10,24 +9,14 @@ int main(string str) {
     }
 
     if (environment(tp)->is_door(str)) {
-        if (environment(tp)->query_door(str)->event_close()) {
-            write("You close the door.\n");
-            return 1;
-        }
-        else {
-            write("The door is already closed.\n");
-            return 1;
-        }
+        return environment(tp)->query_door(str)->event_close();
     }
-    if (ob = present(str)) {
-        result = ob->event_close();
-        if (stringp(result)) {
-            return notify_fail(result);
-        }
-        else {
-            write("You close " + ob->query_short() + ".\n");
-            return 1;
-        }
+
+    ob = present(str, tp);
+    if (!ob) ob = present(str, ENV(tp));
+    
+    if (ob) {
+        return ob->event_close();
     }
     else {
         write("Couldn't find that.\n");

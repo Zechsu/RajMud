@@ -51,9 +51,29 @@ mixed event_recieve_item(object item, object who) {
     if (!can_put(who)) {
         return "You can't do that!\n";
     }
-    if (is_full()) {
+    if (is_inventory_full()) {
         return "It's full!\n";
     }
     item->move(this_object());
     return 1;
+}
+
+varargs void event_get_from(object who, string what) {
+    object item;
+    if (!who) {
+        who = TP;
+    }
+
+    item = present(what, TO);
+    if (!item) {
+        write("Couldn't find that inside " + query_short() + "\n");
+    }
+    if (item->can_get(who)) {
+        item->move(who);
+        item->event_recieved(who);
+        write("You get " + item->query_short() + " from " + query_short() + ".\n");
+    }
+    else {
+        write("You can't get that.\n");
+    }
 }

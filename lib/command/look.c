@@ -77,19 +77,21 @@ int look(object tp) {
         }
     }
     if (sizeof(items)) {
+        int sz, j;
         ret = "You see ";
-        for (int j = 0; j < sizeof(items); j++) {
+        for (sz = sizeof(items), j = 0; j < sz; j++) {
             string short = items[j]->query_short();
+            string article = items[j]->query_indefinite_article();
             if (!short) {
                 continue;
             }
-            ret += sprintf("%s %s", items[j]->query_indefinite_article(), short);
-            if (j < sizeof(items) - 1) {
+            ret += sprintf("%s%s", article? article + " " : "", short);
+            if (j < sz - 1) {
                 ret += ", ";
             }
         }
         write(ret + "\n");
-    } 
+    }
 
     return 1;
 }
@@ -101,7 +103,19 @@ int look_at(object tp, string look_at_item) {
         look_at_item = replace_string(look_at_item, "the ", "");
     }
 
-    if (ob = present(look_at_item)) {
+    if (strsrch(look_at_item, "here") != -1) {
+        look_at_item = rtrim(replace_string(look_at_item, "here", ""));
+        if (ob = present(look_at_item, ENV(tp))) {
+            write(ob->query_long() + "\n");
+            return 1;
+        }
+        else {
+            return notify_fail("There is no " + look_at_item + " here.\n");
+        }
+    }
+    ob = present(look_at_item, tp);
+    if (!ob) ob = present(look_at_item, ENV(tp));
+    if (ob) {
         write(ob->query_long() + "\n");
         return 1;
     }
@@ -112,10 +126,31 @@ int look_at(object tp, string look_at_item) {
 int look_in(object tp, string look_at_item) {
     object ob;
 
-    if (ob = present(look_at_item)) {
+    if (strsrch(look_at_item, "here") != -1) {
+        look_at_item = rtrim(replace_string(look_at_item, "here", ""));
+        if (ob = present(look_at_item, ENV(tp))) {
+            if (ob->is_container()) {
+                write(ob->query_contents_mess() + "\n");
+                return 1;
+            }
+            else {
+                return notify_fail("You can't look inside that.\n");
+            }
+        }
+        else {
+            return notify_fail("There is no " + look_at_item + " here.\n");
+        }
+    }
+    
+    ob = present(look_at_item, tp);
+    if (!ob) ob = present(look_at_item, ENV(tp));
+    if (ob) {
         if (ob->is_container()) {
             write(ob->query_contents_mess() + "\n");
             return 1;
+        }
+        else {
+            return notify_fail("You can't look inside that.\n");
         }
     }
 

@@ -1,11 +1,8 @@
-#include <globals.h>
+#include "include/m_lock.h"
 
-int locked;
-int can_lockpick;
-int complexity;
-
-int set_can_lockpick(int can);
-int set_complexity(int comp);
+private int locked;
+private int can_lockpick;
+private int complexity;
 
 void create() {
     set_can_lockpick(1);

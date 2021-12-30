@@ -1,5 +1,3 @@
-#include <globals.h>
-
 private string short_desc;
 private string long_desc;
 

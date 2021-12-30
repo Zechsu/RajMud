@@ -9,7 +9,7 @@ void create() {
     set_short("beetle arena");
     set_long("An empty beetle arena");
     set_ids(({"beetle arena", "arena"}));
-    set_capacity(2);
+    set_inventory_capacity(2);
 }
 
 void update_kabs() {
@@ -52,16 +52,17 @@ mixed event_recieve_item(object item, object who) {
     if (!item->is_fighter_beetle()) {
         return "That is not a fighter beetle!\n";
     }
-    b = ::event_recieve_item(item, who);
-    if (b == 1) {
-        say(sprintf("%s puts %s in the arena!\n", who->query_name(), item->query_short()));
-        item->set_owner(who->query_name());
-        update_kabs();
-        if (beetle1 && beetle2) {
-            beetle1->set_target(beetle2);
-            beetle2->set_target(beetle1);
-            set_heart_beat(3);
-        }
+    if (is_inventory_full()) {
+        return "The arena is full.\n";
+    }
+    item->move(TO);
+    say(sprintf("%s puts %s in the arena!\n", who->query_name(), item->query_short()));
+    item->set_owner(who->query_name());
+    update_kabs();
+    if (beetle1 && beetle2) {
+        beetle1->set_target(beetle2);
+        beetle2->set_target(beetle1);
+        set_heart_beat(3);
     }
     return b;
 }

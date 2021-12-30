@@ -6,24 +6,30 @@ string help() {
 
 int main(string str) {
     mixed item, container, res;
+    object iob, cob;
+    object tp = TP;
 
     if (!str) {
         return notify_fail(help());
     }
 
     if (sscanf(str, "%s in %s", item, container) == 2) {
-        if (!item = present(item)) {
+        iob = present(item, tp);
+        if (!iob) iob = present(item, ENV(tp));
+        if (!iob) {
             return notify_fail(help());
         }
-        if (!container = present(container)) {
+        cob = present(container, tp);
+        if (!cob) cob = present(container, ENV(tp));
+        if (!cob) {
             return notify_fail(help());
         }
-        if (container->is_container()) {
-            res = container->event_recieve_item(item);
+        if (cob->is_container()) {
+            res = cob->event_recieve_item(iob);
             if (stringp(res)) {
                 return notify_fail(res);
             }
-            write("You put " + item->query_short() + " in " + container->query_short() + ".\n");
+            write("You put " + iob->query_short() + " in " + cob->query_short() + ".\n");
             return 1;
         }
     }

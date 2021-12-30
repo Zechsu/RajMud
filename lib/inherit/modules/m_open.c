@@ -1,8 +1,8 @@
-#include <globals.h>
+#include "include/m_lock.h"
+#include "include/m_description.h"
 
-int opened;
+private int opened;
 
-int is_locked();
 
 int is_open() {
     return opened;
@@ -19,25 +19,47 @@ varargs int can_open(object who) {
     return 1;
 }
 
+varargs int can_close(object who) {
+    if (!who) {
+        who = this_player();
+    }
+    return 1;
+}
+
 // TODO: Figure out if can_open() should be called inside the event.
 mixed event_open() {
     if (!can_open()) {
-        return "You can't open that.\n";
+        return notify_fail("You can't open that.\n");
     }
     if (is_locked()) {
-        return "It is locked.\n";
+        return notify_fail("It is locked.\n");
     }
     if (opened) {
-        return "It is open already.\n";
+        return notify_fail("It is open already.\n");
+    }
+    if (TO->is_door()) {
+        write("You open the door.\n");
+    }
+    else {
+        write("You open " + TO->query_short() + ".\n");
     }
     opened = 1;
     return 1;
 }
 
 int event_close() {
-    if (opened) {
-        opened = 0;
-        return 1;
+    if (!can_close()) {
+        return notify_fail("You can't close that.\n");
     }
-    return 0;
+    if (!opened) {
+        return notify_fail("It is closed already.\n");
+    }
+    if (TO->is_door()) {
+        write("You close the door.\n");
+    }
+    else {
+        write("You close " + TO->query_short() + ".\n");
+    }
+    opened = 0;
+    return 1;
 }

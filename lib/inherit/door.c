@@ -19,3 +19,7 @@ int add_side(string side, string destination, string other_side, object room) {
     
     return 1;
 }
+
+int is_door() {
+    return 1;
+}

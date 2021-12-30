@@ -1,5 +1,3 @@
-#include <globals.h>
-
 private mapping traits = ([]);
 
 void create() {}

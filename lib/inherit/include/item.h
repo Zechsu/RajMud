@@ -10,5 +10,7 @@ void set_name(string n);
 string query_name();
 int is_item();
 string query_indefinite_article();
+varargs mixed event_get(object who);
+void event_drop(mixed dest);
 
 #endif /* l_item_h */

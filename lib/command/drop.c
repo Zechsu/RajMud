@@ -4,7 +4,6 @@ string help();
 
 int main(string str) {
     object tp = this_player();
-    object* inv = all_inventory(tp);
     object ob;
 
     if (!str || !sizeof(trim(str))) {
@@ -17,9 +16,7 @@ int main(string str) {
     }
 
     if (ob = present(str, tp)) {
-        ob->move(environment(tp));
-        write("You drop the " + ob->query_short() + ".\n");
-        say(tp->query_name() + " drops " + ob->query_short() + "\n");
+        ob->event_drop(environment(tp));
         return 1;
     }
 

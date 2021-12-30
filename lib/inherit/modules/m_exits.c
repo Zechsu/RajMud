@@ -1,5 +1,3 @@
-#include <globals.h>
-
 private mapping exits = ([]);
 
 void add_exit(string direction, string destination) {

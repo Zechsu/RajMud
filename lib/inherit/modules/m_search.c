@@ -1,5 +1,3 @@
-#include <globals.h>
-
 private nosave mapping search_table;
 private nosave int empty;
 private nosave int cooldown_time;

@@ -6,6 +6,7 @@
 #include <lpctypes.h>
 
 inherit "/single/sefuns/misc";
+inherit "/single/sefuns/daemons";
 
 int
 same(mixed x, mixed y) {
@@ -237,15 +238,15 @@ varargs void say(string msg, mixed exclude) {
     message("say", msg, environment(me), exclude);
 }
 
-object present(mixed str, object ob) {
-    if (!ob) {
-        ob = this_player();
-        return efun::present(str, ob) || efun::present(str, ENV(TP));
-    }
-    else {
-        return efun::present(str, ob);
-    }
-}
+// object present(mixed str, object ob) {
+//     if (!ob) {
+//         ob = this_player();
+//         return efun::present(str, ob) || efun::present(str, ENV(TP));
+//     }
+//     else {
+//         return efun::present(str, ob);
+//     }
+// }
 
 string player_save_file(string name) {
     return PLAYERS_DIR + "/" + lower_case(name[0..0]) + "/" + name + ".o";

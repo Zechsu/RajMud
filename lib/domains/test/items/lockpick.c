@@ -23,7 +23,9 @@ int do_pick(string str) {
     if (!ENV(tp)->is_door(str)) {
         res = "Invalid target.\n";
     }
-    if (ob = present(str)) {
+    ob = present(str, tp);
+    if (!ob) ob = present(str, ENV(tp));
+    if (ob) {
         if (!ob->has_lock()) {
             return notify_fail("That does not have a lock.\n");
         }

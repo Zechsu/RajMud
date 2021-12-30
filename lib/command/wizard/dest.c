@@ -10,7 +10,9 @@ int main(string arg)
         return notify_fail("usage: dest object\n");
     }
 	
-	if (target = present(arg)) {
+    target = present(arg, tp);
+    if (!target) target = present(arg, ENV(tp));
+	if (target) {
         if (target->is_prop()) {
             return notify_fail("Cannot dest a prop\n");
         }

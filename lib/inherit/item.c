@@ -6,23 +6,11 @@ inherit M_DESC;
 inherit M_VISIBLE;
 inherit LIB_PERSIST;
 
-private mapping messages;
-
 void create() {
     ::create();
     if (!sizeof(query_ids())) {
         set_ids(({}));
     }
-    if (!sizeof(messages)) {
-        messages = ([]);
-    }
-}
-
-string query_indefinite_article() {
-    if (query_short()[0] == 'a') {
-        return "an";
-    }
-    return "a";
 }
 
 int can_get(object who) {
@@ -48,8 +36,24 @@ string* query_save() {
     return persist::query_csaved();
 }
 
-void move(mixed dest) {
-   ::move(dest);
+varargs mixed event_get(object who) {
+    if (!who) {
+        who = TP;
+    }
+    if (!can_get(who)) {
+        return notify_fail("You can't get that.\n");
+    }
+    write("You get the " + query_short() + ".\n");
+    say(who->query_name() + " gets the " + query_short() + "\n");
+    ::move(who);
+    event_recieved(who);
+    return 1;
+}
+
+void event_drop(mixed dest) {
+    write("You drop the " + query_short() + ".\n");
+    say(TP->query_name() + " drops " + query_short() + "\n");
+    ::move(dest);
 }
 
 int is_item() {
