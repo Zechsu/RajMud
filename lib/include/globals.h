@@ -26,6 +26,7 @@
 #define PLAYERS_DIR         "/data/users"
 #define RACES_DIR           "/std/race"
 #define MATERIALS_DIR       "/std/materials"
+#define SKILLS_DIR          "/std/skills"
 
 #define VIRTUAL_D           "/single/virtual"
 

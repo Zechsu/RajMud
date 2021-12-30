@@ -1,28 +1,31 @@
-#include <globals.h>
-
 private mapping skills = ([]);
-
-void create() {}
+private mapping exp = ([]);
 
 int query_skill_level(string skill) {
-    if (skills[skill]) {
-        return skills[skill];
-    }
-    else {
-        return 0;
-    }
+    return skills[skill];
+}
+
+int query_skill_exp(string skill) {
+    return exp[skill];
 }
 
 mapping query_skills() {
-    return skills;
+    return copy(skills);
 }
 
-int set_skill_level(string skill, int level) {
+void set_skill_level(string skill, int level) {
     skills[skill] = level;
-    return 1;
 }
 
-int add_skill(string skill) {
-    skills[skill] = 0;
-    return 1;
+void add_skill(string skill) {
+    skills[skill] = 1;
+}
+
+void give_exp(string skill, int amt) {
+    int required_exp;
+    if (!skills[skill]) {
+        add_skill(skill);
+    }
+    exp[skill] += amt;
+    // TODO: Levelling
 }
