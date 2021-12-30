@@ -118,3 +118,7 @@ string make_rainbow(string sh) {
     }
     return str + white();
 }
+
+string remove_color(string str) {
+    return TERM_D->parse_pinkfish(str, 1);
+}

@@ -38,6 +38,7 @@ int is_color(string col) {
     }
 }
 
+// if flag is set, it will remove any color tags
 varargs string parse_pinkfish(string msg, int flag)
 {
 
