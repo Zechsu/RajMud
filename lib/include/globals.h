@@ -12,35 +12,36 @@
 #include "daemons.h"
 #include "modules.h"
 
-#define ENV(x)      environment(x)
-#define TO        this_object()
-#define TP        this_player()
+#define ENV(x)              environment(x)
+#define TO                  this_object()
+#define TP                  this_player()
 
-#define MUD_VERSION     "0.1.3"
+#define MUD_VERSION         "0.1.3"
 
-#define SINGLE_DIR  "/single"
-#define CONFIG_DIR  "/etc"
-#define LOG_DIR     "/log"
-#define DAEMON_DIR  "/daemon"
-#define DOMAINS_DIR "/domains"
-#define PLAYERS_DIR "/data/users"
-#define RACES_DIR   "/std/race"
+#define SINGLE_DIR          "/single"
+#define CONFIG_DIR          "/etc"
+#define LOG_DIR             "/log"
+#define DAEMON_DIR          "/daemon"
+#define DOMAINS_DIR         "/domains"
+#define PLAYERS_DIR         "/data/users"
+#define RACES_DIR           "/std/race"
+#define MATERIALS_DIR       "/std/materials"
 
-#define VIRTUAL_D  "/single/virtual"
+#define VIRTUAL_D           "/single/virtual"
 
-#define LOGIN_OB   "/clone/login"
-#define PLAYER_OB  "/clone/player"
-#define VOID_OB    "/single/void"
-#define TEST_ROOM  "/domains/test/rooms/testr"
-#define VOID_ROOM  "/domains/void/void"
+#define LOGIN_OB            "/clone/login"
+#define PLAYER_OB           "/clone/player"
+#define VOID_OB             "/single/void"
+#define TEST_ROOM           "/domains/test/rooms/testr"
+#define VOID_ROOM           "/domains/void/void"
 
-#define ROOT_UID     "Root"
-#define BACKBONE_UID "Backbone"
+#define ROOT_UID            "Root"
+#define BACKBONE_UID        "Backbone"
 
-#define BASE            "/inherit/base"
-#define OVERRIDES_FILE  "/single/simul_efun"
+#define BASE                "/inherit/base"
+#define OVERRIDES_FILE      "/single/simul_efun"
 
-#define COMMAND_PREFIX "/command/"
+#define COMMAND_PREFIX      "/command/"
 
 // Components
 #define LIB_ROOM            "/inherit/room"
@@ -57,11 +58,11 @@
 #define LIB_GATHERABLE      "/inherit/gatherable"
 
 // classes for message() efun.
-#define M_STATUS "status"
-#define M_SAY    "say"
+#define M_STATUS            "status"
+#define M_SAY               "say"
 
 // GENERICS
 #define STD_RACE            "/std/race"
 
-#define CLEAN_UP "/inherit/clean_up"
+#define CLEAN_UP            "/inherit/clean_up"
 
