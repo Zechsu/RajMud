@@ -2,12 +2,15 @@
 
 inherit BASE;
 inherit M_DESC;
+inherit M_VISIBLE;
 
 private string drop;
 private int drop_amount;
 private string action;
+private int exp_reward;
 
 void create() {
+    ::create();
     if (!drop_amount) {
         drop_amount = 1;
     }
@@ -37,9 +40,11 @@ void set_drop_amount(int i) {
 }
 
 mixed event_gather(object who) {
-    debug_message("event_gather() not set for " + ENV(TO));
-    return 0;
-} 
+    object ob = new(drop, drop_amount);
+    ob->event_get(who);
+    remove();
+    return 1;
+}
 
 // Sets the action/required command to gather the node
 void set_action(string str) {
@@ -48,4 +53,13 @@ void set_action(string str) {
 
 string query_action() {
     return action;
+}
+
+// Sets exp given on action
+void set_exp(int exp) {
+    exp_reward = exp;
+}
+
+int query_exp_reward() {
+    return exp_reward;
 }
