@@ -63,3 +63,9 @@ void set_exp(int exp) {
 int query_exp_reward() {
     return exp_reward;
 }
+
+// Since it doesn't inherit item, we make this to stop it from responding with a "What?" when trying to get it
+varargs mixed event_get(object who) {
+    write("You can't get that.\n");
+    return 1;
+}
