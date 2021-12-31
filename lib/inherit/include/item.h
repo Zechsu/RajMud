@@ -9,8 +9,8 @@ string* query_save();
 void set_name(string n);
 string query_name();
 int is_item();
-string query_indefinite_article();
 varargs mixed event_get(object who);
-void event_drop(mixed dest);
+varargs mixed event_drop(object who);
+varargs mixed event_get_from(object who, object where);
 
 #endif /* l_item_h */

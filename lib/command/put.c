@@ -25,12 +25,7 @@ int main(string str) {
             return notify_fail(help());
         }
         if (cob->is_container()) {
-            res = cob->event_recieve_item(iob);
-            if (stringp(res)) {
-                return notify_fail(res);
-            }
-            write("You put " + iob->query_short() + " in " + cob->query_short() + ".\n");
-            return 1;
+            return cob->event_recieve_item(iob, tp);
         }
     }
 

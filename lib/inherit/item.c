@@ -24,6 +24,7 @@ varargs mixed event_recieved(object who) {
     if (!who) {
         who = this_player();
     }
+    move(who);
     return 0;
 }
 
@@ -43,17 +44,30 @@ varargs mixed event_get(object who) {
     if (!can_get(who)) {
         return notify_fail("You can't get that.\n");
     }
-    write("You get the " + query_short() + ".\n");
-    say(who->query_name() + " gets the " + query_short() + "\n");
-    ::move(who);
+    write("You get " + query_short() + ".\n");
+    say(who->query_name() + " gets " + query_short() + "\n");
     event_recieved(who);
     return 1;
 }
 
-void event_drop(mixed dest) {
-    write("You drop the " + query_short() + ".\n");
-    say(TP->query_name() + " drops " + query_short() + "\n");
-    ::move(dest);
+varargs mixed event_get_from(object who, object where) {
+    if (!who) {
+        who = TP;
+    }
+    if (!can_get(who)) {
+        return notify_fail("You can't get that.\n");
+    }
+    write("You get " + query_short() + " from " + where->query_short() + ".\n");
+    say(who->query_name() + " gets " + query_short() + " from " + where->query_short() + "\n");
+    event_recieved(who);
+    return 1;
+}
+
+varargs mixed event_drop(object who) {
+    write("You drop " + query_short() + ".\n");
+    say(who->query_name() + " drops " + query_short() + "\n");
+    move(ENV(tp));
+    return 1;
 }
 
 int is_item() {

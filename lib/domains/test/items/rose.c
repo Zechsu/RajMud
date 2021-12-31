@@ -17,4 +17,5 @@ mixed event_recieved(object who) {
     if (random(5) == 1) {
         write("You prick your finger on the thorns!\n");
     }
+    ::event_recieveed(who);
 }

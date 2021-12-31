@@ -6,7 +6,6 @@
 #include <lpctypes.h>
 
 inherit "/single/sefuns/misc";
-inherit "/single/sefuns/daemons";
 
 int
 same(mixed x, mixed y) {

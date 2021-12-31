@@ -51,9 +51,7 @@ int get_from(object tp, string item, string from) {
     if (!cont->is_container()) {
         return notify_fail(cont->query_short() + " is not a container.\n");
     }
-    cont->event_get_from(tp, item);
-    return 1;
-    // return notify_fail("You can't get that.\n");
+    return cont->event_get(tp, item);
 }
 
 string help() {
