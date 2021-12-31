@@ -1,8 +1,6 @@
 #include <globals.h>
 
-inherit LIB_CONTAINER;
-inherit M_LOCK;
-inherit M_OPEN;
+inherit LIB_STORAGE;
 
 void create() {
     ::create();

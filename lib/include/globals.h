@@ -58,6 +58,7 @@
 #define LIB_POSITION        "/inherit/living/position"
 #define LIB_GATHERABLE      "/inherit/gatherable"
 #define LIB_RESOURCE        "/inherit/resource"
+#define LIB_STORAGE         "/inherit/storage"
 
 // classes for message() efun.
 #define M_STATUS            "status"
