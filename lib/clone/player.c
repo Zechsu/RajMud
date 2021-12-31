@@ -194,7 +194,7 @@ void setup()
 void net_dead()
 {
     set_heart_beat(0);
-    debug_message(query_name() + " is link-dead.\n");
+    debug_message(query_name() + " is link-dead.");
     save_player();
     remove();
 }
@@ -203,5 +203,5 @@ void net_dead()
 
 void reconnect()
 {
-    debug_message(query_name() + " has reconnected.\n");
+    debug_message(query_name() + " has reconnected.");
 }
