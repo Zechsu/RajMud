@@ -16,7 +16,7 @@ int main(string str) {
     if (!ob) ob = present(str, ENV(tp));
     
     if (ob) {
-        return ob->event_close();
+        return ob->event_close(tp);
     }
     else {
         write("Couldn't find that.\n");

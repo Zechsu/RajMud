@@ -146,8 +146,7 @@ int look_in(object tp, string look_at_item) {
     if (!ob) ob = present(look_at_item, ENV(tp));
     if (ob) {
         if (ob->is_container()) {
-            write(ob->query_contents_mess() + "\n");
-            return 1;
+            return ob->event_look_in(tp);
         }
         else {
             return notify_fail("You can't look inside that.\n");

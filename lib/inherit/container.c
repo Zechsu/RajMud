@@ -33,14 +33,25 @@ string query_contents_mess() {
     return ret;
 }
 
+varargs mixed event_look_in(object who) {
+    if (!who) {
+        who = TP;
+    }
+    write(query_contents_mess() + "\n");
+    return 1;
+}
+
 int can_put(object who) {
     if (!who) {
         who = this_player();
     }
+    if (is_inventory_full()) {
+        return notify_fail("It is full.\n");
+    }
     return 1;
 }
 
-mixed event_recieve_item(object item, object who) {
+varargs mixed event_recieve_item(object item, object who) {
     if (!who) {
         who = this_player();
     }
@@ -49,16 +60,14 @@ mixed event_recieve_item(object item, object who) {
         return 0;
     }
     if (!can_put(who)) {
-        return "You can't do that!\n";
-    }
-    if (is_inventory_full()) {
-        return "It's full!\n";
+        return 0;
     }
     item->move(this_object());
+    write("You put " + item->query_short() + " in " + query_short() + ".\n");
     return 1;
 }
 
-varargs void event_get_from(object who, string what) {
+varargs mixed event_get(object who, string what) {
     object item;
     if (!who) {
         who = TP;
@@ -66,14 +75,7 @@ varargs void event_get_from(object who, string what) {
 
     item = present(what, TO);
     if (!item) {
-        write("Couldn't find that inside " + query_short() + "\n");
+        return notify_fail("Couldn't find that inside " + query_short() + "\n");
     }
-    if (item->can_get(who)) {
-        item->move(who);
-        item->event_recieved(who);
-        write("You get " + item->query_short() + " from " + query_short() + ".\n");
-    }
-    else {
-        write("You can't get that.\n");
-    }
+    return item->event_get_from(who, TO);
 }

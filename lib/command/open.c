@@ -15,7 +15,7 @@ int main(string str) {
     ob = present(str, tp);
     if (!ob) ob = present(str, ENV(tp));
     if (ob) {
-        return ob->event_open();
+        return ob->event_open(tp);
     }
     else {
         write("Couldn't find anything to open.\n");

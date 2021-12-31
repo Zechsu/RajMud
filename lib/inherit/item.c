@@ -42,7 +42,7 @@ varargs mixed event_get(object who) {
         who = TP;
     }
     if (!can_get(who)) {
-        return notify_fail("You can't get that.\n");
+        return 0;
     }
     write("You get " + query_short() + ".\n");
     say(who->query_name() + " gets " + query_short() + "\n");
@@ -66,7 +66,7 @@ varargs mixed event_get_from(object who, object where) {
 varargs mixed event_drop(object who) {
     write("You drop " + query_short() + ".\n");
     say(who->query_name() + " drops " + query_short() + "\n");
-    move(ENV(tp));
+    move(ENV(who));
     return 1;
 }
 

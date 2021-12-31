@@ -3,7 +3,6 @@
 
 private int opened;
 
-
 int is_open() {
     return opened;
 }
@@ -26,8 +25,8 @@ varargs int can_close(object who) {
     return 1;
 }
 
-// TODO: Figure out if can_open() should be called inside the event.
-mixed event_open() {
+// TODO: Move all those checks in the can_open() function
+varargs mixed event_open(object who) {
     if (!can_open()) {
         return notify_fail("You can't open that.\n");
     }
@@ -47,7 +46,7 @@ mixed event_open() {
     return 1;
 }
 
-int event_close() {
+varargs mixed event_close(object who) {
     if (!can_close()) {
         return notify_fail("You can't close that.\n");
     }

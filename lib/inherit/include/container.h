@@ -4,6 +4,8 @@
 int is_container();
 string query_contents_mess();
 int can_put(object who);
-mixed event_recieve_item(object item, object who);
+varargs mixed event_recieve_item(object item, object who);
+varargs mixed event_get_from(object who, string what);
+varargs mixed event_look_in(object who);
 
 #endif
