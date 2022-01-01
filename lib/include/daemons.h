@@ -6,6 +6,7 @@
 #define RACE_D                  "daemon/race_d"
 #define MATERIAL_D              "daemon/material_d"
 #define SKILL_D                 "daemon/skill_d"
+#define NATURE_D                "daemon/nature_d"
 
 // FUNCTIONS
 #define Material(x)             MATERIAL_D->query_material(x)

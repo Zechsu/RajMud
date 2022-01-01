@@ -140,4 +140,15 @@ string query_position_string(object who) {
     return 0;
 }
 
+string query_nth(int num) {
+    switch (num) {
+        case 1:
+            return num + "st";
+        case 2:
+            return num + "nd";
+        case 3:
+            return num + "rd";
+        default:
+            return num + "th";
+    }
 }
