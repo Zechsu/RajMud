@@ -6,6 +6,7 @@ inherit LIB_POSITION;
 inherit M_DESC;
 inherit M_SKILLS;
 inherit M_TRAITS;
+inherit M_TITLE;
 
 private string name;
 private string current_room;
@@ -25,6 +26,16 @@ void set_name(string n) {
 
 string query_name() {
     return name;
+}
+
+string query_short() {
+    string title = query_title();
+    if (title) {
+        return sprintf("%s, %s", name, title);
+    }
+    else {
+        return name;
+    }
 }
 
 string query_long() {
