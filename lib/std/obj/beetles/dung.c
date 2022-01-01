@@ -3,8 +3,9 @@
 inherit "std/obj/beetle";
 
 string do_special() {
-    query_target()->take_damage(2);
-    return "dung beetle throws some shit around\n";
+    object target = query_target();
+    target->take_damage(2);
+    return sprintf("%s [%s] throws dung at %s [%s]\n", query_short(), query_owner(), target->query_short(), target->query_owner());
 }
 
 void create() {
