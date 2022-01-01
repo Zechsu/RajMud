@@ -1,5 +1,5 @@
-#ifndef l_position_h
-#define l_position_h
+#ifndef __POSITIONS_H__
+#define __POSITIONS_H__
 
 #define STANDING 1 
 #define FLYING   1 << 1

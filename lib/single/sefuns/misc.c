@@ -1,5 +1,6 @@
 #include <globals.h>
 #include <lpctypes.h>
+#include <positions.h>
 #include "colors.h"
 
 // returns a white ansi color for resetting colors
@@ -121,4 +122,22 @@ string make_rainbow(string sh) {
 
 string remove_color(string str) {
     return TERM_D->parse_pinkfish(str, 1);
+}
+
+string query_position_string(object who) {
+    string name = who->query_short();
+    int position = who->query_position();
+    switch (position) {
+        case STANDING:
+            return sprintf("%s is standing here.", name);
+        case FLYING:
+            return sprintf("%s is flying here.", name);
+        case SITTING:
+            return sprintf("%s is sitting here.", name);
+        default:
+            return sprintf("%s is here.", name);
+    }
+    return 0;
+}
+
 }

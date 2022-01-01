@@ -57,7 +57,7 @@ int look(object tp) {
         exits = " [ " + implode(exit_keys, " | ") + " ] ";
     }
 
-    desc = "%^YELLOW%^" + room->query_short() + "%^RESET%^" + exits + "\n\n" + room->query_long();
+    desc = "%^YELLOW%^" + room->query_short() + "%^RESET%^" + exits + "\n" + room->query_long();
     write(desc + "\n");
 
     // ugly fix for not putting a random \n after the room long descriptions
@@ -73,7 +73,7 @@ int look(object tp) {
 
     if (sizeof(living)) {
         foreach(object liv in living) {
-            write(liv->query_position_string() + "\n");
+            write(query_position_string(liv) + "\n");
         }
     }
     if (sizeof(items)) {
