@@ -44,18 +44,19 @@ string query_contents_mess() {
     return query_long();
 }
 
-mixed event_recieve_item(object item, object who) {
-    mixed b;
+varargs mixed event_recieve_item(object item, object who) {
+
     if (!who) {
         who = this_player();
     }
     if (!item->is_fighter_beetle()) {
-        return "That is not a fighter beetle!\n";
+        return notify_fail("That is not a fighter beetle!\n");
     }
     if (is_inventory_full()) {
-        return "The arena is full.\n";
+        return notify_fail("The arena is full.\n");
     }
     item->move(TO);
+    write(sprintf("You put %s in the arena.\n", item->query_short()));
     say(sprintf("%s puts %s in the arena!\n", who->query_name(), item->query_short()));
     item->set_owner(who->query_name());
     update_kabs();
@@ -64,7 +65,7 @@ mixed event_recieve_item(object item, object who) {
         beetle2->set_target(beetle1);
         set_heart_beat(3);
     }
-    return b;
+    return 1;
 }
 
 int can_get(object who) {
