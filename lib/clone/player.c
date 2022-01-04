@@ -6,6 +6,7 @@
 
 inherit LIB_LIVING;
 inherit LIB_AUTOSAVE;
+inherit LIB_BIRTHDAY;
 inherit M_PRIVILEGES;
 inherit M_ALIASES;
 inherit M_SHELL;
@@ -181,6 +182,7 @@ void setup()
     enable_commands();
     add_action("commandHook", "", 1);
     m_privileges::create();
+    birthday::create();
     autosave::setup();
 
     if(!query_current_room()) {

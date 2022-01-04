@@ -59,6 +59,7 @@
 #define LIB_GATHERABLE      "/inherit/gatherable"
 #define LIB_RESOURCE        "/inherit/resource"
 #define LIB_STORAGE         "/inherit/storage"
+#define LIB_BIRTHDAY        "/inherit/user/birthday"
 
 // classes for message() efun.
 #define M_STATUS            "status"
