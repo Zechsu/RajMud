@@ -96,3 +96,7 @@ string query_month_name(int month_n) {
 int query_year() {
     return date->year;
 }
+
+int query_day() {
+    return date->day;
+}
