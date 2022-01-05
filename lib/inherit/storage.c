@@ -8,6 +8,16 @@ void create() {
     ::create();
 }
 
+varargs int can_open(object who) {
+    if (!who) {
+        who = this_player();
+    }
+    if (is_locked()) {
+        return notify_fail("It is locked.\n");
+    }
+    return m_open::can_open(who);
+}
+
 int can_put(object who) {
     if (!is_open()) {
         return notify_fail("It is closed.\n");
