@@ -28,12 +28,12 @@ string query_resource() {
 
 string query_long() {
     string res = ::query_long();
-    return res + "\nIt weighs "  + weight + "kgs.";
+    return res + "\nIt weighs "  + weight + "grams.";
 }
 
 string query_short() {
     string res = ::query_short();
-    return weight + "kgs of " + res;
+    return weight + "grams of " + res;
 }
 
 varargs mixed event_get(object who) {
