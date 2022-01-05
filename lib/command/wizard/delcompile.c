@@ -2,5 +2,6 @@
 
 int main(string arg) {
     write_file("/log/compile", "", 1);
+    write("Cleaned log/compile.\n");
     return 1;
 }
