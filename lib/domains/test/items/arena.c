@@ -115,7 +115,13 @@ void do_fight(object kab, object target) {
         }
     }
     if (target->is_dead()) {
-            say(capitalize(target->query_short()) + " [" + target->query_owner() + "] falls down!\n");
+            object corpse = new(LIB_CORPSE);
+            corpse->set_short(sprintf("corpse of %s", target->query_short()));
+            corpse->set_long("The remains of what used to be a living, breathing beetle. The smell reminds of rotten eggs and wet cat food.");
+            corpse->set_ids(({"corpse", "beetle corpse", corpse->query_short(), target->query_short(1) + " corpse"}));
+            corpse->set_decay(6);
+            corpse->move(ENV(TO));
+            say(sprintf("%s falls down on the ground.\n", capitalize(corpse->query_short())));
             destruct(target);
     }
 }
