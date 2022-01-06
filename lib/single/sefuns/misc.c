@@ -120,6 +120,15 @@ string make_rainbow(string sh) {
     return str + white();
 }
 
+string alternate_colors(string str, string* colors) {
+    string ret = "";
+    str = trim(str);
+    for (int i = 0; i < sizeof(str); i++) {
+        ret += colors[i % sizeof(colors)] + str[i..i];
+    }
+    return ret += white();
+}
+
 string remove_color(string str) {
     return TERM_D->parse_pinkfish(str, 1);
 }

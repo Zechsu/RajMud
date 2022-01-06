@@ -3,7 +3,6 @@
 int main(string arg)
 {
     object tp = this_player();
-    object* inv = all_inventory(environment(tp));
 	object target;
 
     if (!arg) {

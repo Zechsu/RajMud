@@ -27,6 +27,12 @@ int main(string str) {
         if (cob->is_container()) {
             return cob->event_recieve_item(iob, tp);
         }
+        else {
+            return notify_fail("That is not a container.\n");
+        }
+    }
+    else {
+        return notify_fail(help());
     }
 
     return 1;

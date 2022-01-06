@@ -8,7 +8,9 @@ remove()
 {
     // add code here to prevent unwanted destructions.
     // update attributes of the container and the containees.
-    destruct(this_object());
+    if (clonep(this_object())) {
+        destruct(this_object());
+    }
 }
 
 #ifndef __NO_ENVIRONMENT__

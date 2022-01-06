@@ -1,11 +1,17 @@
 private mapping skills = ([]);
 
 int query_skill_level(string skill) {
-    return skills[skill]["level"];
+    if (skills[skill])
+        return skills[skill]["level"];
+    else
+        return 0;
 }
 
 int query_skill_exp(string skill) {
-    return skills[skill]["exp"];
+    if (skills[skill])
+        return skills[skill]["exp"];
+    else
+        return 0;
 }
 
 string* query_skills() {
@@ -13,11 +19,18 @@ string* query_skills() {
 }
 
 void set_skill_level(string skill, int level) {
-    skills[skill]["level"] = level;
+    if (skills[skill])
+        skills[skill]["level"] = level;
+    else
+        skills += ([skill:(["level":level, "exp":0])]);
+}
+
+void remove_skill(string skill) {
+    map_delete(skills, skill);
 }
 
 void add_skill(string skill) {
-    skills[skill] = (["level":1]);
+    skills += ([skill:(["level":1, "exp":0])]);
 }
 
 void give_exp(string skill, int amt) {

@@ -11,8 +11,8 @@ int main(string str) {
             int exp = tp->query_skill_exp(skill);
             string percent = sprintf("%.2f", exp/required_exp);
             write(capitalize(skill) + " : " + level + " (" + percent + "%)" + "\n");
-            return 1;
         }
+        return 1;
     }
     else {
         return notify_fail("You're not skilled in anything.\n");

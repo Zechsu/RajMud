@@ -54,6 +54,16 @@ string query_long() {
     return ret;
 }
 
+// if flag is set, it will return only the name without "beetle" at the end
+// this is for getting a "species" name for example corpse of query_short(1) => corpse of stag
+varargs string query_short(int flag) {
+    string ret = ::query_short();
+    if (flag) {
+        return ret;
+    }
+    return ret + " beetle";
+}
+
 int can_get(object who) {
     object env = ENV(this_object());
     if (env->is_beetle_arena()) {

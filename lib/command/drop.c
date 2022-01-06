@@ -16,7 +16,7 @@ int main(string str) {
     }
 
     if (ob = present(str, tp)) {
-        return ob->event_drop(environment(tp));
+        return ob->event_drop(tp);
     }
 
     return notify_fail("You're not holding that.\n");

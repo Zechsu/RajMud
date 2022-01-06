@@ -11,6 +11,6 @@ int main(string obj) {
         write(file_name(ob) + " = " + memory_info(ob) + " bytes\n");
         return 1;
     }
-    write("MUD is using " + memory_info()/1024 + " kilobytes.\n");
+    write("RajMUD is using " + memory_info()/1024 + " kilobytes.\n");
     return 1;
 }

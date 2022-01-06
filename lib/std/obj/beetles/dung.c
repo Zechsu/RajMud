@@ -10,8 +10,8 @@ string do_special() {
 
 void create() {
     ::create();
-    set_short("dung beetle");
-    set_long("A lovely dung beetle!");
+    set_short("dung");
+    set_long("A bit smelly but at the same time very skillful.");
     set_ids(({"beetle", "dung", "dung beetle"}));
     set_special_attack((:do_special:));
     set_special_attack_chance(20);
