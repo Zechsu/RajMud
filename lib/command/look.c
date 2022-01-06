@@ -77,17 +77,27 @@ int look(object tp) {
         }
     }
     if (sizeof(items)) {
-        int sz, j;
+        int j;
+        int sz = sizeof(items);
         ret = "You see ";
-        for (sz = sizeof(items), j = 0; j < sz; j++) {
-            string short = items[j]->query_short();
-            string article = items[j]->query_indefinite_article();
-            if (!short) {
-                continue;
-            }
-            ret += sprintf("%s%s", article? article + " " : "", short);
-            if (j < sz - 1) {
-                ret += ", ";
+        if (sz == 1) {
+            ret += items[0]->query_short();
+        }
+        else {
+            for (j = 0; j < sz; j++) {
+                string short = items[j]->query_short();
+                if (!short) {
+                    continue;
+                }
+                if (j == sz -1) {
+                    ret += " and " + short;
+                }
+                else {
+                    ret += short;
+                }
+                if (j < sz - 2) {
+                    ret += ", ";
+                }
             }
         }
         write(ret + "\n");
