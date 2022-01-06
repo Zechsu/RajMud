@@ -1,0 +1,18 @@
+#/clone/player.c
+limbs (["head":(["critical":1,"parent":0,]),"right leg":(["critical":0,"parent":"torso",]),"left arm":(["critical":0,"parent":"torso",]),"torso":(["critical":1,"parent":0,]),"left leg":(["critical":0,"parent":"torso",]),"right arm":(["critical":0,"parent":"torso",]),])
+race "human"
+position 1
+short_desc 0
+long_desc 0
+skills ([])
+exp ([])
+traits ([])
+title "the destroyer"
+name "petrakis"
+current_room 
+inventory ({})
+birthday (/0,10,2,1,0,/)
+aliases ([])
+cwd 0
+play_time 433
+no_color 1

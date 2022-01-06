@@ -1,0 +1,17 @@
+#/clone/player.c
+limbs (["head":(["critical":1,"parent":0,]),"right leg":(["critical":0,"parent":"torso",]),"left arm":(["critical":0,"parent":"torso",]),"torso":(["critical":1,"parent":0,]),"left leg":(["critical":0,"parent":"torso",]),"right arm":(["critical":0,"parent":"torso",]),])
+race "human"
+position 2
+short_desc 0
+long_desc 0
+skills (["mining":(["level":1,"exp":5,]),])
+traits ([])
+title "the ass"
+name "Edmond"
+current_room "/domains/test/rooms/testr"
+inventory ({})
+birthday (/0,1,1,1,0,/)
+aliases (["obs":"eval return objects()",])
+cwd "/std/obj/beetles/"
+play_time 64025
+no_color 0

@@ -14,13 +14,13 @@
 /docs/vendor
 /venv/
 
-lib/log
-lib/log/log
-lib/log/compile
-lib/log/domain_stats
-lib/u/passwords/
-lib/data/secure/
-lib/data/
+#lib/log
+#lib/log/log
+#lib/log/compile
+#lib/log/domain_stats
+#lib/u/passwords/
+#lib/data/secure/
+#lib/data/
 lib/tmp_eval_file.c
 
 lib/tmp_eval_file.c
