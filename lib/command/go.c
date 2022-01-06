@@ -1,3 +1,4 @@
+#include <globals.h>
 #include <command.h>
 
 int main(string arg) {
@@ -11,10 +12,11 @@ int main(string arg) {
     if (environment(tp)->is_door(arg)) {
         if (exits[arg]["door"]->is_open()) {
             if (exits[arg]["destination"]->event_enter(tp)) {
-                write("You walk " + arg + ".\n");
-                say(tp->query_name() + " heads " + arg + "\n");
+                int pos = tp->query_position();
+                write(sprintf("You %s %s.\n", POSITION_D->query_you_move_action(pos), arg));
+                say(sprintf("%s %s %s.\n", tp->query_name(), POSITION_D->query_other_move_action(pos), arg));
                 tp->move(exits[arg]["destination"]);
-                say(tp->query_name() + " comes from " + arg + "\n");
+                say(sprintf("%s %s from %s.\n", tp->query_name(), POSITION_D->query_other_move_action(pos), arg));
                 tp->call_verb("look", "");
                 return 1;
             }
@@ -28,10 +30,11 @@ int main(string arg) {
     }
     else if (member_array(arg, keys(exits)) != -1) {
         if (exits[arg]->event_enter()) {
-            write("You walk " + arg + ".\n");
-            say(tp->query_name() + " heads " + arg + "\n");
+            int pos = tp->query_position();
+            write(sprintf("You %s %s.\n", POSITION_D->query_you_move_action(pos), arg));
+            say(sprintf("%s %s %s.\n", tp->query_name(), POSITION_D->query_other_move_action(pos), arg));
             tp->move(exits[arg]);
-            say(tp->query_name() + " comes from " + arg + "\n");
+            say(sprintf("%s %s from %s.\n", tp->query_name(), POSITION_D->query_other_move_action(pos), arg));
             tp->call_verb("look", "");
             return 1;
         }

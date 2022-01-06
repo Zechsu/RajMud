@@ -14,6 +14,21 @@ string* query_limbs() {
      return (limbs? keys(limbs) : 0);
 }
 
+string query_random_limb() {
+     return element_of(query_limbs());
+}
+
+int event_receive_damage(int damage, string limb) {
+     if (!limb) {
+          limb = query_random_limb();
+     }
+     limbs[limb]["health"] -= damage;
+}
+
+mapping query_body() {
+     return limbs;
+}
+
 int create_new_body(string race) {
      if (!race) {
           debug_message("No race given for body creation\n");

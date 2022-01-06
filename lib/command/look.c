@@ -100,7 +100,7 @@ int look(object tp) {
                 }
             }
         }
-        write(ret + "\n");
+        write(ret + ".\n");
     }
 
     return 1;

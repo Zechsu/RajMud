@@ -1,13 +1,7 @@
-RAJMUD 0.1.3
+RAJMUD 0.2
 
- *  Improves `ls` wiz command
- *  Makes `dest` work for items in inventory
- *  Adds a cooldown on searching (optional)
- *  Makes update work on current room without disconnecting
- *  Changes `who` command a bit
- *  Adds ringo beetle
- *  Adds header files for lib objects
- *  Adds autosaving
- *  Adds `delcompile` and `catcompile` commands for deleting and reading `/log/compile`
- *  Adds STD_RACE for making races
- *  Improves `living`. You can now create living objects and put them in rooms and they will be visible in `look` and `look at`
+ *  More beetles
+ *  Beetles have descriptions
+ *  Adds corpses for dead beetles
+ *  Better look formatting
+ *  Moving messages now based on player's position
