@@ -100,3 +100,7 @@ int query_year() {
 int query_day() {
     return date->day;
 }
+
+int query_month() {
+    return date->month;
+}
