@@ -10,6 +10,7 @@ inherit M_TITLE;
 
 private string name;
 private string current_room;
+private nosave int busy = 0;
 
 void create() {
     ::create();
@@ -46,11 +47,15 @@ int is_living() {
     return 1;
 }
 
-varargs int move(mixed dest, int flag) {
-    ::move(dest);
-    if (!flag) {
-        current_room = dest;
+varargs int event_move(mixed dest, int flag) {
+    if (!busy) {
+        ::move(dest);
+        if (!flag) {
+            current_room = dest;
+        }
+        return 1;
     }
+    return 0;
 }
 
 string query_current_room() {
@@ -59,4 +64,13 @@ string query_current_room() {
 
 int force_me(string cmd) {
     return command(cmd);
+}
+
+varargs void set_busy(int arg) {
+    if (!arg) {
+        busy = 1;
+    }
+    else {
+        busy = 0;
+    }
 }
