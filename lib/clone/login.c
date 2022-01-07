@@ -1,4 +1,5 @@
 #include <globals.h>
+inherit CLEAN_UP;
 
 private nomask int valid_name(string name);
 

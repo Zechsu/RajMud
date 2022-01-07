@@ -161,3 +161,22 @@ string query_nth(int num) {
             return num + "th";
     }
 }
+
+string invert_cardinal_direction(string dir) {
+    switch (lower_case(dir)) {
+        case "north":
+            return "south";
+        case "west":
+            return "east";
+        case "south":
+            return "north";
+        case "east":
+            return "west";
+        case "in":
+            return "outside";
+        case "out":
+            return "inside";
+        default:
+            return "undefined";
+    }
+}

@@ -20,12 +20,14 @@ int main(string str) {
         player1 = find_player(pl1);
 
         if (player1 && player2) {
-            player1->move(environment(player2));
+            string where = file_name(environment(player2));
+            player1->event_move(where);
             if (pl2 == "me") {
                 write("You teleport " + pl1 + " to you.\n");
             }
             else {
                 write("You teleport " + pl1 + " to " + pl2 + ".\n");
+                say(pl1, sprintf("%s materializes before you.\n", pl1->query_short()));
             }
             return 1;
         }
@@ -33,8 +35,11 @@ int main(string str) {
     if (sscanf(str, "%s", pl1) == 1) {
         object target = find_player(pl1);
         if (target) {
-            this_player()->move(environment(target));
+            object tp = this_player();
+            string where = file_name(environment(target));
+            tp->event_move(where);
             write("You teleport to " + pl1 + ".\n");
+            say(sprintf("%s materializes before you.\n", tp->query_short()));
             return 1;
         }
     }

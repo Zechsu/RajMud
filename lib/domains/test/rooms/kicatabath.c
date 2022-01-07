@@ -24,7 +24,7 @@ int do_push(string str) {
     if (str == "sink" || str == "the sink") {
         if (!opened) {
             object door = new(LIB_DOOR);
-            tell_object(this_player(), "A secret path opens.\n");
+            tell_room(this_object(), "A secret path opens!\n");
             door->add_side("in", "/domains/test/rooms/chamber", "out");
             door->toggle_opened();
             opened = 1;
