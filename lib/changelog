@@ -5,3 +5,4 @@ RAJMUD 0.2
  *  Adds corpses for dead beetles
  *  Better look formatting
  *  Moving messages now based on player's position
+ *  Item names in inventory are sorted
