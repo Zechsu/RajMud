@@ -5,14 +5,13 @@ position 1
 short_desc 0
 long_desc 0
 skills ([])
-exp (["mining":2,])
 traits ([])
 title "the Great"
 name "Ishpreet"
-current_room "/domains/test/rooms/chamber"
-inventory ({"([\"weight\":2,\"#base_name#\":\"/domains/test/items/coal\",])","([\"#base_name#\":\"/domains/test/items/raciststone\",])","([\"#base_name#\":\"/domains/test/items/knife\",])",})
+current_room "/domains/test/rooms/testr"
+inventory ({"([\"#base_name#\":\"/std/obj/beetles/scarab\",])","([\"#base_name#\":\"/std/obj/beetles/hercules\",])","([\"#base_name#\":\"/domains/test/items/knife\",])","([\"#base_name#\":\"/domains/test/items/raciststone\",])","([\"weight\":2,\"#base_name#\":\"/domains/test/items/coal\",])","([\"#base_name#\":\"/domains/test/items/knife\",])",})
 birthday (/22,9,2,1,0,/)
 aliases ([])
 cwd 0
-play_time 638
+play_time 1601
 no_color 0
