@@ -42,7 +42,7 @@ private void create_user_object(string name) {
     // until chargen
     user->set_race("human");
     user->move(user->query_current_room());
-    debug_message(name + " has logged in");
+    Log("login", strftime("%D [%H:%M:%S] ", time()) + name + "\n");
     destruct(this_object());
 }
 

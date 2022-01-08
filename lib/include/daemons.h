@@ -8,10 +8,12 @@
 #define SKILL_D                 "daemon/skill_d"
 #define NATURE_D                "daemon/nature_d"
 #define POSITION_D              "daemon/position_d"
+#define LOG_D                   "daemon/log_d"
 
 // FUNCTIONS
 #define Material(x)             MATERIAL_D->query_material(x)
 #define Race(x)                 RACE_D->query_race_file(x)
 #define Skill(x)                SKILL_D->query_skill(x)
+#define Log(x, y)               LOG_D->log(x, y);
 
 #endif
