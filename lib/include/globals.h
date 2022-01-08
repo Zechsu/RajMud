@@ -61,6 +61,7 @@
 #define LIB_STORAGE         "/inherit/storage"
 #define LIB_BIRTHDAY        "/inherit/user/birthday"
 #define LIB_CORPSE          "/std/obj/corpse"
+#define LIB_PORTAL          "/inherit/portal"
 
 // classes for message() efun.
 #define M_STATUS            "status"
