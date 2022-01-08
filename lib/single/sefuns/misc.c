@@ -180,3 +180,28 @@ string invert_cardinal_direction(string dir) {
             return "undefined";
     }
 }
+
+// Returns an list formatted like "string1, string2, string3 and string4"
+string list_strings(string* strings) {
+    string ret = "";
+    int sz = sizeof(strings);
+    for (int i = 0; i < sz; i++) {
+        if (i == sz -1) {
+            ret += " and " + strings[i];
+        }
+        else {
+            ret += strings[i];
+        }
+        if (i < sz - 2) {
+            ret += ", ";
+        }
+    }
+    return ret;
+}
+
+string capitalize_colored(string str) {
+    string rmv = remove_color(str);
+    int idx = strsrch(str, rmv[0]);
+    str[idx..idx] = capitalize(str[idx..idx]);
+    return str;
+}

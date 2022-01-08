@@ -24,9 +24,12 @@ int main(string str) {
             player1->event_move(where);
             if (pl2 == "me") {
                 write("You teleport " + pl1 + " to you.\n");
+                tell_object(player1, "You materialize before " + player2->query_short() + ".\n");
+                player1->call_verb("look", "");
             }
             else {
                 write("You teleport " + pl1 + " to " + pl2 + ".\n");
+                player1->call_verb("look", "");
                 say(pl1, sprintf("%s materializes before you.\n", pl1->query_short()));
             }
             return 1;
@@ -40,6 +43,7 @@ int main(string str) {
             tp->event_move(where);
             write("You teleport to " + pl1 + ".\n");
             say(sprintf("%s materializes before you.\n", tp->query_short()));
+            tp->call_verb("look", "");
             return 1;
         }
     }
