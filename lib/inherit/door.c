@@ -1,6 +1,5 @@
 #include <globals.h>
 
-inherit CLEAN_UP;
 inherit M_OPEN;
 inherit M_LOCK;
 

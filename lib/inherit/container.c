@@ -64,6 +64,7 @@ varargs mixed event_recieve_item(object item, object who) {
     }
     item->move(this_object());
     write("You put " + item->query_short() + " in " + query_short() + ".\n");
+    say(sprintf("%s puts %s in %s", who->query_short(), item->query_short(), query_short()));
     return 1;
 }
 

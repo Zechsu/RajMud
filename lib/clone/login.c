@@ -61,10 +61,13 @@ private int user_exists( string name ) {
 } 
 
 void accept_name(string name) {
-    if ( trim(name) == "" ) {
+    if ( trim(name) == "" || trim(name) == "quit") {
         destruct(this_object());
         return;
     }
+    // Remove spaces at the end and beggining of names so we don't fuck sprintfs
+    name = rtrim(name);
+    name = ltrim(name);
     if (valid_name(name)) {
         if ( user_exists(name) ) {
             write("Welcome back, " +name+ "\nEnter password: ");

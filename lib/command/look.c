@@ -31,14 +31,10 @@ int main(string arg) {
 }
 
 int look(object tp) {
-    string desc;
-    string exits = "";
+    string desc, ret = "", exits = "";
     object room = environment(tp);
     string* exit_keys;
-    object* inv;
-    object* living;
-    object* items;
-    string ret = "";
+    object* inv, *living, *items, *specials;
 
     if (!room) {
         return notify_fail("You're in the void.\n");
@@ -66,6 +62,19 @@ int look(object tp) {
 
     living = filter_array(inv, (:$1->is_living():));
     items = filter_array(inv, (: $1->is_visible():));
+    specials = filter_array(items, (: $1->is_portal() :));
+    items -= specials;
+
+    if (sizeof(specials)) {
+        int spsz = sizeof(specials);
+        if (spsz == 1) {
+            write(capitalize_colored(specials[0]->query_short()) + " is here.\n");
+        }
+        else {
+            string sps = list_strings(specials->query_short()) + " are here.";
+            write(capitalize_colored(sps) + "\n");
+        }
+    }
 
     if (sizeof(items) || sizeof(living)) {
         tell_object(tp, "\n");
@@ -84,21 +93,7 @@ int look(object tp) {
             ret += items[0]->query_short();
         }
         else {
-            for (j = 0; j < sz; j++) {
-                string short = items[j]->query_short();
-                if (!short) {
-                    continue;
-                }
-                if (j == sz -1) {
-                    ret += " and " + short;
-                }
-                else {
-                    ret += short;
-                }
-                if (j < sz - 2) {
-                    ret += ", ";
-                }
-            }
+            ret += list_strings(map_array(items, (:$1->query_short():)));
         }
         write(ret + ".\n");
     }
