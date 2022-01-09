@@ -1,4 +1,5 @@
-#include <globals.h>
+#include <lib.h>
+#include <modules.h>
 #include "include/item.h"
 
 inherit BASE;

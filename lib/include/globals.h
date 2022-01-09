@@ -8,8 +8,8 @@
 #define staticv static
 #endif
 
-#include "tests.h"
 #include "daemons.h"
+#include "lib.h"
 #include "modules.h"
 
 #define ENV(x)              environment(x)
@@ -44,24 +44,6 @@
 
 #define COMMAND_PREFIX      "/command/"
 
-// Components
-#define LIB_ROOM            "/inherit/room"
-#define LIB_ITEM            "/inherit/item"
-#define LIB_PROP            "/inherit/prop"
-#define LIB_DOOR            "/inherit/door"
-#define LIB_CONTAINER       "/inherit/container"
-#define LIB_PERSIST         "/inherit/persist"
-#define LIB_BODY            "/inherit/body"
-#define LIB_RACE            "/inherit/race"
-#define LIB_AUTOSAVE        "/inherit/user/autosave"
-#define LIB_LIVING          "/inherit/living"
-#define LIB_POSITION        "/inherit/living/position"
-#define LIB_GATHERABLE      "/inherit/gatherable"
-#define LIB_RESOURCE        "/inherit/resource"
-#define LIB_STORAGE         "/inherit/storage"
-#define LIB_BIRTHDAY        "/inherit/user/birthday"
-#define LIB_CORPSE          "/std/obj/corpse"
-#define LIB_PORTAL          "/inherit/portal"
 
 // classes for message() efun.
 #define M_STATUS            "status"

@@ -1,4 +1,4 @@
-#include <globals.h>
+#include <lib.h>
 #include "../def.h"
 
 inherit LIB_ROOM;

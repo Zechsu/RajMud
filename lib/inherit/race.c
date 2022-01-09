@@ -1,4 +1,5 @@
-#include <globals.h>
+#include <lib.h>
+#include <daemons.h>
 
 inherit LIB_BODY;
 

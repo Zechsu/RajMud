@@ -1,4 +1,4 @@
-#include <globals.h>
+#include <lib.h>
 #include "colors.h"
 
 inherit LIB_ITEM;

@@ -1,4 +1,4 @@
-#include <globals.h>
+#include <lib.h>
 
 inherit LIB_RESOURCE;
 

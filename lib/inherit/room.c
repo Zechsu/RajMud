@@ -8,7 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#include <globals.h>
+#include <modules.h>
+#include <lib.h>
 
 inherit M_DESC;
 inherit M_EXITS;

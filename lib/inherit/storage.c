@@ -1,4 +1,5 @@
-#include <globals.h>
+#include <lib.h>
+#include <modules.h>
 
 inherit LIB_CONTAINER;
 inherit M_OPEN;

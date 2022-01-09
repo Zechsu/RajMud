@@ -9,7 +9,8 @@
  * 
  */
 
-#include <globals.h>
+#include <lib.h>
+#include <modules.h>
 
 inherit LIB_ITEM;
 inherit M_INVENTORY;

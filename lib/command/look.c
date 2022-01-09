@@ -86,10 +86,8 @@ int look(object tp) {
         }
     }
     if (sizeof(items)) {
-        int j;
-        int sz = sizeof(items);
         ret = "You see ";
-        if (sz == 1) {
+        if (sizeof(items) == 1) {
             ret += items[0]->query_short();
         }
         else {
