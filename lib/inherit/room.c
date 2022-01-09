@@ -129,6 +129,6 @@ void add_door(string short, string side, string dest, mixed flag) {
             return;
         }
         dest->set_exit(flag, door);
-        door->set_destination(flag, this_object());
+        door->set_destination(flag, file_name(this_object()));
     }
 }

@@ -52,10 +52,7 @@ varargs int event_move(mixed dest, int flag) {
     if (!busy) {
         ::move(dest);
         if (!flag) {
-            if (stringp(dest))
-                current_room = dest;
-            else if (objectp(dest))
-                current_room = file_name(dest);
+            current_room = dest;
         }
         return 1;
     }
