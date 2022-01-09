@@ -1,3 +1,14 @@
+/**
+ * @file container.c
+ * @author Rajo (zechsnox@gmail.com)
+ * @brief Used for objects which hold things
+ * @version 0.1
+ * @date 2022-01-09
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <globals.h>
 
 inherit LIB_ITEM;
@@ -9,10 +20,20 @@ void create() {
     set_save_recurse(1);
 }
 
+/**
+ * @brief Checks if object is container
+ * 
+ * @return int Returns 1 if it's container
+ */
 int is_container() {
     return 1;
 }
 
+/**
+ * @brief Returns a string of contents
+ * 
+ * @return string "It holds: ..."
+ */
 string query_contents_mess() {
     string ret = "";
     object* inv = all_inventory(this_object());
@@ -33,6 +54,12 @@ string query_contents_mess() {
     return ret;
 }
 
+/**
+ * @brief Look inside the container
+ * 
+ * @param who Object looking
+ * @return mixed
+ */
 varargs mixed event_look_in(object who) {
     if (!who) {
         who = TP;
@@ -41,6 +68,12 @@ varargs mixed event_look_in(object who) {
     return 1;
 }
 
+/**
+ * @brief Check if `who` can put something inside the container
+ * 
+ * @param who Object putting something
+ * @return int
+ */
 int can_put(object who) {
     if (!who) {
         who = this_player();
@@ -51,6 +84,13 @@ int can_put(object who) {
     return 1;
 }
 
+/**
+ * @brief Put item inside the container
+ * 
+ * @param item Item
+ * @param who Living object who put it
+ * @return mixed
+ */
 varargs mixed event_recieve_item(object item, object who) {
     if (!who) {
         who = this_player();
@@ -68,6 +108,13 @@ varargs mixed event_recieve_item(object item, object who) {
     return 1;
 }
 
+/**
+ * @brief Get something out of the container
+ * 
+ * @param who Living object
+ * @param what Item
+ * @return mixed
+ */
 varargs mixed event_get(object who, string what) {
     object item;
     if (!who) {

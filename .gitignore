@@ -22,3 +22,5 @@ lib/data/
 lib/tmp_eval_file.c
 
 lib/Doxyfile
+lib/Doxyfile.bak
+src/www/docs/

@@ -1,9 +1,20 @@
+/**
+ * @file portal.c
+ * @author Rajo (zechsnox@gmail.com)
+ * @brief Base objects for portals
+ * @version 0.1
+ * @date 2022-01-09
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <globals.h>
 
 inherit BASE;
 inherit M_DESC;
 inherit M_VISIBLE;
 
+//! Where the portal leads to
 private string destination;
 
 void create() {
@@ -17,20 +28,42 @@ void init() {
     add_action("event_enter", "enter");
 }
 
+/**
+ * @brief Set where the portal leads to
+ * 
+ * @param dest Room file
+ */
 void set_destination(string dest) {
     if (load_object(dest)) {
         destination = dest;
     }
 }
 
+/**
+ * @brief Returns destination of portal
+ * 
+ * @return string Room file
+ */
 string query_destination() {
     return destination;
 }
 
+/**
+ * @brief Checks if living can enter
+ * 
+ * @param who Living
+ * @return int 
+ */
 int can_enter(object who) {
     return 1;
 }
 
+/**
+ * @brief Living entered portal
+ * 
+ * @param args Name (used for id-ing the portal)
+ * @return int 
+ */
 int event_enter(string args) {
     object who;
     if (!args) {
@@ -49,6 +82,11 @@ int event_enter(string args) {
     return 1;
 }
 
+/**
+ * @brief Checks if object is portal
+ * 
+ * @return int 
+ */
 int is_portal() {
     return 1;
 }
