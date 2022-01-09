@@ -162,7 +162,7 @@ string query_nth(int num) {
     }
 }
 
-string invert_cardinal_direction(string dir) {
+varargs string invert_cardinal_direction(string dir, int flag) {
     switch (lower_case(dir)) {
         case "north":
             return "south";
@@ -173,9 +173,9 @@ string invert_cardinal_direction(string dir) {
         case "east":
             return "west";
         case "in":
-            return "outside";
+            return flag? "outside" : "out";
         case "out":
-            return "inside";
+            return flag? "inside" : "in";
         default:
             return "undefined";
     }

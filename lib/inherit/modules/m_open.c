@@ -14,6 +14,12 @@ private int opened;
 private int can_open;
 private int can_close;
 
+void create() {
+    opened = 0;
+    can_open = 1;
+    can_close = 1;
+}
+
 /**
  * @brief Checks if object is opened
  * 

@@ -31,6 +31,10 @@ void set_exits(mapping new_exits) {
     exits = new_exits;
 }
 
+void set_exit(string direction, mixed dest) {
+    exits[direction] = dest;
+}
+
 /**
  * @brief Removes an exit
  * 
@@ -61,57 +65,16 @@ string* query_exit_keys() {
 }
 
 /**
- * @brief Adds a door to this room\n
- * This is called by the door object
- * 
- * @param side On which exit is the door
- * @param door Object of the door
- * @param destination Where the door leads
- * @return int Returns 1 if added
- */
-int add_door(string side, object door, string destination) {
-    // If not given a destination try to add it to an existing side
-    if (!destination) {
-        // If side already exists, add a door to it
-        if (exits[side]) {
-            exits[side] = (["destination":exits[side], "door":door]);
-            return 1;
-        }
-        debug_message("Side does not exist\n");
-        return 0;
-    }
-    // If given a destination, maka a new side
-    else {
-        exits[side] = (["destination":destination, "door":door]);
-        return 1;
-    }
-}
-
-/**
- * @brief Checks if exit has a door
- * 
- * @param side Direction of exit
- * @return int Returns 1 if it's a door
- */
-int is_door(string side) {
-    if (mapp(exits[side])) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
-
-/**
  * @brief Returns the door object of an exit
  * 
  * @param dir Direction of the exit
  * @return object Door object
  */
 object query_door(string dir) {
-    if (exits[dir]["door"]) {
-        return exits[dir]["door"];
+    if (objectp(exits[dir])) {
+        return exits[dir];
     }
+    return 0;
 }
 
 /**
@@ -121,7 +84,7 @@ object query_door(string dir) {
  * @return string Location of the room file
  */
 string query_destination(string dir) {
-    if (exits[dir]["destination"]) {
-        return exits[dir]["destination"];
+    if (exits[dir]) {
+        return exits[dir];
     }
 }

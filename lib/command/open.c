@@ -7,9 +7,10 @@ int main(string str) {
     if (!str) {
         return notify_fail("Open what?\n");
     }
-
-    if (ENV(tp)->is_door(str)) {
-        return ENV(tp)->query_door(str)->event_open();
+    
+    ob = environment(tp)->query_door(str);
+    if (ob) {
+        return ob->event_open(tp);
     }
     
     ob = present(str, tp);
@@ -18,7 +19,7 @@ int main(string str) {
         return ob->event_open(tp);
     }
     else {
-        write("Couldn't find anything to open.\n");
+        write("Couldn't find that.\n");
         return 1;
     }
 
