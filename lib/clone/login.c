@@ -44,7 +44,7 @@ private void create_user_object(string name) {
     // until chargen
     user->set_race("human");
     user->move(user->query_current_room());
-    Log("login", strftime("%D [%H:%M:%S] ", time()) + name + "\n");
+    Log("login", strftime("%D [%H:%M:%S] ", time()) + name);
     destruct(this_object());
 }
 

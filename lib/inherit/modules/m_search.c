@@ -46,7 +46,7 @@ mixed event_searched(object who) {
     }
     name = who->query_name();
     if (players_searched[name]) {
-        return "You've already searched here, try again later.\n";
+        return "You've already searched here, try again in a bit.\n";
     }
     result = element_of_weighted(search_table);
     if (!players_searched[name]) {
