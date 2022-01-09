@@ -20,3 +20,5 @@ lib/u/passwords/
 lib/data/
 
 lib/tmp_eval_file.c
+
+lib/Doxyfile
