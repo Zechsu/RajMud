@@ -8,4 +8,5 @@ void create() {
     set_long("Test your lockpicking skills on it!");
     set_ids(({"chest"}));
     set_locked(1);
+    set_can_lockpick(1);
 }

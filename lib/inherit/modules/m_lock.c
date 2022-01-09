@@ -5,7 +5,7 @@ private int can_lockpick;
 private int complexity;
 
 void create() {
-    set_can_lockpick(1);
+    set_can_lockpick(0);
     set_complexity(0);
 }
 

@@ -1,9 +1,8 @@
 #include <globals.h>
 
+inherit M_DESC;
 inherit M_OPEN;
 inherit M_LOCK;
-
-int is_opened = 0;
 
 int add_side(string side, string destination, string other_side, object room) {
     if (!room) {

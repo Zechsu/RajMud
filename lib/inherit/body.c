@@ -18,7 +18,7 @@ string query_random_limb() {
      return element_of(query_limbs());
 }
 
-int event_receive_damage(int damage, string limb) {
+varargs int event_receive_damage(int damage, string limb) {
      if (!limb) {
           limb = query_random_limb();
      }
