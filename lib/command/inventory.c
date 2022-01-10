@@ -8,7 +8,13 @@ int main(string str) {
     if (!str || !sizeof(trim(str))) {
         tell_object(tp, "You currently hold: \n");
         foreach(object ob in all_inventory(tp)) {
-            write(ob->query_short() + "\n");
+            string ret = ob->query_short();
+            if (ob->query_wielded()) {
+                ret += " (wielded)\n";
+                write(ret);
+                continue;
+            }
+            write(ret + "\n");
         }
         return 1;
     } else {

@@ -1,0 +1,15 @@
+#include <command.h>
+
+int main(string arg) {
+    object ob;
+    if (!arg || trim(arg) == "") {
+        return notify_fail("Unwield what?\n");
+    }
+    ob = present(arg, this_player());
+    if (ob) {
+        return ob->event_unwield(this_player());
+    }
+    else {
+        return notify_fail("You do not have that.\n");
+    }
+}

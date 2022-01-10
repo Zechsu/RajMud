@@ -27,5 +27,13 @@ void create() {
             "critical":0,
             "parent":"torso",
         ]),
+        "right hand":([
+            "critical":0,
+            "parent":"right arm",
+        ]),
+        "left hand":([
+            "critical":0,
+            "parent":"left arm",
+        ]),
     ]));
 }
