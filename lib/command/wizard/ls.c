@@ -12,7 +12,7 @@ int main(string str) {
         else {
             write(sprintf("%-30.30s", dir[i]));
         }
-        if (i % 4 == 0) {
+        if (i % 4 == 0 && i != 0) {
             write("\n");
         }
     }
