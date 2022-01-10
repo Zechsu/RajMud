@@ -8,6 +8,7 @@ inherit M_DESC;
 inherit M_SKILLS;
 inherit M_TRAITS;
 inherit M_TITLE;
+inherit M_INVENTORY;
 
 private string name;
 private string current_room;
@@ -23,7 +24,7 @@ void create() {
 
 void set_name(string n) {
     name = n;
-    set_ids(({n}));
+    set_ids(({n, lower_case(n)}));
 }
 
 string query_name() {

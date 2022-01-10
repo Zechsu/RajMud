@@ -108,7 +108,7 @@ int look_at(object tp, string look_at_item) {
 
     if (strsrch(look_at_item, "here") != -1) {
         look_at_item = rtrim(replace_string(look_at_item, "here", ""));
-        if (ob = present(look_at_item, ENV(tp))) {
+        if (ob = present(look_at_item, environment(tp))) {
             write(ob->query_long() + "\n");
             return 1;
         }
@@ -116,8 +116,9 @@ int look_at(object tp, string look_at_item) {
             return notify_fail("There is no " + look_at_item + " here.\n");
         }
     }
+    look_at_item = lower_case(look_at_item);
     ob = present(look_at_item, tp);
-    if (!ob) ob = present(look_at_item, ENV(tp));
+    if (!ob) ob = present(look_at_item, environment(tp));
     if (ob) {
         write(ob->query_long() + "\n");
         return 1;
