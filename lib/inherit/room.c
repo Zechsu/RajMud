@@ -121,14 +121,17 @@ void add_door(string short, string side, string dest, mixed flag) {
             return;
         }
         dest->set_exit(invert_cardinal_direction(side), door);
+        door->set_destination(invert_cardinal_direction(side), file_name(this_object()));
     }
     // Else, if given a specific direction, use that one
     else if (stringp(flag)) {
+        // If destination already has a room, don't add any
         if (dest->query_door(flag)) {
             Log("debug", sprintf("Tried to add a door to already existing one at %O side %s to room %s", this_object(), side, dest));
             return;
         }
         dest->set_exit(flag, door);
+        // Change destination with file_name, since this will change "current_dest" variable to a string which can be saved
         door->set_destination(flag, file_name(this_object()));
     }
 }

@@ -23,7 +23,7 @@ int do_push(string str) {
     }
     if (str == "sink" || str == "the sink") {
         if (!opened) {
-            add_door("a secret tunnel", "in", __DIR__ + "chamber", "out");
+            add_door("a secret tunnel", "in", __DIR__ + "chamber", 1);
             query_door("in")->set_can_close(0);
             query_door("in")->set_can_open(0);
             query_door("in")->toggle_opened();
