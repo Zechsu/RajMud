@@ -44,6 +44,7 @@ private void create_user_object(string name) {
     // until chargen
     user->set_race("human");
     user->move(user->query_current_room());
+    user->set_gender(1);
     Log("login", strftime("%D [%H:%M:%S] ", time()) + name);
     destruct(this_object());
 }

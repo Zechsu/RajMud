@@ -27,3 +27,13 @@ object query_item_from_inventory(string item) {
     }
     return 0;
 }
+
+string query_wielded() {
+    object tp = this_player();
+    object* equips = all_inventory(tp);
+    object* wielded = filter_array(equips, (:$1->is_weapon():));
+    if (sizeof(wielded)) {
+        return sprintf("Wielding %s in %s %s", wielded[0]->query_short(), tp->query_possessive_determiner(), wielded[0]->query_wielded());
+    }
+    return 0;
+}

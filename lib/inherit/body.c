@@ -9,8 +9,11 @@
  * 
  */
 #include <globals.h>
+#include <modules.h>
 #include "include/race.h"
 #include "include/body.h"
+
+inherit M_GENDER;
 
 private mapping limbs = ([]);
 

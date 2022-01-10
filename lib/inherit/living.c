@@ -42,7 +42,11 @@ string query_short() {
 }
 
 string query_long() {
-    return sprintf("%s is nondescript.", name);
+    // PRONOUN is a RACE
+    string ret = sprintf("%s is a %s.\n", capitalize(query_pronoun()), query_race());
+    // Wielding WEAPON in LIMB
+    ret += query_wielded();
+    return ret;
 }
 
 int is_living() {

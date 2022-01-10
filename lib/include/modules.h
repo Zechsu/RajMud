@@ -1,3 +1,6 @@
+#ifndef __l_modules_h__
+#define __l_modules_h__
+
 // modules
 #define M_PRIVILEGES        "/inherit/secure/m_privileges"
 #define M_ALIASES           "/inherit/secure/m_aliases"
@@ -13,3 +16,6 @@
 #define M_PLAYTIME          "/inherit/modules/m_playtime"
 #define M_VISIBLE           "/inherit/modules/m_visible"
 #define M_TITLE             "/inherit/modules/m_title"
+#define M_GENDER            "/inherit/living/gender"
+
+#endif

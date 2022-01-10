@@ -9,6 +9,7 @@
 #define NATURE_D                "daemon/nature_d"
 #define POSITION_D              "daemon/position_d"
 #define LOG_D                   "daemon/log_d"
+#define GENDER_D                "daemon/gender_d"
 
 // FUNCTIONS
 #define Material(x)             MATERIAL_D->query_material(x)
