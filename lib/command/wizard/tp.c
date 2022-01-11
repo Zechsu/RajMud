@@ -11,25 +11,25 @@ int main(string str) {
     }
     if (sscanf(str, "%s %s", pl1, pl2) == 2) {
         object player1, player2;
-        if (pl2 == "me") {
+
+        if (pl2 == "me")
             player2 = this_player();
-        }
-        else {
+        else
             player2 = find_player(pl2);
-        }
+
         player1 = find_player(pl1);
 
         if (player1 && player2) {
             string where = file_name(environment(player2));
             player1->event_move(where);
             if (pl2 == "me") {
-                write("You teleport " + pl1 + " to you.\n");
+                write("You teleport " + player1->query_short() + " to you.\n");
                 tell_object(player1, "You materialize before " + player2->query_short() + ".\n");
-                player1->call_verb("look", "");
+                player1->force_me("look");
             }
             else {
                 write("You teleport " + pl1 + " to " + pl2 + ".\n");
-                player1->call_verb("look", "");
+                player1->force_me("look");
                 say(pl1, sprintf("%s materializes before you.\n", pl1->query_short()));
             }
             return 1;
@@ -43,7 +43,7 @@ int main(string str) {
             tp->event_move(where);
             write("You teleport to " + pl1 + ".\n");
             say(sprintf("%s materializes before you.\n", tp->query_short()));
-            tp->call_verb("look", "");
+            tp->force_me("look");
             return 1;
         }
     }
