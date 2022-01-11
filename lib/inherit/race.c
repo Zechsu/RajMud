@@ -6,7 +6,7 @@ inherit LIB_BODY;
 private string race;
 
 void create() {
-    body::create();
+    ::create();
     if (!race) {
         race = "Undefined race";
     }

@@ -102,7 +102,7 @@ varargs int event_go(string direction, object who) {
 
     // Write message when arrived
     say(sprintf("%s %s from %s.\n", who->query_name(), POSITION_D->query_other_move_action(pos), inverse));
-    who->call_verb("look", "");
+    who->force_me("look");
     return 1;
 }
 

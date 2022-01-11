@@ -1,4 +1,5 @@
 #include <globals.h>
+#include <daemons.h>
 #include <security.h>
 
 private mapping users;
@@ -79,9 +80,7 @@ nomask string* query_all_wizards() {
 string* query_search_paths(mixed user) {
     if (stringp(user)) {
         string* ret = ({});
-        if (query_user(user)) {
-            ret += ({COMMAND_PREFIX});
-        }
+        ret += ({COMMAND_PREFIX});
         if (query_wizard(user)) {
             ret += ({"/command/wizard/"});
         }

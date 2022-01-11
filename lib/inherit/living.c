@@ -4,6 +4,7 @@
 inherit BASE;
 inherit LIB_RACE;
 inherit LIB_POSITION;
+inherit LIB_COMMAND;
 inherit M_DESC;
 inherit M_SKILLS;
 inherit M_TRAITS;
@@ -16,15 +17,20 @@ private nosave int busy = 0;
 
 void create() {
     ::create();
-    position::create();
+    enable_commands();
     if (!current_room) {
         current_room = TEST_ROOM;
     }
 }
 
+void setup() {
+    command::setup();
+}
+
 void set_name(string n) {
     name = n;
     set_ids(({n, lower_case(n)}));
+    set_living_name(name);
 }
 
 string query_name() {
@@ -43,9 +49,13 @@ string query_short() {
 
 string query_long() {
     // PRONOUN is a RACE
-    string ret = sprintf("%s is a %s.\n", capitalize(query_pronoun()), query_race());
+    string ret = sprintf("%s is a %s.", capitalize(query_pronoun()), query_race());
     // Wielding WEAPON in LIMB
-    ret += query_wielded();
+    // m_inventory::query_wielded()
+    string worn = query_wielded();
+    if (worn != 0) {
+        ret += "\n" + worn;
+    }
     return ret;
 }
 

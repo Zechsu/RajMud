@@ -41,7 +41,7 @@ varargs mixed event_wield(object who, string limb) {
         return 0;
     }
     write("You wield " + query_short() + ".\n");
-    say(sprintf("%s wields %s", this_player()->query_name(), query_short()));
+    say(sprintf("%s wields %s.\n", this_player()->query_name(), query_short()));
     wielded = limb;
     return 1;
 }
@@ -54,7 +54,7 @@ varargs event_unwield(object who) {
         return 0;
     }
     write("You unwield " + query_short() + ".\n");
-    say(sprintf("%s unwields %s", this_player()->query_name(), query_short()));
+    say(sprintf("%s unwields %s.\n", this_player()->query_name(), query_short()));
     wielded = 0;
     return 1;
 }
@@ -70,7 +70,7 @@ varargs mixed event_drop(object who) {
 }
 
 void set_valid_limbs(mixed equips) {
-    if (!stringp(equips) || !arrayp(equips)) {
+    if (!stringp(equips) && !arrayp(equips)) {
         Log("debug", sprintf("Item received wrong equipment slots type: %O, expected string|string*", equips));
     }
     valid_limbs = equips;

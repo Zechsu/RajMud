@@ -29,11 +29,10 @@ object query_item_from_inventory(string item) {
 }
 
 string query_wielded() {
-    object tp = this_player();
-    object* equips = all_inventory(tp);
-    object* wielded = filter_array(equips, (:$1->is_weapon():));
+    object* equips = all_inventory(this_object());
+    object* wielded = filter_array(equips, (:$1->query_wielded():));
     if (sizeof(wielded)) {
-        return sprintf("Wielding %s in %s %s", wielded[0]->query_short(), tp->query_possessive_determiner(), wielded[0]->query_wielded());
+        return sprintf("%s is wielding %s in %s %s", capitalize(this_object()->query_pronoun()), wielded[0]->query_short(), this_object()->query_possessive_determiner(), wielded[0]->query_wielded());
     }
     return 0;
 }

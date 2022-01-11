@@ -1,13 +1,13 @@
 #include <globals.h>
 
-nosave string* search_paths;
+private nosave string* search_paths;
 
-void create() {
-    search_paths = SECURE_D->query_search_paths(TO->query_name());
+void setup() {
+    search_paths = SECURE_D->query_search_paths(this_player()->query_name());
 }
 
 string refresh_search_paths() {
-    search_paths = SECURE_D->query_search_paths(this_object()->query_name());
+    search_paths = SECURE_D->query_search_paths(this_player()->query_name());
     return "Refreshed paths\nCurrent paths: " + dump_variable(search_paths);
 }
 
