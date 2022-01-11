@@ -17,5 +17,6 @@
 #define M_VISIBLE           "/inherit/modules/m_visible"
 #define M_TITLE             "/inherit/modules/m_title"
 #define M_GENDER            "/inherit/living/gender"
+#define M_DECAY             "/inherit/modules/m_decay"
 
 #endif

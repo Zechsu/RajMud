@@ -8,6 +8,8 @@ mixed query_you_move_action(int position) {
             return "fly";
         case SITTING:
             return 0;
+        case CRAWLING:
+            return "crawl";
         default:
             return 0;
     }
@@ -21,6 +23,8 @@ mixed query_other_move_action(int position) {
             return "flies";
         case SITTING:
             return 0;
+        case CRAWLING:
+            return "crawls";
         default:
             return 0;
     }

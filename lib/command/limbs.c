@@ -1,11 +1,12 @@
 #include <command.h>
 
 int main(string str) {
-    object tp = TP;
+    object tp = this_player();
+    mapping body = tp->query_body();
     string* limbs = sort_array(tp->query_limbs(), (: strcmp($1, $2) :));
-    write("You have: \n");
+    write("Anatomy report: \n");
     foreach(string limb in limbs) {
-        write(limb + "\n");
+        write(sprintf("%-15s %-15s\n", limb, body[limb]["severed"]? "severed":"okay"));
     }
     return 1;
 }

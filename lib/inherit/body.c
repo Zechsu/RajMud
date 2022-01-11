@@ -10,10 +10,13 @@
  */
 #include <globals.h>
 #include <modules.h>
+#include <lib.h>
 #include "include/race.h"
 #include "include/body.h"
 
 inherit M_GENDER;
+
+string query_short();
 
 private mapping limbs = ([]);
 
@@ -82,4 +85,29 @@ int create_new_body(string race) {
      }
      limbs = Race(race)->query_race_body();
      return 1;
+}
+
+void sever_limb(string limb) {
+     object ob;
+     if (!limbs) {
+          return;
+     }
+     if (!limbs[limb] && limbs[limb]["severed"] == 0) {
+          return;
+     }
+     limbs[limb]["severed"] = 1;
+     foreach (string other in keys(limbs)) {
+          if (limbs[other]["parent"] == limb) {
+               sever_limb(other);
+          }
+     }
+     ob = new("/std/obj/limb");
+     ob->set_short(sprintf("severed %s %s", query_race(), limb));
+     ob->set_long(sprintf("The remains of a %s %s", query_race(), limb));
+     ob->set_ids(({"limb", "severed limb", limb, "severed " + limb, "severed " + query_race() + " " + limb}));
+     ob->move(environment(this_object()));
+     ob->set_decay(1);
+     write("Your " + limb + " falls on the ground.\n");
+     say(sprintf("%s's %s falls on the ground.\n", query_short(), limb));
+     this_object()->check_position();
 }
