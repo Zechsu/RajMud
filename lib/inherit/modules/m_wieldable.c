@@ -5,7 +5,7 @@
 void add_hook(string tag, function hook);
 void hook_state(string tag, function hook, int state);
 int unwield_me(int quietly);
-varargs mixed event_unwield(int quietly);
+varargs mixed event_remove(int quietly);
 
 // requires limbs to wield
 private string* required_limbs;
@@ -13,7 +13,7 @@ private string* required_limbs;
 private string* optional_limbs;
 // if wielded on which limbs is it wielded
 private string* wielded;
-private nosave function move_hook = (: event_unwield, 1 :);
+private nosave function move_hook = (: event_remove, 1 :);
 // is it 1-handed or 2-handed weapon
 private int handed = 1;
 // always worn on the weapon layer
@@ -121,7 +121,7 @@ int unwield_me(int quietly) {
     return 1;
 }
 
-varargs mixed event_unwield(int quietly) {
+varargs mixed event_remove(int quietly) {
     if (!wielded) {
         return notify_fail("You're not wielding that.\n");
     }

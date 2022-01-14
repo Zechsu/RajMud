@@ -88,7 +88,7 @@ int create_new_body(string race) {
 }
 
 void sever_limb(string limb) {
-     object ob, wep;
+     object ob, equip;
      if (!limbs) {
           return;
      }
@@ -111,12 +111,26 @@ void sever_limb(string limb) {
      ob->set_long(sprintf("The remains of a %s %s", query_race(), limb));
      ob->set_ids(({"limb", "severed limb", limb, "severed " + limb, "severed " + query_race() + " " + limb}));
      ob->move(environment(this_object()));
-     ob->set_decay(1);
+     ob->set_decay(5);
 
      // Drop wielded/worn weapons
-     wep = query_worn(limb);
-     if (wep) {
-          wep->event_drop(this_player());
+     equip = query_worn(limb);
+     if (equip) {
+          foreach (object eq in equip) {
+               string* worn = eq->query_worn();
+               eq->remove_worn(limb);
+               if (!sizeof(find_limbs(worn, 1))) {
+                    eq->event_remove(1);
+                    if (eq->is_wieldable()) {
+                         // If it's a weapon then drop it
+                         eq->event_drop();
+                    }
+                    else {
+                         // Move to corpse
+                         eq->move(ob);
+                    }
+               }
+          }
      }
 
      this_object()->check_position();

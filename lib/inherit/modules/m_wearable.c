@@ -24,8 +24,14 @@ int query_layer() {
     return layer;
 }
 
-int is_worn() {
-    return worn? 1 : 0;
+string* query_worn() {
+    return worn;
+}
+
+void remove_worn(string limb) {
+    mapping player_body = this_player()->query_body();
+    worn -= ({limb});
+    player_body[limb]["worn"] -= ({this_object()});
 }
 
 void set_required_limbs(string* limbs) {

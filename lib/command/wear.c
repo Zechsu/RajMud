@@ -8,16 +8,14 @@ int main(string arg) {
 
     if (sscanf(arg, "%s in %s", item, limb) == 2) {
         object ob = present(item, this_player());
-        if (!ob) ob = present(item, environment(this_player()));
-        if (!ob) return notify_fail(sprintf("Couldn't find %s.\n", arg));
+        if (!ob) return notify_fail(sprintf("You do not have %s.\n", arg));
         if (ob->is_wearable()) {
             return ob->event_wear(this_player(), limb);
         }
     }
     else {
         object ob = present(arg, this_player());
-        if (!ob) ob = present(arg, environment(this_player()));
-        if (!ob) return notify_fail(sprintf("Couldn't find %s.\n", arg));
+        if (!ob) return notify_fail(sprintf("You do not have %s.\n", arg));
         if (ob->is_wearable()) {
             return ob->event_wear(this_player());
         }

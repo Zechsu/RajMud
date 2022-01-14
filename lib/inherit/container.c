@@ -44,9 +44,9 @@ string query_contents_mess() {
         ret = "It's empty";
     }
     else {
-        ret = "It holds: \n";
+        ret = "It contains: \n";
         for (int i = 0; i < size; i++) {
-            ret += inv[i]->query_short();
+            ret += "  " + inv[i]->query_short();
             if (i+1 != size) {
                 ret += "\n";
             }

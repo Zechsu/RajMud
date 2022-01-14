@@ -7,7 +7,7 @@ int main(string str) {
     write("Anatomy report: \n");
     foreach(string limb in limbs) {
         object* wielded = tp->query_worn(limb);
-        write(sprintf("%-15s %-15s %-15s\n", limb, body[limb]["severed"]? "severed":"okay", sizeof(wielded)? "%^GREEN%^"+list_strings(wielded->query_short())+"%^RESET%^" : ""));
+        write(sprintf("%-15s %-15s %-15s\n", limb, body[limb]["severed"]? "%^RED%^severed%^RESET%^":"okay", sizeof(wielded)? "%^GREEN%^"+list_strings(wielded->query_short())+"%^RESET%^" : ""));
     }
     return 1;
 }
