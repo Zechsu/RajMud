@@ -47,7 +47,6 @@ string query_short() {
     }
 }
 
-// TODO: Make wielded weapons appear in description
 string query_long() {
     // <PRONOUN> is a <RACE>
     string ret = sprintf("%s is a %s. ", capitalize(query_pronoun()), query_race());

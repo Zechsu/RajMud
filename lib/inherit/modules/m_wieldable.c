@@ -70,7 +70,7 @@ mixed can_wield(object who, string limb) {
     }
 
     // Check if we have enough hands free for 2-handed weapons
-    // TOOD: Make it return all the hands, then we get 2 random hands for 2h or 1 random for 1h weapons
+    // TODO: Make it return all the hands, then we get 2 random hands for 2h or 1 random for 1h weapons
     // Make handedness? trait. If player's right handed just return right hand altho that wouldn't always work I guess
     // Maybe make it inside the human race file. It'll check for handedness and return correct hand
     if (sizeof(hands) >= handed) {
