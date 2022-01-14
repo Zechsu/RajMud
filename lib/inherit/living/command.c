@@ -10,10 +10,6 @@ void setup() {
     add_action("commandHook", "", 1);
 }
 
-void create() {
-    ::create();
-}
-
 string process_input(string arg) {
     // possible to modify player input here before driver parses it.
     string* tmp;

@@ -3,12 +3,6 @@
 private mapping aliases = ([]);
 private nosave mapping predefined_aliases = (["l":"look", "i":"inventory"]);
 
-void create() {
-    if (!sizeof(aliases)) {
-        aliases = ([]);
-    }
-}
-
 mapping query_aliases() {
     return aliases;
 }

@@ -16,7 +16,8 @@ private string current_room;
 private nosave int busy = 0;
 
 void create() {
-    ::create();
+    race::create();
+    position::create();
     enable_commands();
     if (!current_room) {
         current_room = TEST_ROOM;

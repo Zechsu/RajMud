@@ -1,7 +1,5 @@
 private mapping traits = ([]);
 
-void create() {}
-
 mapping query_traits() {
     return traits;
 }

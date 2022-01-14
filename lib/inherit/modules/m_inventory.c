@@ -1,9 +1,5 @@
-private int capacity;
+private int capacity = -1;
 private int item_count;
-
-void create() {
-    capacity = -1;
-}
 
 int query_inventory_capacity() {
     return capacity;

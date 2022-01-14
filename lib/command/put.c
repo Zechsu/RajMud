@@ -5,7 +5,7 @@ string help() {
 }
 
 int main(string str) {
-    mixed item, container, res;
+    mixed item, container;
     object iob, cob;
     object tp = TP;
 

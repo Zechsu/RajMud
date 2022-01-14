@@ -10,7 +10,7 @@ string query_race();
 
 void create() {
     if (!position || position == 0) {
-        position = 1;
+        position = STANDING;
     }
 }
 
