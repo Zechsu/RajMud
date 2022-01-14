@@ -7,14 +7,10 @@ int main(string str) {
 
     if (!str || !sizeof(trim(str))) {
         tell_object(tp, "You currently hold: \n");
-        foreach(object ob in all_inventory(tp)) {
+        foreach(object ob in inv) {
             string ret = ob->query_short();
-            if (ob->query_wielded()) {
-                ret += " (wielded)\n";
-                write(ret);
-                continue;
-            }
-            write(ret + "\n");
+            string attr = ob->worn_attributes();
+            write(sprintf("%-30s %-30s\n", ret, attr));
         }
         return 1;
     } else {

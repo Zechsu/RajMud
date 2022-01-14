@@ -15,8 +15,13 @@ void create() {
 }
 
 int can_get(object who) {
+    string* hands;
     if (!who) {
         who = this_player();
+    }
+    hands = Race(who->query_race())->query_hands();
+    if (!sizeof(who->find_limbs(hands, 1))) {
+        return notify_fail(sprintf("You do not have anywhere to wield %s.\n", query_short()));
     }
     return 1;
 }
@@ -25,8 +30,7 @@ varargs mixed event_recieved(object who) {
     if (!who) {
         who = this_player();
     }
-    move(who);
-    return 0;
+    return move(who);
 }
 
 protected mixed* add_save(mixed* vars) {
@@ -70,8 +74,7 @@ varargs mixed event_drop(object who) {
     }
     write("You drop " + query_short() + ".\n");
     say(who->query_name() + " drops " + query_short() + "\n");
-    move(ENV(who));
-    return 1;
+    return move(environment(who));
 }
 
 int is_item() {

@@ -88,26 +88,93 @@ int create_new_body(string race) {
 }
 
 void sever_limb(string limb) {
-     object ob;
+     object ob, wep;
      if (!limbs) {
           return;
      }
-     if (!limbs[limb] && limbs[limb]["severed"] == 0) {
+     if (!limbs[limb] || limbs[limb]["severed"] != 0) {
           return;
      }
+     write("Your " + limb + " falls on the ground.\n");
+     say(sprintf("%s's %s falls on the ground.\n", query_short(), limb));
+
      limbs[limb]["severed"] = 1;
      foreach (string other in keys(limbs)) {
           if (limbs[other]["parent"] == limb) {
                sever_limb(other);
           }
      }
+
+     // Severed limb object
      ob = new("/std/obj/limb");
      ob->set_short(sprintf("severed %s %s", query_race(), limb));
      ob->set_long(sprintf("The remains of a %s %s", query_race(), limb));
      ob->set_ids(({"limb", "severed limb", limb, "severed " + limb, "severed " + query_race() + " " + limb}));
      ob->move(environment(this_object()));
      ob->set_decay(1);
-     write("Your " + limb + " falls on the ground.\n");
-     say(sprintf("%s's %s falls on the ground.\n", query_short(), limb));
+
+     // Drop wielded/worn weapons
+     wep = query_worn(limb);
+     if (wep) {
+          wep->event_drop(this_player());
+     }
+
      this_object()->check_position();
+}
+
+varargs mixed query_worn(string limb) {
+     if (!limb) {
+          object* ret = ({});
+          string* lkeys = keys(limbs);
+          int sz = sizeof(limbs);
+          for (int i = 0; i < sz; i++) {
+               if (limbs[lkeys[i]]["worn"] == 0) {
+                    continue;
+               }
+               else {
+                    ret += limbs[lkeys[i]]["worn"];
+               }
+          }
+          return distinct_array(ret);
+     }
+     else {
+          return limbs[limb]["worn"];
+     }
+}
+
+// If flag is on we'll find all limbs that are not severed
+// Usually returns all limbs regardless if they're severed or not
+varargs string* find_limbs(mixed match, int flag) {
+     string* ret = ({});
+     if (arrayp(match)) {
+          foreach (string str in match) {
+               foreach (string limb in keys(limbs)) {
+                    if (strsrch(limb, str) != -1) {
+                         if (!flag)
+                              ret += ({limb});
+                         else {
+                              if (limbs[limb]["severed"] == 0)
+                                   ret += ({limb});
+                         }
+                    }
+               }
+          }
+     }
+     else {
+          foreach (string limb in keys(limbs)) {
+               if (strsrch(limb, match) != -1) {
+                    if (!flag)
+                         ret += ({limb});
+                    else {
+                    if (limbs[limb]["severed"] == 0)
+                         ret += ({limb});
+                    }
+               }
+          }
+     }
+     return ret;
+}
+
+int is_limb_severed(string limb) {
+     return limbs[limb]["severed"];
 }

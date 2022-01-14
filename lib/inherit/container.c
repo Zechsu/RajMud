@@ -93,6 +93,9 @@ int can_put(object who) {
  * @return mixed
  */
 varargs mixed event_recieve_item(object item, object who) {
+    if (item == this_object()) {
+        return notify_fail("You can't move an objects inside itself!\n");
+    }
     if (!who) {
         who = this_player();
     }

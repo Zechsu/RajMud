@@ -7,7 +7,7 @@ int main(string arg) {
     }
     ob = present(arg, this_player());
     if (ob) {
-        return ob->event_unwield(this_player());
+        return ob->event_unwield();
     }
     else {
         return notify_fail("You do not have that.\n");

@@ -2,6 +2,7 @@
 #include <command.h>
 
 int spawn_item(object tp, string item, string domain);
+int spawn_mobile(object tp, string mobile, string domain);
 string help();
 
 int main(string str) {
@@ -16,8 +17,11 @@ int main(string str) {
     if (sscanf(str, "item %s %s", domain, item) == 2) {
         return spawn_item(tp, item, domain);
     }
-    else if (sscanf(str, "item %s", domain) == 1) {
-        return notify_fail("Enter an item.\n");
+    if (sscanf(str, "mobile %s %s", domain, item) == 2) {
+        return spawn_mobile(tp, item, domain);
+    }
+    if (sscanf(str, "item %s", domain) == 1) {
+        return notify_fail("Enter a domain.\n");
     }
     return 1;
 }
@@ -33,6 +37,20 @@ int spawn_item(object tp, string item, string domain) {
     } else{
         tell_object(tp, "Invalid domain\n");
         return 1;
+    }
+    return 0;
+}
+
+int spawn_mobile(object tp, string mobile, string domain) {
+    object ob;
+    string dir = sprintf("/domains/%s/mobiles/%s.c", domain, mobile);
+    if (get_dir(dir)) {
+        ob = new(dir);
+        ob->move(environment(tp));
+        write("Spawned " + mobile + "\n");
+        return 1;
+    } else {
+        return notify_fail("Invalid domain.\n");
     }
     return 0;
 }

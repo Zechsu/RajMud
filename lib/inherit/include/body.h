@@ -5,5 +5,6 @@ string* query_limbs();
 mapping query_body();
 int create_new_body(string race);
 string query_current_room();
+varargs mixed query_worn(string limb);
 
 #endif

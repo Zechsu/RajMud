@@ -1,3 +1,8 @@
+#include <modules.h>
+#include "modules/include/m_hooks.h"
+
+inherit M_HOOKS;
+
 // set to 'private static' so that inheritor won't be able to directly
 // access this variable and so that save_object() won't save it to the .o file
 
@@ -13,15 +18,17 @@ remove()
     }
 }
 
-#ifndef __NO_ENVIRONMENT__
-int
-move(mixed dest)
+int move(mixed dest)
 {
     // add code here to prevent disallowed moves (target is full, object
     // is immovable, etc.).
+    if (dest == this_object()) {
+        return notify_fail("You can't move an object inside itself!.\n");
+    }
+    call_hook("move", HOOK_IGNORE);
     move_object(dest);
+    return 1;
 }
-#endif
 
 void
 set_ids(string *arg)

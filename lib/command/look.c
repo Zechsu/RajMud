@@ -106,6 +106,11 @@ int look_at(object tp, string look_at_item) {
         look_at_item = replace_string(look_at_item, "the ", "");
     }
 
+    if (look_at_item == "me") {
+        write(this_player()->query_long() + "\n");
+        return 1;
+    }
+
     if (strsrch(look_at_item, "here") != -1) {
         look_at_item = rtrim(replace_string(look_at_item, "here", ""));
         if (ob = present(look_at_item, environment(tp))) {

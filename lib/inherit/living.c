@@ -47,14 +47,16 @@ string query_short() {
     }
 }
 
+// TODO: Make wielded weapons appear in description
 string query_long() {
-    // PRONOUN is a RACE
-    string ret = sprintf("%s is a %s.", capitalize(query_pronoun()), query_race());
-    // Wielding WEAPON in LIMB
-    // m_inventory::query_wielded()
-    string worn = query_wielded();
-    if (worn != 0) {
-        ret += "\n" + worn;
+    // <PRONOUN> is a <RACE>
+    string ret = sprintf("%s is a %s. ", capitalize(query_pronoun()), query_race());
+    object* worn = query_worn();
+    if (sizeof(worn)) {
+        ret += sprintf("%s is equipped with ", capitalize(query_pronoun()));
+        foreach (object w in worn) {
+            ret += sprintf("\n%-30s %-30s", w->query_short(), w->worn_attributes());
+        }
     }
     return ret;
 }

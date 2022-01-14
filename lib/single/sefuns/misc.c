@@ -185,6 +185,9 @@ varargs string invert_cardinal_direction(string dir, int flag) {
 string list_strings(string* strings) {
     string ret = "";
     int sz = sizeof(strings);
+    if (sz == 1) {
+        return strings[0];
+    }
     for (int i = 0; i < sz; i++) {
         if (i == sz -1) {
             ret += " and " + strings[i];

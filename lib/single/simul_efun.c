@@ -6,6 +6,7 @@
 #include <lpctypes.h>
 
 inherit "/single/sefuns/misc";
+inherit "/single/sefuns/arrays";
 
 int
 same(mixed x, mixed y) {
