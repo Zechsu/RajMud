@@ -84,3 +84,22 @@ void reconnect()
 {
     debug_message(query_name() + " has reconnected.");
 }
+
+void send_gmcp_data(string pkg, string data) {
+    send_gmcp(pkg + " " + data);
+}
+
+void gmcp(string message) {
+    switch (message) {
+        case "External.Discord.Hello": {
+            send_gmcp_data("External.Discord.Info", "{\"applicationid\": \"931931512385974303\"}");
+            send_gmcp_data("External.Discord.Status", "{\"largeimage\": \"server-icon\", \"game\": \"RajMUD\", \"starttime\":" + time() + "}");
+            break;
+        }
+        case "External.Discord.Bye": {
+            send_gmcp_data("External.Discord.Info", "");
+            send_gmcp_data("External.Discord.Status", "");
+            break;
+        }
+    }
+}

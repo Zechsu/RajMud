@@ -3,11 +3,12 @@
 int look(object tp);
 int look_at(object tp, string look_at_item);
 int look_in(object tp, string look_at_item);
+int look_at_on(object tp, string look_at_item, string target);
 string help();
 
 int main(string arg) {
     object tp = this_player();
-    string look_at_item;
+    string look_at_item, target;
 
     if (!arg || !sizeof(trim(arg))) {
         return look(tp);
@@ -17,6 +18,12 @@ int main(string arg) {
         return look(tp);
     }
 
+    if (sscanf(arg, "at %s on %s", look_at_item, target) == 2) {
+        return look_at_on(tp, look_at_item, target);
+    }
+    if (sscanf(arg, "%s on %s", look_at_item, target) == 2) {
+        return look_at_on(tp, look_at_item, target);
+    }
     if (sscanf(arg, "at %s", look_at_item) == 1) {
         return look_at(tp, look_at_item);
     }
@@ -163,6 +170,23 @@ int look_in(object tp, string look_at_item) {
     }
 
     return notify_fail("Can't find that.\n");
+}
+
+int look_at_on(object tp, string look_at_item, string target) {
+    object t, it;
+    object* worn;
+
+    t = present(target, environment(tp));
+    if (!t->is_living()) {
+        return notify_fail("Invalid target.\n");
+    }
+    
+    it = present(look_at_item, t);
+    if (!it->query_worn()) {
+        return notify_fail("Not wearing that.\n");
+    }
+    write(it->query_long() + "\n");
+    return 1;
 }
 
 string help() {

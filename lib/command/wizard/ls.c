@@ -8,14 +8,14 @@ int main(string str) {
         return notify_fail("Empty directory.\n");
     }
     for (int i = 0; i < size; i++) {
-        if (get_dir(tp->query_cwd() + dir[i] + "/")) {
-            write("%^GREEN%^" + sprintf("%-30.30s", dir[i] + "/") + "%^RESET%^");
-        }
-        else {
-            write(sprintf("%-30.30s", dir[i]));
-        }
         if (i % 4 == 0 && i != 0) {
             write("\n");
+        }
+        if (get_dir(tp->query_cwd() + dir[i] + "/")) {
+            write("%^GREEN%^" + sprintf("%-20.30s", dir[i] + "/") + "%^RESET%^");
+        }
+        else {
+            write(sprintf("%-20.30s", dir[i]));
         }
     }
     write("\n");

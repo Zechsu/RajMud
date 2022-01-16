@@ -46,6 +46,8 @@ private void create_user_object(string name) {
     user->move(user->query_current_room());
     user->set_gender(1);
     Log("login", strftime("%D [%H:%M:%S] ", time()) + name);
+    // Send the discord hello gmcp message to set-up the rich pressence
+    user->gmcp("External.Discord.Hello");
     destruct(this_object());
 }
 
