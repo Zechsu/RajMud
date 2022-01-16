@@ -174,7 +174,6 @@ int look_in(object tp, string look_at_item) {
 
 int look_at_on(object tp, string look_at_item, string target) {
     object t, it;
-    object* worn;
 
     t = present(target, environment(tp));
     if (!t->is_living()) {

@@ -68,9 +68,16 @@ varargs mixed event_get_from(object who, object where) {
     return 1;
 }
 
+int can_drop(object who) {
+    return 1;
+}
+
 varargs mixed event_drop(object who) {
     if (!who) {
         who = TP;
+    }
+    if (!can_drop(who)) {
+        return 0;
     }
     write("You drop " + query_short() + ".\n");
     say(who->query_name() + " drops " + query_short() + "\n");
