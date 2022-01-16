@@ -51,6 +51,12 @@ void create() {
             "severed":0,
             "worn": ({}),
         ]),
+        "genitals":([
+            "critical":0,
+            "parent":0,
+            "severed":0,
+            "worn": ({}),
+        ]),
     ]));
 }
 
