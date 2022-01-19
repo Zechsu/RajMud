@@ -22,5 +22,6 @@
 #define LIB_COMMAND         "/inherit/living/command"
 #define LIB_WORN            "/inherit/worn"
 #define LIB_WEAPON          "/inherit/weapon"
+#define LIB_ARMOR           "/inherit/armor"
 
 #endif
