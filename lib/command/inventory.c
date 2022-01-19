@@ -10,7 +10,7 @@ int main(string str) {
         foreach(object ob in inv) {
             string ret = ob->query_short();
             string attr = ob->worn_attributes();
-            write(sprintf("%-30s %-30s\n", ret, attr));
+            write(sprintf("%-30s %-30s\n", ret, attr? attr : ""));
         }
         return 1;
     } else {
