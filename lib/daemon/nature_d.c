@@ -104,3 +104,7 @@ int query_day() {
 int query_month() {
     return date->month;
 }
+
+int query_hour() {
+    return date->hour;
+}
