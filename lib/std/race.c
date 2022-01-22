@@ -18,3 +18,10 @@ mapping query_race_body() {
 void set_race_body(mapping b) {
     body = b;
 }
+
+int query_fingers(string hand) {
+    if (body[hand]["fingers"]) {
+        return body[hand]["fingers"];
+    }
+    return 0;
+}

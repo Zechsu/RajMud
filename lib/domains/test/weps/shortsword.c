@@ -1,5 +1,5 @@
 #include <lib.h>
-#include <modules.h>
+#include <armor_layers.h>
 
 inherit LIB_WEAPON;
 
@@ -9,5 +9,5 @@ void create() {
     set_long("A shortsword for testing, obviously");
     set_ids(({"shortsword", "sword"}));
     set_required_limbs(({"hand"}));
-    set_handed(1);
+    set_layer(A_WEAPON);
 }

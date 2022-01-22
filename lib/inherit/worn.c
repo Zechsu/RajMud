@@ -1,4 +1,5 @@
 #include <lib.h>
+#include <armor_layers.h>
 
 // Prototype functions
 string query_short();
@@ -14,6 +15,8 @@ private string* worn;
 private string wear_mess;
 // Message written out when object is unequipped
 private string remove_mess;
+
+varargs mixed query_real_limbs(string* args, int slot);
 
 string* query_worn() {
     return worn;
@@ -62,24 +65,20 @@ void set_remove_mess(string mess) {
 mixed can_wear(object who, string* limbs) {
     string* free_limbs;
     mapping player_body = this_player()->query_body();
+    int size;
 
     if(!limbs) limbs = required_limbs;
     if (worn) {
         return notify_fail("You alredy have it on.\n");
     }
 
-    free_limbs = who->find_limbs(limbs, 1);
-    if (sizeof(free_limbs) < sizeof(required_limbs)) {
+    if (!who->has_limbs(limbs)) {
         return notify_fail("You miss the limbs.\n");
     }
-    foreach (string limb in free_limbs) {
-        foreach(object worn in player_body[limb]["worn"]) {
-            if (worn->query_layer() == layer) {
-                free_limbs -= ({limb});
-            }
-        }
-    }
-    if (!sizeof(free_limbs)) {
+
+    free_limbs = query_real_limbs(limbs, layer);
+
+    if (sizeof(free_limbs) < sizeof(required_limbs)) {
         return notify_fail("You have nowhere to put this on.\n");
     }
 
@@ -132,4 +131,37 @@ varargs mixed event_remove(int quietly) {
     }
 
     return 1;
+}
+
+void remove_worn(string limb) {
+    mapping player_body = this_player()->query_body();
+    worn -= ({limb});
+    player_body[limb]["worn"] -= ({this_object()});
+}
+
+varargs mixed query_real_limbs(string* args, int slot) {
+    object tp = this_player();
+    // List of all limbs we will need (not severed)
+    string* limbs = this_player()->find_limb(args, 1);
+    string* ret = ({});
+
+    if (slot) {
+        foreach (string r in limbs) {
+            if (sizeof(tp->query_worn(r, layer))) {
+                limbs -= ({r});
+            }
+        }
+   }
+
+    foreach (string req in required_limbs) {
+        for (int i = 0; i < sizeof(limbs); i++) {
+            if (strsrch(limbs[i], req) > -1) {
+                ret += ({limbs[i]});
+                limbs -= ({limbs[i]});
+                break;
+            }
+        }
+    }
+
+    return ret;
 }

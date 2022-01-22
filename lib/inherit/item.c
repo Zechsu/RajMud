@@ -20,8 +20,8 @@ int can_get(object who) {
         who = this_player();
     }
     hands = Race(who->query_race())->query_hands();
-    if (!sizeof(who->find_limbs(hands, 1))) {
-        return notify_fail(sprintf("You do not have anywhere to wield %s.\n", query_short()));
+    if (!who->has_limbs(hands)) {
+        return notify_fail("You do not have any hands.\n");
     }
     return 1;
 }

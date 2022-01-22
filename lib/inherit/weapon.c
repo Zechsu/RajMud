@@ -6,8 +6,6 @@ inherit LIB_WORN;
 void hook_state(string tag, function hook, int state);
 private nosave function move_hook = (: event_remove, 1 :);
 
-// is it 1-handed or 2-handed weapon
-private int handed = 1;
 
 void create() {
     ::create();
@@ -18,10 +16,6 @@ void create() {
 // Check if object can be wielded
 int is_wieldable() {
     return 1;
-}
-
-void set_handed(int h) {
-    handed = h;
 }
 
 string worn_attributes() {
@@ -35,23 +29,18 @@ string worn_attributes() {
 
 mixed can_wear(object who, string* limbs) {
     mixed res = ::can_wear(who, limbs);
-    int sz;
-    if (!arrayp(res)) return 0;
+    int sz = sizeof(res);
 
-    sz = sizeof(res);
-    if (!sz) {
-        return 0;
-    }
     if (sz == 1) {
-        return res;
-    }
-    else {
         string handedness = this_player()->query_trait("handedness");
         foreach (string str in res) {
             if (strsrch(str, handedness) != -1) {
                 return ({str});
             }
         }
+    }
+    else {
+        return res;
     }
 }
 
