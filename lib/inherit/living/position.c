@@ -43,8 +43,10 @@ int event_stand() {
 }
 
 int event_crawl() {
-    position = CRAWLING;
-    write("You start crawling on the ground.\n");
+    if (position != CRAWLING) {
+        position = CRAWLING;
+        write("You start crawling on the ground.\n");
+    }
     return 1;
 }
 
