@@ -20,8 +20,8 @@ int can_get(object who) {
         who = this_player();
     }
     hands = Race(who->query_race())->query_hands();
-    if (!sizeof(who->find_limbs(hands, 1))) {
-        return notify_fail(sprintf("You do not have anywhere to wield %s.\n", query_short()));
+    if (!who->has_limbs(hands)) {
+        return notify_fail("You do not have any hands.\n");
     }
     return 1;
 }
@@ -68,9 +68,16 @@ varargs mixed event_get_from(object who, object where) {
     return 1;
 }
 
+int can_drop(object who) {
+    return 1;
+}
+
 varargs mixed event_drop(object who) {
     if (!who) {
         who = TP;
+    }
+    if (!can_drop(who)) {
+        return 0;
     }
     write("You drop " + query_short() + ".\n");
     say(who->query_name() + " drops " + query_short() + "\n");

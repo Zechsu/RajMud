@@ -18,8 +18,6 @@
 #define M_TITLE             "/inherit/modules/m_title"
 #define M_GENDER            "/inherit/living/gender"
 #define M_DECAY             "/inherit/modules/m_decay"
-#define M_WIELDABLE         "/inherit/modules/m_wieldable"
-#define M_WEARABLE          "/inherit/modules/m_wearable"
 #define M_HOOKS             "/inherit/modules/m_hooks"
 
 #endif

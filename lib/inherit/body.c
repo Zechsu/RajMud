@@ -109,7 +109,8 @@ void sever_limb(string limb) {
      ob = new("/std/obj/limb");
      ob->set_short(sprintf("severed %s %s", query_race(), limb));
      ob->set_long(sprintf("The remains of a %s %s", query_race(), limb));
-     ob->set_ids(({"limb", "severed limb", limb, "severed " + limb, "severed " + query_race() + " " + limb}));
+     ob->set_ids(({"limb", limb}));
+     ob->set_adjectives(({"severed", query_race()}));
      ob->move(environment(this_object()));
      ob->set_decay(5);
 
@@ -117,9 +118,12 @@ void sever_limb(string limb) {
      equip = query_worn(limb);
      if (equip) {
           foreach (object eq in equip) {
+               // Get all the limbs on which the item is worn
                string* worn = eq->query_worn();
+               // Remove the cut-off limb from the item's worn variable
                eq->remove_worn(limb);
-               if (!sizeof(find_limbs(worn, 1))) {
+               // If no limb is left, then the item needs to go
+               if (!sizeof(find_limb(worn, 1))) {
                     eq->event_remove(1);
                     if (eq->is_wieldable()) {
                          // If it's a weapon then drop it
@@ -136,7 +140,7 @@ void sever_limb(string limb) {
      this_object()->check_position();
 }
 
-varargs mixed query_worn(string limb) {
+varargs mixed query_worn(string limb, int layer) {
      if (!limb) {
           object* ret = ({});
           string* lkeys = keys(limbs);
@@ -146,49 +150,101 @@ varargs mixed query_worn(string limb) {
                     continue;
                }
                else {
-                    ret += limbs[lkeys[i]]["worn"];
+                    if (!layer) {
+                         ret += limbs[lkeys[i]]["worn"];
+                    }
+                    else {
+                         foreach (object worn in limbs[lkeys[i]]["worn"]) {
+                              if (worn->query_layer() == layer) {
+                                   ret += ({worn});
+                              }
+                         }
+                    }
                }
           }
           return distinct_array(ret);
      }
      else {
-          return limbs[limb]["worn"];
+          if (!layer) {
+               return limbs[limb]["worn"];
+          }
+          else {
+               object* ret = ({});
+               foreach (object worn in limbs[limb]["worn"]) {
+                    if (worn->query_layer() == layer) {
+                         ret += ({worn});
+                    }
+               }
+               return ret;
+          }
      }
 }
 
 // If flag is on we'll find all limbs that are not severed
 // Usually returns all limbs regardless if they're severed or not
-varargs string* find_limbs(mixed match, int flag) {
+varargs string* find_limb(string* match, int flag, int slot) {
      string* ret = ({});
-     if (arrayp(match)) {
-          foreach (string str in match) {
-               foreach (string limb in keys(limbs)) {
-                    if (strsrch(limb, str) != -1) {
-                         if (!flag)
-                              ret += ({limb});
-                         else {
-                              if (limbs[limb]["severed"] == 0)
-                                   ret += ({limb});
-                         }
+     string* tmp;
+     tmp = keys(limbs);
+     if (flag) {
+          tmp = filter_array(tmp, (: limbs[$1]["severed"] == 0 :));
+     }
+     if (slot) {
+          foreach (string r in tmp) {
+               foreach (object worn in query_worn(r)) {
+                    if (worn->query_layer() == slot) {
+                         tmp -= ({r});
                     }
                }
           }
      }
-     else {
-          foreach (string limb in keys(limbs)) {
-               if (strsrch(limb, match) != -1) {
-                    if (!flag)
-                         ret += ({limb});
-                    else {
-                    if (limbs[limb]["severed"] == 0)
-                         ret += ({limb});
-                    }
+     foreach (string m in match) {
+          foreach (string limb in tmp) {
+               if (strsrch(limb, m) != -1) {
+                    ret += ({limb});
                }
           }
      }
-     return ret;
+     return distinct_array(ret);
+     // if (arrayp(match)) {
+     //      foreach (string str in match) {
+     //           foreach (string limb in keys(limbs)) {
+     //                if (strsrch(limb, str) != -1) {
+     //                     if (!flag)
+     //                          ret += ({limb});
+     //                     else {
+     //                          if (limbs[limb]["severed"] == 0)
+     //                               ret += ({limb});
+     //                     }
+     //                }
+     //           }
+     //      }
+     // }
+     // else {
+     //      foreach (string limb in keys(limbs)) {
+     //           if (strsrch(limb, match) != -1) {
+     //                if (!flag)
+     //                     ret += ({limb});
+     //                else {
+     //                if (limbs[limb]["severed"] == 0)
+     //                     ret += ({limb});
+     //                }
+     //           }
+     //      }
+     // }
+     // return ret;
 }
 
 int is_limb_severed(string limb) {
      return limbs[limb]["severed"];
+}
+
+int has_limbs(string* which) {
+     string keys = implode(keys(limbs), ",");
+     foreach (string w in which) {
+          if (strsrch(keys, w) == -1) {
+               return 0;
+          }
+     }
+     return 1;
 }

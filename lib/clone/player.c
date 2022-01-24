@@ -85,20 +85,30 @@ void reconnect()
     debug_message(query_name() + " has reconnected.");
 }
 
-void send_gmcp_data(string pkg, string data) {
+void send_gmcp_data(string pkg, mixed data) {
     send_gmcp(pkg + " " + data);
 }
 
 void gmcp(string message) {
     switch (message) {
         case "External.Discord.Hello": {
-            send_gmcp_data("External.Discord.Info", "{\"applicationid\": \"931931512385974303\"}");
-            send_gmcp_data("External.Discord.Status", "{\"largeimage\": \"server-icon\", \"game\": \"RajMUD\", \"starttime\":" + time() + "}");
+            mapping info = ([]);
+            mapping status = ([]);
+            info += (["applicationid":"931931512385974303"]);
+            status += (["largeimage":"server-icon"]);
+            status += (["game":"RajMUD"]);
+            status += (["starttime":time()]);
+            send_gmcp_data("External.Discord.Info", json_encode(info));
+            send_gmcp_data("External.Discord.Status", json_encode(status));
             break;
         }
-        case "External.Discord.Bye": {
-            send_gmcp_data("External.Discord.Info", "");
-            send_gmcp_data("External.Discord.Status", "");
+        case "Room.Info": {
+            mapping ret = ([]);
+            ret += (["area": "Test"]);
+            ret += (["environment": 0]);
+            ret += (["name": "Test v kicata"]);
+            ret += (["num": 1]);
+            send_gmcp_data("Room.Info", json_encode(ret));
             break;
         }
     }

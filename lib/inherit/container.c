@@ -17,7 +17,6 @@ inherit M_INVENTORY;
 
 void create() {
     item::create();
-    m_inventory::create();
     set_save_recurse(1);
 }
 

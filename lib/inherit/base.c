@@ -3,6 +3,8 @@
 
 inherit M_HOOKS;
 
+private nosave string* adjectives;
+
 // set to 'private static' so that inheritor won't be able to directly
 // access this variable and so that save_object() won't save it to the .o file
 
@@ -37,15 +39,28 @@ set_ids(string *arg)
     ids = arg;
 }
 
-int
-id(string arg)
+int id(string arg)
 {
     if (!arg || !ids) {
         return 0;
     }
+    if (adjectives) {
+        foreach (string adj in adjectives) {
+            foreach (string id in ids) {
+                if (arg == adj + " " + id) {
+                    return 1;
+                }
+            }
+        }
+    }
     return (member_array(arg, ids) != -1);
+    // return 0;
 }
 
 string* query_ids() {
     return ids;
+}
+
+void set_adjectives(string* adjs) {
+    adjectives = adjs;
 }

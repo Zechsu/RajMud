@@ -1,8 +1,7 @@
 #include <modules.h>
 #include <lib.h>
 
-inherit LIB_ITEM;
-inherit M_WEARABLE;
+inherit LIB_ARMOR;
 
 void create() {
     ::create();

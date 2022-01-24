@@ -20,9 +20,6 @@ int main(string str) {
     if (sscanf(str, "%s from %s", item, cont) == 2) {
         return get_from(tp, item, cont);
     }
-    else if (sscanf(str, "%s %s", item, cont) == 2) {
-        return get_from(tp, item, cont);
-    }
     else {
         return get(tp, str);
     }

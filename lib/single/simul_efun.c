@@ -7,9 +7,9 @@
 
 inherit "/single/sefuns/misc";
 inherit "/single/sefuns/arrays";
+inherit "/single/sefuns/json";
 
-int
-same(mixed x, mixed y) {
+int same(mixed x, mixed y) {
     if (typeof(x) != typeof(y)) return 0;
     switch (typeof(x)) {
     case INT:
