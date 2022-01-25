@@ -7,7 +7,7 @@ private string resource = "";
 
 void create() {
     ::create();
-    add_save(({"weight"}));
+    add_save(({"weight", "short_desc", "ids", "resource"}));
 }
 
 void add_weight(int amt) {

@@ -5,7 +5,7 @@ inherit LIB_WORN;
 
 void hook_state(string tag, function hook, int state);
 private nosave function move_hook = (: event_remove, 1 :);
-
+private string* combat_skills;
 
 void create() {
     ::create();
@@ -47,4 +47,16 @@ mixed can_wear(object who, string* limbs) {
 varargs mixed event_wear(object who, string* limbs) {
     hook_state("move", move_hook, this_player() && this_player() != this_object());
     return ::event_wear(who, limbs);
+}
+
+void set_combat_skills(string* skills) {
+    combat_skills = skills;
+}
+
+string* query_combat_skills() {
+    return combat_skills;
+}
+
+string query_attack_mess() {
+    return "You hit something.\n";
 }

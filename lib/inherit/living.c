@@ -5,6 +5,7 @@ inherit BASE;
 inherit LIB_RACE;
 inherit LIB_POSITION;
 inherit LIB_COMMAND;
+inherit LIB_COMBAT;
 inherit M_DESC;
 inherit M_SKILLS;
 inherit M_TRAITS;
