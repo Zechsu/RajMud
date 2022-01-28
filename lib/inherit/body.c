@@ -26,55 +26,46 @@ void create() {
      }
 }
 
-/**
- * @brief Returns keys of limbs mapping
- * 
- * @return string* Keys of limbs
- */
+// Returns keys of limbs mapping
 string* query_limbs() {
      return (limbs? keys(limbs) : 0);
 }
 
-/**
- * @brief Returns a random limbo from the mapping
- * 
- * @return string Random limb
- */
-string query_random_limb() {
+// Returns a random limb from the mapping
+// If flag is set it will return a limb that is not severed
+varargs mixed query_random_limb(int flag) {
+     if (flag) {
+          string* tmp = query_limbs();
+          tmp = filter_array(tmp, (:limbs[$1]["severed"] == 0:));
+          if (!sizeof(tmp)) {
+               return 0;
+          }
+          return element_of(tmp);
+     }
      return element_of(query_limbs());
 }
 
-/**
- * @brief Damages a limb
- * 
- * @param damage Amount of damage
- * @param limb Which limb
- * @return int
- */
-varargs int event_receive_damage(int damage, string limb) {
+// Damages a limb if it's not passed, picks a random limb
+varargs int event_receive_damage(float damage, string limb) {
      // If no limb is passed, get a random one
      if (!limb) {
           limb = query_random_limb();
      }
-     limbs[limb]["health"] -= damage;
+     limbs[limb]["current_hp"] -= damage;
+     if (limbs[limb]["current_hp"] <= -2) {
+          sever_limb(limb);
+     }
 }
 
-/**
- * @brief Returns limbs full mapping
- * 
- * @return mapping Limbs
- */
+// Returns full limbs mapping
 mapping query_body() {
      return limbs;
 }
 
-/**
- * @brief Create a new body \n
- * This will completely override the object's limbs based on the race give.
- * @param race Race name
- * @return int 
- */
+// Create a new body
+// This will completely overwrite the limbs mapping with that of the new one given by the race
 int create_new_body(string race) {
+     object raceob;
      if (!race) {
           debug_message("No race given for body creation\n");
           return 0;
@@ -83,8 +74,20 @@ int create_new_body(string race) {
           debug_message("Invalid race as argument for create_new_body() - Race given: " + race + "\n");
           return 0;
      }
-     limbs = Race(race)->query_race_body();
+     raceob = Race(race);
+     limbs = raceob->query_race_body();
+     foreach (string limb in keys(limbs)) {
+          limbs[limb]["max_hp"] = raceob->calculate_health_of_limb(limb);
+          limbs[limb]["current_hp"] = limbs[limb]["max_hp"];
+     }
      return 1;
+}
+
+void update_max_health() {
+     object raceob = Race(query_race());
+     foreach (string limb in keys(limbs)) {
+          limbs[limb]["max_hp"] = raceob->calculate_health_of_limb(limb);
+     }
 }
 
 void sever_limb(string limb) {
@@ -207,33 +210,6 @@ varargs string* find_limb(string* match, int flag, int slot) {
           }
      }
      return distinct_array(ret);
-     // if (arrayp(match)) {
-     //      foreach (string str in match) {
-     //           foreach (string limb in keys(limbs)) {
-     //                if (strsrch(limb, str) != -1) {
-     //                     if (!flag)
-     //                          ret += ({limb});
-     //                     else {
-     //                          if (limbs[limb]["severed"] == 0)
-     //                               ret += ({limb});
-     //                     }
-     //                }
-     //           }
-     //      }
-     // }
-     // else {
-     //      foreach (string limb in keys(limbs)) {
-     //           if (strsrch(limb, match) != -1) {
-     //                if (!flag)
-     //                     ret += ({limb});
-     //                else {
-     //                if (limbs[limb]["severed"] == 0)
-     //                     ret += ({limb});
-     //                }
-     //           }
-     //      }
-     // }
-     // return ret;
 }
 
 int is_limb_severed(string limb) {
