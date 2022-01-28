@@ -61,6 +61,10 @@ string* query_ids() {
     return ids;
 }
 
+string query_id() {
+    return ids[0];
+}
+
 void set_adjectives(string* adjs) {
     adjectives = adjs;
 }
