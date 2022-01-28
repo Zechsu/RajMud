@@ -5,7 +5,7 @@ int main(string str) {
     int seconds = tp->query_play_time();
     int hours = (seconds / 60) / 60;
     int minutes = (seconds / 60) % 60;
-    printf("You've been playing for %d hours %d minutes.\n", hours, minutes);
+    write(sprintf("%%^YELLOW%%^You've been playing for %d hours %d minutes%%^RESET%%^.\n", hours, minutes));
 
     return 1;
 }
