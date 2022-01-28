@@ -86,9 +86,9 @@ mixed can_wear(object who, string* limbs) {
 }
 
 varargs mixed event_wear(object who, string* limbs) {
-    string* wear;
+    string* wear, *composed;
     mapping player_body;
-    string mess = wear_mess;
+    string mess;
     if (!who) who = this_player();
     if (!limbs) limbs = required_limbs;
 
@@ -101,9 +101,12 @@ varargs mixed event_wear(object who, string* limbs) {
     }
     worn = wear;
 
-    mess = replace_string(mess, "$I", this_object()->query_short());
+    mess = wear_mess;
     mess = replace_string(mess, "$L", list_strings(worn));
-    write(mess + "\n");
+    composed = compose_message(this_interactive(), mess, this_object());
+
+    tell_object(this_interactive(), capitalize(composed[0]) + "\n");
+    tell_room(environment(this_interactive()), composed[2] + "\n", ({this_interactive()}));
 
     return 1;
 }
@@ -126,8 +129,9 @@ varargs mixed event_remove(int quietly) {
     worn = 0;
 
     if (!quietly) {
-        string mess = replace_string(remove_mess, "$I", this_object()->query_short());
-        write(mess + "\n");
+        string* mess = compose_message(this_interactive(), remove_mess, this_object());
+        tell_object(this_interactive(), capitalize(mess[0]) + "\n");
+        tell_room(environment(this_interactive()), mess[2] + "\n", ({this_interactive()}));
     }
 
     return 1;

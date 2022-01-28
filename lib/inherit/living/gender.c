@@ -17,3 +17,11 @@ string query_possessive_determiner() {
 string query_pronoun() {
     return GENDER_D->query_pronoun(gender);
 }
+
+string query_determiner() {
+    return GENDER_D->query_determiner(gender);
+}
+
+string query_reflexive() {
+    return GENDER_D->query_reflexive(gender);
+}

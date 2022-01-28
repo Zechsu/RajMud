@@ -9,8 +9,8 @@ private string* combat_skills;
 
 void create() {
     ::create();
-    set_wear_mess("You wield $I in $L.");
-    set_remove_mess("You unwield $I.");
+    set_wear_mess("$N $vwield $t in $L.");
+    set_remove_mess("$N $vunwield $t.");
 }
 
 // Check if object can be wielded

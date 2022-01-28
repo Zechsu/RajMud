@@ -21,3 +21,25 @@ string query_pronoun(int gender) {
             return "they";
     }
 }
+
+string query_determiner(int gender) {
+    switch (gender) {
+        case MALE:
+           return "his";
+        case FEMALE:
+           return "her";
+        default:
+           return "its";
+     }
+}
+
+string query_reflexive(int gender) {
+    switch (gender) {
+       case MALE:
+          return "himself";
+       case FEMALE:
+          return "herself";
+       default:
+          return "itself";
+    }
+ }

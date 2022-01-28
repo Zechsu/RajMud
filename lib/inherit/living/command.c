@@ -5,6 +5,8 @@
 inherit M_ALIASES;
 inherit M_PRIVILEGES;
 
+string query_name();
+
 void setup() {
     m_privileges::setup();
     add_action("commandHook", "", 1);
@@ -22,8 +24,10 @@ string process_input(string arg) {
         return "";
     }
 
-    arg = replace_string(arg, "%^", "");
-    arg = replace_string(arg, "%#", "");
+    if (!SECURE_D->query_wizard(query_name())) {
+        arg = replace_string(arg, "%^", "");
+        arg = replace_string(arg, "%#", "");
+    }
 
     // since all verbs here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];

@@ -238,6 +238,14 @@ varargs void say(string msg, mixed exclude) {
     message("say", msg, environment(me), exclude);
 }
 
+varargs void tell_room(object ob, string msg, mixed exclude) {
+    if(objectp(exclude)) exclude = ({exclude });
+    message("tell_room", msg, ob, exclude);
+}
+
+varargs void tell_object(object ob, string msg) {
+    message("tell_object", msg, ob);
+}
 // object present(mixed str, object ob) {
 //     if (!ob) {
 //         ob = this_player();
