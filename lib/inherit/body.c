@@ -95,8 +95,9 @@ void sever_limb(string limb) {
      if (!limbs[limb] || limbs[limb]["severed"] != 0) {
           return;
      }
-     write("Your " + limb + " falls on the ground.\n");
-     say(sprintf("%s's %s falls on the ground.\n", query_short(), limb));
+     tell_object(this_object(), "Your " + limb + " is severed!\n");
+     tell_object(this_object(), "Your " + limb + " falls on the ground.\n");
+     tell_room(environment(this_object()), sprintf("%s's %s falls on the ground.\n", query_short(), limb), ({this_object()}));
 
      limbs[limb]["severed"] = 1;
      foreach (string other in keys(limbs)) {

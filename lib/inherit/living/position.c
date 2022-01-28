@@ -37,7 +37,11 @@ int event_stand() {
     if (!can_stand()) {
         return 0;
     }
+    if (position == STANDING) {
+        return notify_fail("You're already standing up.\n");
+    }
     write("You stand up.\n");
+    say(this_player()->query_name() + " stands up.\n");
     position = STANDING;
     return 1;
 }
@@ -46,6 +50,7 @@ int event_crawl() {
     if (position != CRAWLING) {
         position = CRAWLING;
         write("You start crawling on the ground.\n");
+        say(query_name() + " starts crawling on the ground.\n");
     }
     return 1;
 }

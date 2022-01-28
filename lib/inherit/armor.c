@@ -8,8 +8,8 @@ private nosave function move_hook = (: event_remove, 1 :);
 
 void create() {
     ::create();
-    set_wear_mess("You put on $I in $L.");
-    set_remove_mess("You remove $I.");
+    set_wear_mess("$N $vput on $t in $L.");
+    set_remove_mess("$N $vremove $t.");
 }
 
 // Check if object can be wielded

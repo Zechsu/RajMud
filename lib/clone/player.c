@@ -40,10 +40,9 @@ void create() {
 }
 
 // receive_message: called by the message() efun.
-
+// the meaning of 'class' is at the mudlib's discretion
 void receive_message(string newclass, string msg)
 {
-    // the meaning of 'class' is at the mudlib's discretion
     if (no_color == 0) {
         msg = TERM_D->parse_pinkfish(msg);
     }

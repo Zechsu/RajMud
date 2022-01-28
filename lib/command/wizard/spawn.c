@@ -56,5 +56,5 @@ int spawn_mobile(object tp, string mobile, string domain) {
 }
 
 string help() {
-    return "Usage: spawn item <item name> <domain>\n";
+    return "Usage: spawn item <domain> <name>\n  spawn mobile <domain> <name>\n";
 }
