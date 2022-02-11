@@ -5,10 +5,9 @@ inherit LIB_ARMOR;
 
 void create() {
     ::create();
-    set_short("golden ring");
-    set_long("It's a golden ring for testing purposes.");
+    set_short("ring");
+    set_long("It's a ring for testing purposes.");
     set_ids(({"ring"}));
-    set_adjectives(({"gold", "golden"}));
     set_required_limbs(({"hand"}));
     set_layer(A_RING);
 }
