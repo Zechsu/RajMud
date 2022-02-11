@@ -24,6 +24,10 @@ void set_color(int to) {
     }
 }
 
+int query_no_color() {
+    return no_color;
+}
+
 void write_prompt() {
     if (SECURE_D->query_wizard(query_name())) {
         write(query_cwd() + " > ");

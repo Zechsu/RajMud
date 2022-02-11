@@ -38,10 +38,10 @@ int event_stand() {
         return 0;
     }
     if (position == STANDING) {
-        return notify_fail("You're already standing up.\n");
+        return notify_fail("You're already standing.\n");
     }
-    write("You stand up.\n");
-    say(this_player()->query_name() + " stands up.\n");
+    write("You stand.\n");
+    say(this_player()->query_name() + " stands.\n");
     position = STANDING;
     return 1;
 }
@@ -52,6 +52,23 @@ int event_crawl() {
         write("You start crawling on the ground.\n");
         say(query_name() + " starts crawling on the ground.\n");
     }
+    return 1;
+}
+
+int can_fly() {
+    if (position == FLYING) {
+      return notify_fail("You're already flying.\n");
+    }
+    return 1;
+}
+
+int event_fly() {
+    if (!can_fly()) {
+      return 0;
+    }
+    write("You begin to fly.\n");
+    say(this_player()->query_name() + " flies up.\n");
+    position = FLYING;
     return 1;
 }
 

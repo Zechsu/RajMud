@@ -23,3 +23,10 @@ object query_item_from_inventory(string item) {
     }
     return 0;
 }
+
+void move_inventory_to(object target) {
+    object* inv = all_inventory(this_object());
+    foreach (object ob in inv) {
+        ob->move(target);
+    }
+}

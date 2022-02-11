@@ -11,3 +11,11 @@ void create() {
     set_required_limbs(({"hand"}));
     set_layer(A_WEAPON);
 }
+
+int event_strike(object target) {
+    return 15;
+}
+
+string query_attack_message() {
+    return "$N $vswing at $T";
+}

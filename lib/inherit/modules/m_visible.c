@@ -1,7 +1,7 @@
 private int visible;
 
 void create() {
-    if (!visible) {
+    if (!visible || visible == 0) {
         visible = 1;
     }
 }

@@ -61,21 +61,22 @@ int look(object tp) {
     }
 
     desc = "%^YELLOW%^" + room->query_short() + "%^RESET%^" + exits + "\n" + room->query_long();
-    write(desc + "\n");
+    tell_object(this_player(), desc + "\n");
 
     // ugly fix for not putting a random \n after the room long descriptions
     inv -= ({tp});
     inv = filter_array(inv, (: !$1->is_prop() :));
+    inv = filter_array(inv, (: $1->is_visible() :));
 
     living = filter_array(inv, (:$1->is_living():));
-    items = filter_array(inv, (: $1->is_visible():));
+    items = filter_array(inv, (: $1->is_item() :));
     specials = filter_array(items, (: $1->is_portal() :));
     items -= specials;
 
     if (sizeof(specials)) {
         int spsz = sizeof(specials);
         if (spsz == 1) {
-            write(capitalize_colored(specials[0]->query_short()) + " is here.\n");
+            tell_object(this_player(), capitalize_colored(specials[0]->query_short()) + " is here.\n");
         }
         else {
             string sps = list_strings(specials->query_short()) + " are here.";

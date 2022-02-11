@@ -39,7 +39,10 @@ void set_required_limbs(string* limbs) {
 }
 
 int query_layer() {
-    return layer;
+    if (layer != -1) {
+        return layer;
+    }
+    return -1;
 }
 
 void set_layer(int l) {

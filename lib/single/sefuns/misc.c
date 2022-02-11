@@ -145,6 +145,8 @@ string query_position_string(object who) {
         return sprintf("%s is flying here.", name);
     case SITTING:
         return sprintf("%s is sitting here.", name);
+    case CRAWLING:
+        return sprintf("%s is crawling here.", name);
     default:
         return sprintf("%s is here.", name);
     }

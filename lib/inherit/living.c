@@ -11,6 +11,7 @@ inherit M_SKILLS;
 inherit M_TRAITS;
 inherit M_TITLE;
 inherit M_INVENTORY;
+inherit M_VISIBLE;
 
 private string name;
 private string current_room;
@@ -19,6 +20,8 @@ private nosave int busy = 0;
 void create() {
     race::create();
     position::create();
+    combat::create();
+    m_visible::create();
     enable_commands();
     if (!current_room) {
         current_room = TEST_ROOM;
@@ -53,12 +56,15 @@ string query_long() {
     // <PRONOUN> is a <RACE>
     string ret = sprintf("%s is a %s. ", capitalize(query_pronoun()), query_race());
     object* worn = query_worn();
+    string tmp;
     if (sizeof(worn)) {
         ret += sprintf("%s is equipped with ", capitalize(query_pronoun()));
         foreach (object w in worn) {
             ret += sprintf("\n%-30s %-30s", w->query_short(), w->worn_attributes());
         }
     }
+    tmp = this_object()->severed_attributes();
+    ret += tmp? tmp : "";
     return ret;
 }
 
@@ -92,4 +98,15 @@ varargs void set_busy(int arg) {
     else {
         busy = 0;
     }
+}
+
+void receive_message(string newclass, string msg)
+{
+    if (this_object()->query_no_color() == 0) {
+        msg = TERM_D->parse_pinkfish(msg);
+    }
+    else {
+        msg = TERM_D->parse_pinkfish(msg, 1);
+    }
+    receive(msg);
 }

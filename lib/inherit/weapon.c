@@ -5,12 +5,13 @@ inherit LIB_WORN;
 
 void hook_state(string tag, function hook, int state);
 private nosave function move_hook = (: event_remove, 1 :);
+private int weapon_class = 1;
 private string* combat_skills;
 
 void create() {
     ::create();
-    set_wear_mess("$N $vwield $t in $L.");
-    set_remove_mess("$N $vunwield $t.");
+    set_wear_mess("$N $vwield $t in $p $L.");
+    set_remove_mess("$N $vunwield $p $t.");
 }
 
 // Check if object can be wielded
@@ -57,6 +58,15 @@ string* query_combat_skills() {
     return combat_skills;
 }
 
-string query_attack_mess() {
-    return "You hit something.\n";
+void set_class(int c) {
+    weapon_class = c;
+}
+
+int query_class() {
+  return weapon_class;
+}
+
+// Called each time weapon hits an enemy
+int event_strike(object target) {
+    return weapon_class;
 }
