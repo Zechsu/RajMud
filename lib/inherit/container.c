@@ -118,10 +118,21 @@ varargs mixed event_recieve_item(object item, object who) {
  * @param what Item
  * @return mixed
  */
-varargs mixed event_get(object who, string what) {
+varargs mixed event_get_from(object who, string what) {
     object item;
     if (!who) {
         who = TP;
+    }
+
+    if (what == "all") {
+        object* inv = all_inventory(this_object());
+        if (!inv) {
+            return notify_fail("It's empty.\n");
+        }
+        foreach (object ob in inv) {
+            ob->event_get_from(who, this_object());
+        }
+        return 1;
     }
 
     item = present(what, TO);
