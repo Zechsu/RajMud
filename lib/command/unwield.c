@@ -6,8 +6,10 @@ int main(string arg) {
         return notify_fail("Unwield what?\n");
     }
     ob = present(arg, this_player());
-    if (!ob->is_wieldable()) return notify_fail(sprintf("%s is not wieldable.\n", arg));
     if (ob) {
+        if (!ob->is_wieldable()) {
+            return notify_fail(sprintf("%s is not wieldable.\n", arg));
+        }
         return ob->event_remove();
     }
     else {
