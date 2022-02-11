@@ -2,6 +2,8 @@
 
 inherit LIB_ITEM;
 
+int stack();
+
 private mixed weight = 0;
 private string resource = "";
 
@@ -36,21 +38,22 @@ string query_short() {
     return weight + "grams of " + res;
 }
 
-varargs mixed event_get(object who) {
-    object stack;
-    if (!who) {
-        who = TP;
+int move(mixed dest)
+{
+    if (!stack()) {
+        return ::move(dest);
     }
-    
-    stack = present(resource, who);
+    return 1;
+}
 
+int stack() {
+    object who = this_interactive();
+    object stack;
+    stack = present(resource, who);
     if (stack) {
         stack->add_weight(weight);
-        write("You get " + query_short() + "\n");
-        remove();
+        this_object()->remove();
         return 1;
     }
-    else {
-        return ::event_get(who);
-    }
+    return 0;
 }
