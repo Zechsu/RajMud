@@ -9,7 +9,7 @@ void create() {
             "severed":0,
             "worn": ({}),
             "type":"head",
-            "factor":0.1,
+            "factor":0.35,
             "max_hp":0,
             "current_hp":0,
         ]),
@@ -29,7 +29,7 @@ void create() {
             "severed":0,
             "worn": ({}),
             "type":"arm",
-            "factor":0.2,
+            "factor":0.25,
             "max_hp":0,
             "current_hp":0,
         ]),
@@ -39,7 +39,7 @@ void create() {
             "severed":0,
             "worn": ({}),
             "type":"arm",
-            "factor":0.2,
+            "factor":0.25,
             "max_hp":0,
             "current_hp":0,
         ]),
@@ -70,7 +70,7 @@ void create() {
             "fingers":5,
             "worn": ({}),
             "type":"hand",
-            "factor":0.05,
+            "factor":0.15,
             "max_hp":0,
             "current_hp":0,
         ]),
@@ -81,7 +81,7 @@ void create() {
             "fingers":5,
             "worn": ({}),
             "type":"hand",
-            "factor":0.05,
+            "factor":0.15,
             "max_hp":0,
             "current_hp":0,
         ]),
@@ -118,4 +118,11 @@ string query_hand() {
 int calculate_health_of_limb(string limb) {
     int const = this_player()->query_skill_level("constitution");
     return 28 * const * query_race_body()[limb]["factor"];
+}
+
+int is_severable(string limb) {
+    if (limb == "torso") {
+        return 0;
+    }
+    return 1;
 }

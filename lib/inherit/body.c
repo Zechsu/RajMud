@@ -17,6 +17,10 @@
 inherit M_GENDER;
 
 string query_short();
+string query_name();
+int event_die();
+string query_pronoun();
+string query_possessive_determiner();
 
 private mapping limbs = ([]);
 
@@ -37,6 +41,7 @@ varargs mixed query_random_limb(int flag) {
      if (flag) {
           string* tmp = query_limbs();
           tmp = filter_array(tmp, (:limbs[$1]["severed"] == 0:));
+          tmp = filter_array(tmp, (: limbs[$1]["current_hp"] > -2.0 :));
           if (!sizeof(tmp)) {
                return 0;
           }
@@ -95,7 +100,8 @@ void sever_limb(string limb) {
      if (!limbs) {
           return;
      }
-     if (!limbs[limb] || limbs[limb]["severed"] != 0) {
+     // TODO: Check if limb is severable. Certain "limbs" like the torso probably shouldn't be severable
+     if (!limbs[limb] || limbs[limb]["severed"] != 0 || !Race(query_race())->is_severable(limb)) {
           return;
      }
      tell_object(this_object(), "Your " + limb + " is severed!\n");
@@ -104,19 +110,26 @@ void sever_limb(string limb) {
 
      limbs[limb]["severed"] = 1;
      foreach (string other in keys(limbs)) {
-          if (limbs[other]["parent"] == limb) {
+          if (limbs[other]["parent"] == limb && limbs[other]["severed"] != 1) {
+               limbs[other]["current_hp"] = -limbs[other]["max_hp"];
                sever_limb(other);
           }
      }
 
      // Severed limb object
      ob = new("/std/obj/limb");
+     ob->set_race(query_race());
      ob->set_short(sprintf("severed %s %s", query_race(), limb));
      ob->set_long(sprintf("The remains of a %s %s", query_race(), limb));
-     ob->set_ids(({"limb", limb}));
+     ob->set_ids(({"limb", limb, limbs[limb]["type"]}));
      ob->set_adjectives(({"severed", query_race()}));
      ob->move(environment(this_object()));
      ob->set_decay(5);
+
+     // This needs to be after the severing, so the limb is moved to the room the living died
+     if (limbs[limb]["critical"]) {
+          event_die();
+     }
 
      // Drop wielded/worn weapons
      equip = query_worn(limb);
@@ -224,4 +237,30 @@ int has_limbs(string* which) {
           }
      }
      return 1;
+}
+
+int event_die() {
+     object corpse = new(LIB_CORPSE);
+     object to = this_object();
+     corpse->set_short(sprintf("%s's corpse", query_name()));
+     corpse->set_long(sprintf("The corpse of %s", query_name()));
+     corpse->set_ids(({"corpse"}));
+     corpse->set_adjectives(({query_name(), query_name() + "'s", query_race()}));
+     corpse->move(environment(to));
+     corpse->set_decay(10);
+     to->move_inventory_to(corpse);
+     tell_object(to, "%^RED%^%^BOLD%^YOU'VE DIED!%^RESET%^\n");
+     to->move(TEST_ROOM);
+     to->create_new_body(query_race());
+}
+
+string severed_attributes() {
+     string ret = "%^RED%^" + capitalize(query_pronoun()) + " is missing " + query_possessive_determiner() + " ";
+     string* keys = keys(limbs);
+     string* severed = filter_array(keys, (: limbs[$1]["severed"] == 1 :));
+     ret += list_strings(severed);
+     if (sizeof(severed)) {
+          return ret + "%^RESET%^";
+     }
+     return 0;
 }

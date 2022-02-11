@@ -43,6 +43,12 @@ varargs mixed call_hook(string tag, mixed func, mixed start, mixed* args...) {
             map_array(hooks_to_call, (:evaluate($1, $(args)...):));
             return 0;
         }
+        case HOOK_LAND: {
+            foreach (function hook in hooks_to_call) {
+                if(!evaluate(hook, args...)) return 0;
+            }
+            return 1;
+        }
     }
 }
 

@@ -13,7 +13,7 @@ int main(string str) {
 
     foreach(string limb in limbs) {
         object* wielded = tp->query_worn(limb);
-        string status = body[limb]["severed"]? "%^RED%^severed%^RESET%^":"okay";
+        string status = body[limb]["severed"]? "%^RED%^severed%^RESET%^":"intact";
         float chp = body[limb]["current_hp"];
         float mhp = body[limb]["max_hp"];
         string wielding = sizeof(wielded)? "%^GREEN%^"+list_strings(wielded->query_short())+"%^RESET%^" : "";

@@ -4,7 +4,9 @@
 inherit LIB_ITEM;
 inherit M_DECAY;
 
+private string race;
 private string* butcher_materials = ({});
+private string* organs = ({});
 
 void create() {
     ::create();
@@ -35,6 +37,14 @@ string query_long() {
     return ret;
 }
 
+void set_race(string r) {
+    race = r;
+}
+
+string query_race() {
+    return race;
+}
+
 void set_butcher(string* mats) {
     butcher_materials = mats;
 }
@@ -48,8 +58,9 @@ mixed event_butcher(object who) {
         object ob = new(LIB_RESOURCE);
         ob->set_short(mat);
         ob->set_ids(({mat}));
-        ob->set_long(mat);
+        ob->set_long("It's " + capitalize(mat));
         ob->set_resource(mat);
+        ob->set_adjectives(({race}));
         ob->add_weight(15);
         ob->event_get(who);
     }
