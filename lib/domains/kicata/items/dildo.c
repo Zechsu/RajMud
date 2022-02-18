@@ -1,27 +1,21 @@
 #include <lib.h>
+#include <armor_layers.h>
 
-inherit LIB_ITEM;
+inherit LIB_WEAPON;
 
 void create() {
     ::create();
     set_short("30cm bbc dildo");
     set_long("It appears to be the smallest size Kocinofs collection has to offer.");
     set_ids(({"dildo", "bbc", "bbc dildo", "30cm bbc dildo"}));
+    set_required_limbs(({"hand"}));
+    set_layer(A_WEAPON);
 }
 
-void init() {
-    add_action("do_swing", "swing");
+int event_strike(object target) {
+    return 2;
 }
 
-int do_swing(string arg) {
-    object tp = this_player();
-    if (!arg || trim(arg) == "") {
-        return 0;
-    }
-    if (member_array(arg, query_ids()) == -1) {
-        return 0;
-    }
-    write("You swing your " + query_short() + " around.\n");
-    say(sprintf("%s swing his %s around.\n", tp->query_short(), query_short()));
-    return 1;
+string query_attack_message() {
+    return "$N $vbash $T in the $L with $o";
 }
