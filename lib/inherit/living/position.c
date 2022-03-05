@@ -7,6 +7,7 @@ private int position;
 // Prototype functions
 string query_name();
 string query_race();
+int query_trait(string trait);      // m_traits
 
 void create() {
     if (!position || position == 0) {
@@ -58,6 +59,9 @@ int event_crawl() {
 int can_fly() {
     if (position == FLYING) {
       return notify_fail("You're already flying.\n");
+    }
+    if (query_trait("flight") == 0) {
+        return notify_fail("You can't fly!\n");
     }
     return 1;
 }

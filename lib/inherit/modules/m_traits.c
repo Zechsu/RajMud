@@ -17,3 +17,11 @@ int set_trait(string trait, mixed value) {
     traits[trait] = value;
     return 1;
 }
+
+void add_trait(string trait, mixed amount) {
+    traits[trait] += amount;
+}
+
+void subtract_trait(string trait, mixed amount) {
+    traits[trait] -= amount;
+}
