@@ -10,9 +10,8 @@ void print_examine(object obj);
 
 int main(string arg) {
     object ob;
-    string* cmd = explode(arg, "-");
+    string* cmd;
     flags = 0;
-    arg = rtrim(cmd[0]);
     if (!arg || trim(arg) == "") {
         return notify_fail("Examine what?\n");
     }
@@ -20,6 +19,8 @@ int main(string arg) {
         print_examine(environment(this_player()));
         return 1;
     }
+    cmd = explode(arg, "-");
+    arg = rtrim(cmd[0]);
     ob = present(arg, this_player());
     if (!ob) ob = present(arg, environment(this_player()));
     if (!ob) return notify_fail("Couldn't find object\n");
@@ -45,7 +46,8 @@ int main(string arg) {
 }
 
 void print_examine(object obj) {
-    write(sprintf("%%^GREEN%%^Functions count: %d\n", sizeof(functions(obj))));
+    write(sprintf("%%^GREEN%%^%s\n", base_name(obj)));
+    write(sprintf("Functions count: %d\n", sizeof(functions(obj))));
     write(sprintf("Variables count: %d\n", sizeof(variables(obj))));
     write(sprintf("Memory usage: %dKb\n%%^RESET%%^", memory_info(obj)/1024));
     if (flags & F_FUNCTIONS_SIG) {
@@ -71,6 +73,14 @@ void print_examine(object obj) {
         write("%^GREEN%^");
         foreach (string fun in funcs) {
             write(fun + "\n");
+        }
+        write("%^RESET%^");
+    }
+    if (flags & F_VARIABLES) {
+        string* vars = variables(obj);
+        write("%^GREEN%^");
+        foreach (string var in vars) {
+            write(var + "\n");
         }
         write("%^RESET%^");
     }
