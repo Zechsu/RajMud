@@ -186,24 +186,29 @@ varargs string invert_cardinal_direction(string dir, int flag) {
 }
 
 // Returns an list formatted like "string1, string2, string3 and string4"
-string list_strings(string* strings) {
-    string ret = "";
-    int sz = sizeof(strings);
-    if (sz == 1) {
-        return strings[0];
+// Stolen from gesslar <3
+varargs string list_strings(string* list, string conjunction) {
+    int sz;
+
+    if(nullp(list)) error("Missing argument 1 to list_strings.\n");
+    if(stringp(list)) list = ({ list });
+    if(pointerp(list)) list = filter(list, (: stringp :));
+    else error("Invalid argument 1 to list_strings.\n");
+
+    if(!conjunction) conjunction = "and";
+
+    sz = sizeof(list);
+    switch(sz)
+    {
+        case 0 : return "";
+        case 1 : return list[0];
+        case 2 : return sprintf("%s %s %s", list[0], conjunction, list[1]);
+        default:
+            list[sizeof(list) - 1] = conjunction + " " + list[sizeof(list) - 1];
+            return implode(list, ", ");
     }
-    for (int i = 0; i < sz; i++) {
-        if (i == sz -1) {
-            ret += " and " + strings[i];
-        }
-        else {
-            ret += strings[i];
-        }
-        if (i < sz - 2) {
-            ret += ", ";
-        }
-    }
-    return ret;
+
+    return "";
 }
 
 string capitalize_colored(string str) {
