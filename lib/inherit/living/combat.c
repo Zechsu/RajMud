@@ -12,6 +12,15 @@ object query_enemy() {
     return sizeof(enemies)? enemies[0] : 0;
 }
 
+object* query_enemies() {
+    return sizeof(enemies)? enemies : 0;
+}
+
+void stop_combat() {
+    enemies = ({});
+    set_heart_beat(0);
+}
+
 void add_enemy(object enemy) {
     if (enemy) {
         if (member_array(enemy, enemies) > -1) {
@@ -88,6 +97,8 @@ void do_weapon_attack(object target) {
     tell_object(target, mess[1] + "\n");
     tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
     target->event_receive_damage(damage, target_limb);
+
+    remove_enemy(target);
     // target->event_receive_damage(damage, target_limb);
 }
 

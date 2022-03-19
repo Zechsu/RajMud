@@ -23,11 +23,16 @@ string query_pronoun();
 string query_possessive_determiner();
 
 private mapping limbs = ([]);
+private nosave int is_dead = 0;
 
 void create() {
      if (!limbs) {
           limbs = ([]);
      }
+}
+
+int is_dead() {
+     return is_dead;
 }
 
 // Returns keys of limbs mapping
@@ -85,6 +90,7 @@ int create_new_body(string race) {
           limbs[limb]["max_hp"] = raceob->calculate_health_of_limb(limb);
           limbs[limb]["current_hp"] = limbs[limb]["max_hp"];
      }
+     is_dead = 0;
      return 1;
 }
 
@@ -96,7 +102,7 @@ void update_max_health() {
 }
 
 void sever_limb(string limb) {
-     object ob, equip;
+     object ob, *equip;
      if (!limbs) {
           return;
      }
@@ -133,18 +139,18 @@ void sever_limb(string limb) {
 
      // Drop wielded/worn weapons
      equip = query_worn(limb);
-     if (equip) {
+     if (sizeof(equip)) {
           foreach (object eq in equip) {
                // Get all the limbs on which the item is worn
                string* worn = eq->query_worn();
                // Remove the cut-off limb from the item's worn variable
                eq->remove_worn(limb);
                // If no limb is left, then the item needs to go
-               if (!sizeof(find_limb(worn, 1))) {
+               if (sizeof(find_limb(worn, 1)) == 0) {
                     eq->event_remove(1);
                     if (eq->is_wieldable()) {
                          // If it's a weapon then drop it
-                         eq->event_drop();
+                         eq->event_drop(this_object());
                     }
                     else {
                          // Move to corpse
@@ -242,6 +248,7 @@ int has_limbs(string* which) {
 int event_die() {
      object corpse = new(LIB_CORPSE);
      object to = this_object();
+
      corpse->set_short(sprintf("%s's corpse", query_name()));
      corpse->set_long(sprintf("The corpse of %s", query_name()));
      corpse->set_ids(({"corpse"}));
