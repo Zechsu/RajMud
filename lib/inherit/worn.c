@@ -143,7 +143,6 @@ varargs mixed event_remove(int quietly) {
 
 void remove_worn(string limb) {
     mapping player_body = environment(this_object())->query_body();
-    debug_message(sprintf("PLAYER: %O", this_player()));
     worn -= ({limb});
     player_body[limb]["worn"] -= ({ this_object() });
 }
