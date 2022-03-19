@@ -52,19 +52,21 @@ string query_short() {
     }
 }
 
+// Living descriptor
 string query_long() {
     // <PRONOUN> is a <RACE>
     string ret = sprintf("%s is a %s. ", capitalize(query_pronoun()), query_race());
     object* worn = query_worn();
-    string tmp;
-    if (sizeof(worn)) {
-        ret += sprintf("%s is equipped with ", capitalize(query_pronoun()));
+
+    string tmp = this_object()->severed_attributes();
+    ret += tmp? tmp + "%^RED%^.%^RESET%^" : "";
+
+    if (sizeof(worn) != 0) {
+        ret += sprintf("\n%s is equipped with: ", capitalize(query_pronoun()));
         foreach (object w in worn) {
-            ret += sprintf("\n%-30s %-30s", w->query_short(), w->worn_attributes());
+            ret += sprintf("\n  %-30s %-30s", w->query_short(), w->worn_attributes());
         }
     }
-    tmp = this_object()->severed_attributes();
-    ret += tmp? tmp : "";
     return ret;
 }
 

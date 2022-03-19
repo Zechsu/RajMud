@@ -16,7 +16,7 @@ int main(string str) {
         string status = body[limb]["severed"]? "%^RED%^severed%^RESET%^":"intact";
         float chp = body[limb]["current_hp"];
         float mhp = body[limb]["max_hp"];
-        string wielding = sizeof(wielded)? "%^GREEN%^"+list_strings(wielded->query_short())+"%^RESET%^" : "";
+        string wielding = sizeof(wielded)? "%^GREEN%^" + list_strings(wielded->query_short())+"%^RESET%^" : "";
         write(sprintf("%-15s %-7s %s[%-:*.1f / %:*.1f]%%^RESET%%^ %s\n", limb, status, query_color_health(chp, mhp), pad+1, chp, pad+1, mhp, wielding));
     }
     return 1;

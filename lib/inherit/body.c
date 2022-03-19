@@ -100,7 +100,7 @@ void sever_limb(string limb) {
      if (!limbs) {
           return;
      }
-     // TODO: Check if limb is severable. Certain "limbs" like the torso probably shouldn't be severable
+
      if (!limbs[limb] || limbs[limb]["severed"] != 0 || !Race(query_race())->is_severable(limb)) {
           return;
      }

@@ -32,7 +32,7 @@ mixed can_wear(object who, string* limbs) {
     mixed res = ::can_wear(who, limbs);
     int sz = sizeof(res);
 
-    if (sz == 1) {
+    if (sz != 1) {
         string handedness = this_player()->query_trait("handedness");
         foreach (string str in res) {
             if (strsrch(str, handedness) != -1) {

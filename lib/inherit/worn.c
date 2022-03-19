@@ -96,7 +96,8 @@ varargs mixed event_wear(object who, string* limbs) {
     if (!limbs) limbs = required_limbs;
 
     wear = can_wear(who, limbs);
-    if (!sizeof(wear)) return 0;
+    if (sizeof(wear) == 0)
+        return notify_fail("You cannot do that!\n");
 
     player_body = who->query_body();
     foreach(string limb in wear) {
