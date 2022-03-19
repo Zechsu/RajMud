@@ -2,7 +2,7 @@
 
 string help();
 int get(object tp, string item);
-int get_from(object tp, string item, string from);
+varargs int get_from(object tp, string item, string from, int all);
 
 int main(string str) {
     object tp = this_player();
@@ -16,7 +16,9 @@ int main(string str) {
     if (strsrch(str, "the") != -1) {
         str = replace_string(str, "the ", "");
     }
-
+    if (sscanf(str, "%s all from %s", item, cont) == 2) {
+        return get_from(tp, item, cont, 1);
+    }
     if (sscanf(str, "%s from %s", item, cont) == 2) {
         return get_from(tp, item, cont);
     }
@@ -37,7 +39,7 @@ int get(object tp, string item) {
     return notify_fail("Couldn't find that here.\n");
 }
 
-int get_from(object tp, string item, string from) {
+varargs int get_from(object tp, string item, string from, int all) {
     object cont;
     cont = present(from, tp);
     if (!cont) cont = present(from, ENV(tp));
@@ -47,6 +49,12 @@ int get_from(object tp, string item, string from) {
     }
     if (!cont->is_container()) {
         return notify_fail(cont->query_short() + " is not a container.\n");
+    }
+    if (all) {
+        foreach (object i in all_inventory(cont)) {
+            cont->event_get_from(tp, i->query_id());
+            return 1;
+        }
     }
     return cont->event_get_from(tp, item);
 }
