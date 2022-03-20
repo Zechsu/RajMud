@@ -10,7 +10,7 @@ int main(string arg) {
         object ob = present(item, this_player());
         if (!ob) return notify_fail(sprintf("You do not have %s.\n", arg));
         if (ob->is_wieldable()) {
-            return ob->event_wear(this_player(), limb);
+            return ob->event_wear(this_player(), ({ limb }));
         }
         return notify_fail("You can't wield that.\n");
     }
