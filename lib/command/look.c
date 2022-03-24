@@ -104,6 +104,9 @@ int look(object tp) {
         write(ret + ".\n");
     }
 
+    this_player()->gmcp("Room.Info");
+    this_player()->gmcp("Room.Items");
+    
     return 1;
 }
 

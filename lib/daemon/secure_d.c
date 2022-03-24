@@ -2,8 +2,8 @@
 #include <daemons.h>
 #include <security.h>
 
-private mapping users;
-private mapping wizards;
+private mapping users = ([]);
+private mapping wizards = ([]);
 
 void create() {
     if (clonep(this_object())) {
@@ -11,9 +11,6 @@ void create() {
     }
     if (!restore_object(ACCESS_SAVE)) {
         wizards = ([]);
-        users = ([]);
-    }
-    if (!sizeof(users)) {
         users = ([]);
     }
 }

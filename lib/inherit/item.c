@@ -14,6 +14,23 @@ void create() {
     }
 }
 
+int move(mixed dest) {
+    object* players;
+    int res = ::move(dest);
+    object env = environment(this_object());
+
+    if (userp(env)) {
+        players = all_inventory(environment(env));
+    }
+    else {
+        players = all_inventory(env);
+    }
+    players = filter_array(players, (: userp($1) :));
+    map(players, (: $1->gmcp("Room.Items") :));
+
+    return res;
+}
+
 int can_get(object who) {
     string* hands;
     if (!who) {
@@ -81,6 +98,7 @@ varargs mixed event_drop(object who) {
     }
     tell_object(who, "You drop " + query_short() + ".\n");
     tell_room(environment(who), who->query_name() + " drops " + query_short() + "\n", ({who}));
+
     return move(environment(who));
 }
 

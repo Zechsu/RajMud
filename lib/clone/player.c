@@ -106,13 +106,11 @@ void gmcp(string message) {
             break;
         }
         case "Room.Info": {
-            mapping ret = ([]);
-            ret += (["area": "Test"]);
-            ret += (["environment": 0]);
-            ret += (["name": "Test v kicata"]);
-            ret += (["num": 1]);
-            send_gmcp_data("Room.Info", json_encode(ret));
+            "daemon/gmcp/info"->Info(this_player());
             break;
+        }
+        case "Room.Items": {
+            "daemon/gmcp/info"->Items(this_player());
         }
     }
 }
