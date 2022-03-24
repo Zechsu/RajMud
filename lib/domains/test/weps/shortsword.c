@@ -13,7 +13,7 @@ void create() {
 }
 
 int event_strike(object target) {
-    return 15;
+    return 36;
 }
 
 string query_attack_message() {

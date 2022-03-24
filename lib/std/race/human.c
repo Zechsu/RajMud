@@ -115,6 +115,13 @@ string query_hand() {
     return "hand";
 }
 
+string query_attack_message() {
+    return element_of(({"$N $vpunch $T",
+                        "$N $vkick $T"}));
+}
+
+// Will calculate the max health of a limb 
+// Used when leveling up, so limbs have correct stats
 int calculate_health_of_limb(string limb) {
     int const = this_player()->query_skill_level("constitution");
     return 28 * const * query_race_body()[limb]["factor"];

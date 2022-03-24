@@ -13,4 +13,5 @@ RAJMUD 0.2
  *  Added butchering
  *  Title command now shows current title
  *  Added rings
- 
+ *  Added combat
+ *  Added Mudlet mapping with GMCP

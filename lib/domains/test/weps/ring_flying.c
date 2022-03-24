@@ -6,7 +6,7 @@ inherit "/std/obj/ring";
 
 void create() {
     ::create();
-    set_short("golden ring of flight");
+    set_short("%^BOLD%^YELLOW%^golden ring of flight%^RESET%^");
     set_long("It's a ring that magically makes you fly after putting it on.");
     set_ids(({"ring"}));
     set_adjectives(({"gold", "golden"}));

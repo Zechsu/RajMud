@@ -102,6 +102,32 @@ void do_weapon_attack(object target) {
     // target->event_receive_damage(damage, target_limb);
 }
 
+void do_unarmed_attack(object target) {
+    float damage = 1;
+    string* mess, tmp;
+
+    target_limb = target->query_random_limb(1);
+
+    // If enemy has no unsevered lims, remove it as an enemy
+    if (!target_limb) {
+        remove_enemy(target);
+        return;
+    }
+
+    tmp = Race(this_object()->query_race())->query_attack_message();
+    // compose_message() does not support $L.
+    tmp = replace_string(tmp, "$L", target_limb);
+
+    mess = compose_message(this_player(), tmp, target);
+
+    tell_object(this_player(), mess[0] + sprintf(" [%f]\n", damage));
+    tell_object(target, mess[1] + "\n");
+    tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
+    target->event_receive_damage(damage, target_limb);
+
+    remove_enemy(target);
+}
+
 int event_attack(object target) {
     if (!target) return 0;
     
@@ -132,6 +158,9 @@ void heart_beat() {
     }
     if (sizeof(this_player()->query_worn(0, A_WEAPON))) {
         return do_weapon_attack(target);
+    }
+    else {
+        return do_unarmed_attack(target);
     }
     // If we get to this point, it means we couldn't have done any attack, so we stop the combat
     remove_enemy(target);
