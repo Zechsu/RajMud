@@ -72,6 +72,10 @@ int commandHook(string arg) {
     object cobj;
     string verb = query_verb();
 
+    if (verb[0] == '\"' && verb[<1] == '\"') {
+        return (int)load_object("/command/say")->main(verb[1..<2]);
+    }
+
     foreach(string path in query_search_paths()) {
         cmd_path = path + verb;
         cobj = load_object(cmd_path);
