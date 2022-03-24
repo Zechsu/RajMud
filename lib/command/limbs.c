@@ -1,7 +1,8 @@
 #include <command.h>
 
 int query_padding(mapping body, string* limbs);
-string query_color_health(float c, float m);
+string query_color_health(float c, float m, int pad);
+string query_status(mapping limb);
 
 int main(string str) {
     object tp = this_player();
@@ -13,28 +14,40 @@ int main(string str) {
 
     foreach(string limb in limbs) {
         object* wielded = tp->query_worn(limb);
-        string status = body[limb]["severed"]? "%^RED%^severed%^RESET%^":"intact";
+        string status = query_status(body[limb]);
         float chp = body[limb]["current_hp"];
         float mhp = body[limb]["max_hp"];
         string wielding = sizeof(wielded)? "%^GREEN%^" + list_strings(wielded->query_short())+"%^RESET%^" : "";
-        write(sprintf("%-15s %-7s %s[%-:*.1f / %:*.1f]%%^RESET%%^ %s\n", limb, status, query_color_health(chp, mhp), pad+1, chp, pad+1, mhp, wielding));
+        string hp = query_color_health(chp, mhp, pad);
+        write(sprintf("%-15s %-8s %-8s %s\n", limb, status, hp, wielding));
     }
     return 1;
 }
 
-string query_color_health(float c, float m) {
+string query_status(mapping limb) {
+    if (limb["severed"]) {
+        return "%^RED%^severed %^RESET%^";
+    }
+    if (limb["current_hp"] <= -0.0) {
+        return "%^CYAN%^disabled%^RESET%^";
+    }
+    return "%^GREEN%^intact  %^RESET%^";
+}
+
+string query_color_health(float c, float m, int pad) {
     float percentof = percent(c, m);
+    string hp = sprintf("[%-:*.1f / %:*.1f]", pad+1, c, pad+1, m);
     if (percentof > 75.0) {
-        return "%^GREEN%^";
+        return "%^GREEN%^" + hp + "%^RESET%^";
     }
     if (percentof > 50.0) {
-        return "%#de6b2d%#";
+        return "%#de6b2d%#" + hp + "%^RESET%^";
     }
     if (percentof > 25.0) {
-        return "%^YELLOW%^";
+        return "%^YELLOW%^" + hp + "%^RESET%^";
     }
     else {
-        return "%^RED%^";
+        return "%^RED%^" + hp + "%^RESET%^";
     }
 }
 
