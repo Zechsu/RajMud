@@ -462,3 +462,28 @@ varargs string *compose_message(object who, string msg, object target, mixed * o
 
     return (( { us, them, others } ));
 }
+
+// append and prepend stolen from gesslar
+// Append suffix to main if it is missing
+string append(string main, string suffix)
+{
+    int len = sizeof(main) ;
+    int sufflen = sizeof(suffix) ;
+
+    if(sufflen > len) return main + suffix ;
+    if(main[ <sufflen.. ] == suffix) return main ;
+
+    return main + suffix ;
+}
+
+// Prepend prefix to main if it is missing
+string prepend(string main, string prefix)
+{
+    int len = sizeof(main) ;
+    int preflen = sizeof(prefix) ;
+
+    if(preflen > len) return prefix + main ;
+    if(main[0..preflen-1] == prefix) return main ;
+    
+    return prefix + main ;
+}
