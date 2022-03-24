@@ -8,16 +8,25 @@ private string race;
 private string* butcher_materials = ({});
 private string* organs = ({});
 
-void create() {
+void set_race(string r);
+protected void setup_limb();
+void set_butcher(string* mats);
+
+void create(string race) {
     ::create();
-    set_short("severed limb");
-    set_long("Remains of a limb");
-    set_ids(({"limb"}));
-    butcher_materials = ({"human meat"});
+    set_race(race);
     // default decay time for cloned objects is 50 seconds
     if (clonep()) {
         set_decay(5);
     }
+    setup_limb();
+}
+
+protected void setup_limb() {
+    set_short("severed " + race + " limb");
+    set_long("Remains of a " + race + " limb.");
+    set_ids(({"limb"}));
+    set_butcher(({"meat"}));
 }
 
 string query_long() {

@@ -123,14 +123,8 @@ void sever_limb(string limb) {
      }
 
      // Severed limb object
-     ob = new("/std/obj/limb");
-     ob->set_race(query_race());
-     ob->set_short(sprintf("severed %s %s", query_race(), limb));
-     ob->set_long(sprintf("The remains of a %s %s", query_race(), limb));
-     ob->set_ids(({"limb", limb, limbs[limb]["type"]}));
-     ob->set_adjectives(({"severed", query_race()}));
+     ob = new("/std/obj/limbs/" + limbs[limb]["type"], query_race());
      ob->move(environment(this_object()));
-     ob->set_decay(5);
 
      // This needs to be after the severing, so the limb is moved to the room the living died
      if (limbs[limb]["critical"]) {
@@ -256,7 +250,7 @@ int event_die() {
      corpse->move(environment(to));
      corpse->set_decay(10);
      to->move_inventory_to(corpse);
-     tell_object(to, "%^RED%^%^BOLD%^YOU'VE DIED!%^RESET%^\n");
+     tell_object(to, "\n\n%^RED%^%^BOLD%^YOU'VE DIED!%^RESET%^\n\n");
      to->move(TEST_ROOM);
      to->create_new_body(query_race());
 }
