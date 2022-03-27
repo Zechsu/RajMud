@@ -60,5 +60,5 @@ varargs int get_from(object tp, string item, string from, int all) {
 }
 
 string help() {
-    return "Usage: get <item>\nget <item> from <container>\n";
+    return "Syntax: get <item>\nget <item> from <container>\nget all from <container>\n";
 }

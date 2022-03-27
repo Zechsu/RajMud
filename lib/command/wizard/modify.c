@@ -1,12 +1,18 @@
 #include <command.h>
 #include <globals.h>
 
+string help() {
+    return "Syntax:\n" +
+            "modify short <description>\n" +
+            "modify long <description>\n";
+}
+
 int main(string str) {
     object env;
     string* code;
     string what, change, bname;
     if (!str) {
-        return notify_fail("Modify what?\n");
+        return notify_fail(help());
     }
     if (sscanf(str, "%s %s", what, change) == 2) {
         env = environment(this_player());
