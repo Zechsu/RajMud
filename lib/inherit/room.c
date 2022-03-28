@@ -80,6 +80,7 @@ int can_go(object who) {
 varargs int event_go(string direction, object who) {
     int pos;
     mapping exits = query_exits();
+    string* composed;
     string inverse = invert_cardinal_direction(direction, 1);
     object door;
 
@@ -95,13 +96,16 @@ varargs int event_go(string direction, object who) {
     pos = who->query_position();
 
     // Write messages for going
-    write(sprintf("You %s %s.\n", POSITION_D->query_you_move_action(pos), direction));
-    say(sprintf("%s %s %s.\n", who->query_name(), POSITION_D->query_other_move_action(pos), direction));
+    composed = compose_message(who, sprintf("$N $v%s %s.", POSITION_D->query_move_action(pos), direction));
+    tell_object(who, capitalize(composed[0]) + "\n");
+    tell_room(environment(who), capitalize(composed[1]) + "\n", ({who}));
 
     who->event_move(exits[direction]);
 
     // Write message when arrived
-    say(sprintf("%s %s from %s.\n", who->query_name(), POSITION_D->query_other_move_action(pos), inverse));
+    composed = compose_message(who, sprintf("$N $v%s from %s.", POSITION_D->query_move_action(pos), inverse));
+    tell_room(environment(who), capitalize(composed[1]) + "\n", ({who}));
+
     who->force_me("look");
     who->gmcp("Room.Info");
     who->gmcp("Room.Items");
