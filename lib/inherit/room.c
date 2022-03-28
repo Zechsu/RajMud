@@ -105,6 +105,7 @@ varargs int event_go(string direction, object who) {
     who->force_me("look");
     who->gmcp("Room.Info");
     who->gmcp("Room.Items");
+    who->gmcp("Room.Livings");
     return 1;
 }
 

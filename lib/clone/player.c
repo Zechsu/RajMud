@@ -112,5 +112,8 @@ void gmcp(string message) {
         case "Room.Items": {
             "daemon/gmcp/info"->Items(this_player());
         }
+        case "Room.Livings": {
+            "daemon/gmcp/info"->Livings(this_player());
+        }
     }
 }

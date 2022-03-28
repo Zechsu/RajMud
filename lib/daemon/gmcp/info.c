@@ -38,3 +38,16 @@ void Items(object who) {
 
     who->send_gmcp_data("Room.Items", json_encode(data));
 }
+
+void Livings(object who) {
+    object room = environment(who);
+    object* inv = all_inventory(room);
+    mapping data = ([]);
+    inv = filter_array(inv, (: $1->is_living() :));
+
+    data = ([
+        "list": map(inv, (: $1->query_name() :))
+    ]);
+
+    who->send_gmcp_data("Room.Livings", json_encode(data));
+}
