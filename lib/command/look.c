@@ -106,7 +106,7 @@ int look(object tp) {
 
     this_player()->gmcp("Room.Info");
     this_player()->gmcp("Room.Items");
-    
+    this_player()->gmcp("Room.Livings");
     return 1;
 }
 
@@ -193,5 +193,5 @@ int look_at_on(object tp, string look_at_item, string target) {
 }
 
 string help() {
-    return "Usage: look\n";
+    return "Usage: look\nlook at <object>\n";
 }
