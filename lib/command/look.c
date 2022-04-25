@@ -50,22 +50,14 @@ int look(object tp) {
     exit_keys = room->query_exit_keys();
     inv = all_inventory(room);
 
-    if (sizeof(exit_keys) == 0) {
-        exits = "";
-    } 
-    else if (sizeof(exit_keys) == 1) {
-        exits = " [ " + exit_keys[0] + " ] ";
-    }
-    else {
-        exits = " [ " + implode(exit_keys, " | ") + " ] ";
-    }
-
-    desc = "%^YELLOW%^" + room->query_short() + "%^RESET%^" + exits + "\n" + room->query_long();
-    tell_object(this_player(), desc + "\n");
+    desc = "%^YELLOW%^" + room->query_short() + "%^RESET%^" + "\n" + room->query_long();
+    tell_object(tp, desc + "\n");
 
     // ugly fix for not putting a random \n after the room long descriptions
     inv -= ({tp});
+    // Remove prop objects
     inv = filter_array(inv, (: !$1->is_prop() :));
+    // Remove invisible objects
     inv = filter_array(inv, (: $1->is_visible() :));
 
     living = filter_array(inv, (:$1->is_living():));
@@ -73,10 +65,16 @@ int look(object tp) {
     specials = filter_array(items, (: $1->is_portal() :));
     items -= specials;
 
+    if (sizeof(exit_keys) == 1) {
+        tell_object(tp, "  The only obvious exit is %^MAGENTA%^" + exit_keys[0] + ".%^RESET%^\n");
+    }
+    else {
+        tell_object(tp, "  The only obvious exits are %^MAGENTA%^" + list_strings(exit_keys) + ".%^RESET%^\n");
+    }
     if (sizeof(specials)) {
         int spsz = sizeof(specials);
         if (spsz == 1) {
-            tell_object(this_player(), capitalize_colored(specials[0]->query_short()) + " is here.\n");
+            tell_object(tp, capitalize_colored(specials[0]->query_short()) + " is here.\n");
         }
         else {
             string sps = list_strings(specials->query_short()) + " are here.";
@@ -104,9 +102,9 @@ int look(object tp) {
         write(ret + ".\n");
     }
 
-    this_player()->gmcp("Room.Info");
-    this_player()->gmcp("Room.Items");
-    this_player()->gmcp("Room.Livings");
+    tp->gmcp("Room.Info");
+    tp->gmcp("Room.Items");
+    tp->gmcp("Room.Livings");
     return 1;
 }
 
