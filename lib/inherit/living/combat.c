@@ -1,11 +1,13 @@
 #include <positions.h>
 #include <armor_layers.h>
 
+private nosave object* attackers;
 private nosave object* enemies;
 private string target_limb;
 
 void create() {
     enemies = ({});
+    attackers = ({});
 }
 
 object query_enemy() {
@@ -51,10 +53,10 @@ int can_attack(object target) {
     if (member_array(target, enemies) == -1) {
         return 0;
     }
-    if (this_player()->query_position() != STANDING) {
-        write("You need to be standing to attack.\n");
-        return 0;
-    }
+    // if (this_player()->query_position() != STANDING) {
+    //     write("You need to be standing to attack.\n");
+    //     return 0;
+    // }
     if (environment(target) != environment(this_player())) {
         write("The target is not here.\n");
         return 0;
@@ -98,7 +100,6 @@ void do_weapon_attack(object target) {
     tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
     target->event_receive_damage(damage, target_limb);
 
-    remove_enemy(target);
     // target->event_receive_damage(damage, target_limb);
 }
 
@@ -124,8 +125,6 @@ void do_unarmed_attack(object target) {
     tell_object(target, mess[1] + "\n");
     tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
     target->event_receive_damage(damage, target_limb);
-
-    remove_enemy(target);
 }
 
 int event_attack(object target) {
