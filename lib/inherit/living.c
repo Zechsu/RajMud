@@ -22,6 +22,7 @@ void create() {
     position::create();
     combat::create();
     m_visible::create();
+
     enable_commands();
     if (!current_room) {
         current_room = TEST_ROOM;
@@ -30,6 +31,7 @@ void create() {
 
 void setup() {
     command::setup();
+    restore_worn_equipment();
 }
 
 void set_name(string n) {

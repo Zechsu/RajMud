@@ -67,8 +67,6 @@ void set_remove_mess(string mess) {
 
 mixed can_wear(object who, string* limbs) {
     string* free_limbs;
-    mapping player_body = this_player()->query_body();
-    int size;
 
     if(!limbs) limbs = required_limbs;
     if (worn) {
@@ -88,7 +86,7 @@ mixed can_wear(object who, string* limbs) {
     return free_limbs;
 }
 
-varargs mixed event_wear(object who, string* limbs) {
+varargs int event_wear(object who, string* limbs) {
     string* wear, *composed;
     mapping player_body;
     string mess;
@@ -172,4 +170,16 @@ varargs mixed query_real_limbs(string* args, int slot) {
     }
 
     return ret;
+}
+
+// sets the limb to wearing the weapon, used for when reconnecting
+void set_limb_worn() {
+    mapping body = this_player()->query_body();
+    if (sizeof(worn)) {
+        foreach (string limb in worn) {
+            // remove the zero that stays when trying to save object references
+            body[limb]["worn"] -= ({0});
+            body[limb]["worn"] += ({this_object()});
+        }
+    }
 }

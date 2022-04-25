@@ -30,3 +30,20 @@ void move_inventory_to(object target) {
         ob->move(target);
     }
 }
+
+void restore_worn_equipment() {
+    object* worn;
+
+    if (!clonep())
+        return;
+
+    worn = all_inventory(this_player());
+    worn = filter_array(worn, (: $1->query_worn() :));
+
+    if (!worn)
+        return;
+
+    foreach (object item in worn) {
+        item->set_limb_worn();
+    }
+}

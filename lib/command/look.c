@@ -38,7 +38,7 @@ int main(string arg) {
 }
 
 int look(object tp) {
-    string desc, ret = "", exits = "";
+    string desc, ret = "";
     object room = environment(tp);
     string* exit_keys;
     object* inv, *living, *items, *specials;
