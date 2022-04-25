@@ -15,13 +15,22 @@ void create() {
 }
 
 varargs mixed event_wear(object who, string* limbs) {
-    this_player()->add_trait("flight", 1);
-    return ::event_wear(who, limbs);
+    int res = ::event_wear(who, limbs);
+
+    if (res) {
+        this_player()->add_trait("flight", 1);
+    }
+
+    return res;
 }
 
 
 varargs mixed event_remove(int quietly) {
-    write("You gracefully float down to the ground.\n");
+    if (this_player()->query_position() == FLYING) {
+        write("You gracefully float down to the ground.\n");
+        this_player()->set_position(STANDING);
+    }
+
     this_player()->subtract_trait("flight", 1);
     return ::event_remove(quietly);
 }

@@ -26,7 +26,11 @@ string worn_attributes() {
     return "";
 }
 
-varargs mixed event_wear(object who, string* limbs) {
-    hook_state("move", move_hook, this_player() && this_player() != this_object());
-    return ::event_wear(who, limbs);
+varargs int event_wear(object who, string* limbs) {
+    int res = ::event_wear(who, limbs);
+
+    if (res)
+        hook_state("move", move_hook, this_player() && this_player() != this_object());
+
+    return res;
 }

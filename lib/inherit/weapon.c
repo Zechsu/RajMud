@@ -9,9 +9,10 @@ private int weapon_class = 1;
 private string* combat_skills;
 
 void create() {
-    ::create();
+    item::create();
     set_wear_mess("$N $vwield $t in $p $L.");
     set_remove_mess("$N $vunwield $p $t.");
+    add_save(({"worn"}));
 }
 
 // Check if object can be wielded
@@ -49,9 +50,13 @@ mixed can_wear(object who, string* limbs) {
     }
 }
 
-varargs mixed event_wear(object who, string* limbs) {
-    hook_state("move", move_hook, this_player() && this_player() != this_object());
-    return ::event_wear(who, limbs);
+varargs int event_wear(object who, string* limbs) {
+    int res = ::event_wear(who, limbs);
+
+    if (res)
+        hook_state("move", move_hook, this_player() && this_player() != this_object());
+
+    return res;
 }
 
 void set_combat_skills(string* skills) {
