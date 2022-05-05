@@ -1,18 +1,17 @@
 #include <command.h>
 
-#ifdef __NO_ENVIRONMENT__
-#define say(x) shout(x)
-#endif
-
-int
-main(string arg)
+int main(string arg)
 {
+    object po = previous_object();
+    object login = new(LOGIN_OB);
     object tp = this_player();
     tp->refresh_play_time();
     tp->save_player();
     write("Bye.\n");
-    say((string)previous_object()->query_name()
-        + " leaves this reality.\n");
-    previous_object()->remove();
+    say(po->query_name() + " leaves this reality.\n");
+    login->setup_link(po->query_name());
+    exec(login, po);
+    po->remove();
+    login->goto_account_menu();
     return 1;
 }

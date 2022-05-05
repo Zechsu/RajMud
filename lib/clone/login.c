@@ -8,6 +8,7 @@ object link;
 private nomask int valid_name(string name);
 void character_list();
 void write_account_options();
+void goto_account_menu();
 
 // needs fixed to handle passwords
 
@@ -72,6 +73,11 @@ private int character_exists(string name) {
 
 private int account_exists(string name) {
     return sizeof(stat(account_file(name))) > 0;
+}
+
+void setup_link(string name) {
+    link = new("/inherit/secure/link", lower_case(name));
+    link->restore_me();
 }
 
 void accept_name(string name) {
@@ -179,6 +185,10 @@ void repeat_password(string vpass, string opass, string name) {
     link = new("/inherit/secure/link", lower_case(name));
     link->set_password(crypt(opass, 0));
     link->save_me();
+    goto_account_menu();
+}
+
+void goto_account_menu() {
     write_account_options();
     input_to("account_menu");
 }
@@ -196,8 +206,7 @@ void create_new_character(string name) {
         create_user_object(name);
     }
     else {
-        write_account_options();
-        input_to("account_menu");
+        goto_account_menu();
     }
 }
 
