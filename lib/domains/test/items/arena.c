@@ -1,4 +1,5 @@
 #include <lib.h>
+#include <flags/item_flags.h>
 
 inherit LIB_CONTAINER;
 
@@ -10,6 +11,7 @@ void create() {
     set_long("An empty beetle arena");
     set_ids(({"beetle arena", "arena"}));
     set_inventory_capacity(2);
+    set_flag(ITEM_NO_GET);
 }
 
 void update_kabs() {
@@ -66,10 +68,6 @@ varargs mixed event_recieve_item(object item, object who) {
         set_heart_beat(3);
     }
     return 1;
-}
-
-int can_get(object who) {
-    return 0;
 }
 
 string get_attack_mess(object kab, object target) {

@@ -69,7 +69,7 @@ int can_get(object who) {
     object env = ENV(this_object());
     if (env->is_beetle_arena()) {
         if (env->is_full()) {
-            return 0;
+            return notify_fail("You can't do  that while they're fighting!\n");
         }
     }
     return 1;

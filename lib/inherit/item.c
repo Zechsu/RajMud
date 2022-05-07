@@ -1,10 +1,12 @@
 #include <lib.h>
 #include <modules.h>
+#include <flags/item_flags.h>
 #include "include/item.h"
 
 inherit BASE;
 inherit M_DESC;
 inherit M_VISIBLE;
+inherit M_FLAGS;
 inherit LIB_PERSIST;
 
 void create() {
@@ -37,6 +39,9 @@ int can_get(object who) {
         who = this_player();
     }
     hands = Race(who->query_race())->query_hands();
+    if (query_flag(ITEM_NO_GET)) {
+        return notify_fail("You can't get that!\n");
+    }
     if (!who->has_limbs(hands)) {
         return notify_fail("You do not have any hands.\n");
     }
