@@ -1,5 +1,9 @@
 int flags;
 
+void create() {
+    flags = 0;
+}
+
 void set_flag(int flag) {
     flags |= flag;
 }

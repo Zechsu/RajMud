@@ -65,6 +65,11 @@ varargs int event_receive_damage(float damage, string limb) {
      if (limbs[limb]["current_hp"] <= -2) {
           sever_limb(limb);
      }
+
+     if (is_dead) {
+          event_die();
+          return -1;
+     }
 }
 
 // Returns full limbs mapping
@@ -128,7 +133,7 @@ void sever_limb(string limb) {
 
      // This needs to be after the severing, so the limb is moved to the room the living died
      if (limbs[limb]["critical"]) {
-          event_die();
+          is_dead = 1;
      }
 
      // Drop wielded/worn weapons

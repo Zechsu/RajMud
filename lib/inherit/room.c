@@ -10,11 +10,16 @@
  */
 #include <modules.h>
 #include <lib.h>
+#include <flags/room_flags.h>
 
 inherit M_DESC;
 inherit M_EXITS;
+inherit M_FLAGS;
 
-void create() {}
+void create() {
+    m_flags::create();
+    set_flag(ROOM_NO_PK);
+}
 
 /**
  * @brief Adds an item inside the room

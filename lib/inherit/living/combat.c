@@ -1,5 +1,6 @@
 #include <positions.h>
 #include <armor_layers.h>
+#include <flags/room_flags.h>
 
 private nosave object* attackers;
 private nosave object* enemies;
@@ -46,6 +47,19 @@ void remove_enemy(object enemy) {
     }
 }
 
+int can_start_attack(object target) {
+    if (environment(this_player())->query_flag(ROOM_NO_COMBAT)) {
+        write("You can't fight here!\n");
+        return 0;
+    }
+    if (userp(target) && environment(this_player())->query_flag(ROOM_NO_PK)) {
+        write("You can't attack other players in this area!\n");
+        return 0;
+    }
+
+    return 1;
+}
+
 int can_attack(object target) {
     if (!target) {
         return 0;
@@ -61,13 +75,14 @@ int can_attack(object target) {
         write("The target is not here.\n");
         return 0;
     }
+
     return 1;
 }
 
 void do_weapon_attack(object target) {
     object weapon;
     string* mess, tmp;
-    int damage;
+    int damage, res;
     weapon = this_player()->query_worn(0, A_WEAPON)[0];
     damage = weapon->event_strike(target);
 
@@ -98,8 +113,10 @@ void do_weapon_attack(object target) {
     tell_object(this_player(), mess[0] + sprintf(" [%d]\n", damage));
     tell_object(target, mess[1] + "\n");
     tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
-    target->event_receive_damage(damage, target_limb);
-
+    res = target->event_receive_damage(damage, target_limb);
+    if (res == -1) {
+        remove_enemy(target);
+    }
     // target->event_receive_damage(damage, target_limb);
 }
 
@@ -132,6 +149,10 @@ int event_attack(object target) {
     
     if (!target_limb) {
         target_limb = target->query_random_limb(1);
+    }
+
+    if (!can_start_attack(target)) {
+        return 1;
     }
     // add target as enemy
     add_enemy(target);

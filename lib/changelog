@@ -15,3 +15,6 @@ RAJMUD 0.2
  *  Added rings
  *  Added combat
  *  Added Mudlet mapping with GMCP
+ *  Added accounts with easy character selection
+ *  Added rodents
+ *  Disabled pvp by default
