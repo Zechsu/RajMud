@@ -1,4 +1,5 @@
 #include <command.h>
+#include <flags/limbs_flags.h>
 
 int query_padding(mapping body, string* limbs);
 string query_color_health(float c, float m, int pad);
@@ -25,7 +26,7 @@ int main(string str) {
 }
 
 string query_status(mapping limb) {
-    if (limb["severed"]) {
+    if (limb["flags"] & LIMB_SEVERED) {
         return "%^RED%^severed %^RESET%^";
     }
     if (limb["current_hp"] <= -0.0) {

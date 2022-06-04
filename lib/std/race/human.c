@@ -1,12 +1,13 @@
+#include <flags/limbs_flags.h>
+
 inherit STD_RACE;
 
 void create() {
     set_race_name("human");
     set_race_body(([
         "head":([
-            "critical":1,
+            "flags": LIMB_CRITICAL,
             "parent":0,
-            "severed":0,
             "worn": ({}),
             "type":"head",
             "factor":0.35,
@@ -14,9 +15,8 @@ void create() {
             "current_hp":0,
         ]),
         "torso":([
-            "critical":1,
+            "flags": LIMB_CRITICAL | LIMB_NOT_SEVERABLE,
             "parent":0,
-            "severed":0,
             "worn": ({}),
             "type":"torso",
             "factor":0.5,
@@ -24,9 +24,8 @@ void create() {
             "current_hp":0,
         ]),
         "right arm":([
-            "critical":0,
+            "flags": 0,
             "parent":"torso",
-            "severed":0,
             "worn": ({}),
             "type":"arm",
             "factor":0.25,
@@ -34,9 +33,8 @@ void create() {
             "current_hp":0,
         ]),
         "left arm":([
-            "critical":0,
+            "flags": 0,
             "parent":"torso",
-            "severed":0,
             "worn": ({}),
             "type":"arm",
             "factor":0.25,
@@ -44,9 +42,8 @@ void create() {
             "current_hp":0,
         ]),
         "right leg":([
-            "critical":0,
+            "flags": 0,
             "parent":"torso",
-            "severed":0,
             "worn": ({}),
             "type":"leg",
             "factor":0.25,
@@ -54,9 +51,8 @@ void create() {
             "current_hp":0,
         ]),
         "left leg":([
-            "critical":0,
+            "flags": 0,
             "parent":"torso",
-            "severed":0,
             "worn": ({}),
             "type":"leg",
             "factor":0.25,
@@ -64,9 +60,8 @@ void create() {
             "current_hp":0,
         ]),
         "right hand":([
-            "critical":0,
+            "flags": 0,
             "parent":"right arm",
-            "severed":0,
             "fingers":5,
             "worn": ({}),
             "type":"hand",
@@ -75,9 +70,8 @@ void create() {
             "current_hp":0,
         ]),
         "left hand":([
-            "critical":0,
+            "flags": 0,
             "parent":"left arm",
-            "severed":0,
             "fingers":5,
             "worn": ({}),
             "type":"hand",
@@ -86,9 +80,8 @@ void create() {
             "current_hp":0,
         ]),
         "genitals":([
-            "critical":0,
+            "flags": 0,
             "parent":"torso",
-            "severed":0,
             "worn": ({}),
             "type":"genitals",
             "factor":0.05,
@@ -125,11 +118,4 @@ string query_attack_message() {
 int calculate_health_of_limb(string limb) {
     int const = this_player()->query_skill_level("constitution");
     return 28 * const * query_race_body()[limb]["factor"];
-}
-
-int is_severable(string limb) {
-    if (limb == "torso") {
-        return 0;
-    }
-    return 1;
 }

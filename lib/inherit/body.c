@@ -11,6 +11,7 @@
 #include <globals.h>
 #include <modules.h>
 #include <lib.h>
+#include <flags/limbs_flags.h>
 #include "include/race.h"
 #include "include/body.h"
 
@@ -45,7 +46,7 @@ string* query_limbs() {
 varargs mixed query_random_limb(int flag) {
      if (flag) {
           string* tmp = query_limbs();
-          tmp = filter_array(tmp, (:limbs[$1]["severed"] == 0:));
+          tmp = filter_array(tmp, (: !is_limb_severed($1) :));
           tmp = filter_array(tmp, (: limbs[$1]["current_hp"] > -2.0 :));
           if (!sizeof(tmp)) {
                return 0;
@@ -112,16 +113,17 @@ void sever_limb(string limb) {
           return;
      }
 
-     if (!limbs[limb] || limbs[limb]["severed"] != 0 || !Race(query_race())->is_severable(limb)) {
+     if (!limbs[limb] || is_limb_severed(limb) || !Race(query_race())->is_severable(limb)) {
           return;
      }
      tell_object(this_object(), "Your " + limb + " is severed!\n");
      tell_object(this_object(), "Your " + limb + " falls on the ground.\n");
      tell_room(environment(this_object()), sprintf("%s's %s falls on the ground.\n", query_short(), limb), ({this_object()}));
 
-     limbs[limb]["severed"] = 1;
+     limbs[limb]["flags"] |= LIMB_SEVERED;
+     limbs[limb]["current_hp"] = -limbs[limb]["max_hp"];
      foreach (string other in keys(limbs)) {
-          if (limbs[other]["parent"] == limb && limbs[other]["severed"] != 1) {
+          if (limbs[other]["parent"] == limb && !(is_limb_severed(other))) {
                limbs[other]["current_hp"] = -limbs[other]["max_hp"];
                sever_limb(other);
           }
@@ -132,7 +134,7 @@ void sever_limb(string limb) {
      ob->move(environment(this_object()));
 
      // This needs to be after the severing, so the limb is moved to the room the living died
-     if (limbs[limb]["critical"]) {
+     if (limbs[limb]["flags"] & LIMB_CRITICAL) {
           is_dead = 1;
      }
 
@@ -209,7 +211,7 @@ varargs string* find_limb(string* match, int flag, int slot) {
      string* tmp;
      tmp = keys(limbs);
      if (flag) {
-          tmp = filter_array(tmp, (: limbs[$1]["severed"] == 0 :));
+          tmp = filter_array(tmp, (: !is_limb_severed($1) :));
      }
      if (slot) {
           foreach (string r in tmp) {
@@ -231,7 +233,7 @@ varargs string* find_limb(string* match, int flag, int slot) {
 }
 
 int is_limb_severed(string limb) {
-     return limbs[limb]["severed"];
+     return limbs[limb]["flags"] & LIMB_SEVERED; 
 }
 
 int has_limbs(string* which) {
@@ -263,7 +265,7 @@ int event_die() {
 string severed_attributes() {
      string ret = "%^RED%^" + capitalize(query_pronoun()) + " is missing " + query_possessive_determiner() + " ";
      string* keys = keys(limbs);
-     string* severed = filter_array(keys, (: limbs[$1]["severed"] == 1 :));
+     string* severed = filter_array(keys, (: is_limb_severed($1) :));
      ret += list_strings(severed);
      if (sizeof(severed)) {
           return ret + "%^RESET%^";
