@@ -7,5 +7,6 @@ void create() {
     ::create();
     set_short("Forest entrance");
     set_long("Enter if you dare.");
-    add_exit("in", "forest/0,0");
+    add_exit("in", "/forest/0,0");
+    set_exit("west", "/domains/test/rooms/testr");
 }

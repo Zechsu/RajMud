@@ -11,11 +11,15 @@ void virtual_create() {
     if (x > max_neg_x) {
         set_exit("west", sprintf("/forest/%d,%d", x-1, y));
     }
-    if (y > max_y) {
+    if (y < max_y) {
         set_exit("north", sprintf("/forest/%d,%d", x, y+1));
     }
     if (y > max_neg_y) {
         set_exit("south", sprintf("/forest/%d,%d", x, y-1));
+    }
+
+    if (x == 0 && y == 0) {
+        set_exit("out", "/domains/test/rooms/forest_entrance");
     }
 
     if (random(100) > 70) {
