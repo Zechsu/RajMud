@@ -1,3 +1,5 @@
+#include <daemons.h>
+
 private mapping skills = ([]);
 
 int query_skill_level(string skill) {
@@ -34,10 +36,19 @@ void add_skill(string skill) {
 }
 
 void give_exp(string skill, int amt) {
+    int required_exp, skill_max_level;
     //int required_exp;
     if (!skills[skill]) {
         add_skill(skill);
     }
+
+    required_exp = Skill(skill)->required_exp(skills[skill]["level"]);
+    skill_max_level = Skill(skill)->query_max_level();
+
     skills[skill]["exp"] += amt;
-    // TODO: Levelling
+    // If enough exp to level up
+    if (skills[skill]["exp"] >= required_exp && skills[skill]["level"] < skill_max_level) {
+        skills[skill]["exp"] -= required_exp;
+        skills[skill]["level"] += 1;
+    }
 }

@@ -49,10 +49,9 @@ connect()
 // filename named by 'file'.  It should return 0 if no object is to be
 // associated.
 
-mixed
-compile_object(string file)
+mixed compile_object(string file)
 {
-//    return (mixed)VIRTUAL_D->compile_object(file);
+    return VIRTUAL_D->compile_object(file);
     return 0;
 }
 
@@ -60,22 +59,11 @@ compile_object(string file)
 // etc.  As it's static it can't be called by anything but the driver (and
 // master).
 
-staticf void
-crash(string, object, object)
+staticf void crash(string, object, object)
 {
-    error("foo\n");
+    error("crashed\n");
     foreach (object ob in users())
         tell_object(ob, "Master object shouts: Damn!\nMaster object tells you: The game is crashing.\n");
-#if 0
-    log_file("crashes", MUD_NAME + " crashed on: " + ctime(time()) +
-        ", error: " + error + "\n");
-    if (command_giver) {
-        log_file("crashes", "this_player: " + file_name(command_giver) + "\n");
-    }
-    if (current_object) {
-        log_file("crashes", "this_object: " + file_name(current_object) + "\n");
-    }
-#endif
 }
 
 // Function name:   update_file
@@ -131,8 +119,7 @@ protected void epilog(int)
 
 // preload an object
 
-void
-preload(string file)
+void preload(string file)
 {
     int t1;
     string err;

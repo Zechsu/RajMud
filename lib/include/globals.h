@@ -28,8 +28,6 @@
 #define MATERIALS_DIR       "/std/materials"
 #define SKILLS_DIR          "/std/skills"
 
-#define VIRTUAL_D           "/single/virtual"
-
 #define LOGIN_OB            "/clone/login"
 #define PLAYER_OB           "/clone/player"
 #define VOID_OB             "/single/void"

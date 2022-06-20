@@ -8,9 +8,11 @@ private string drop;
 private int drop_amount;
 private string action;
 private int exp_reward;
+private string* skills;
 
 void create() {
     ::create();
+    m_visible::create();
     if (!drop_amount) {
         drop_amount = 1;
     }
@@ -27,6 +29,14 @@ void set_drop(string ob) {
 
 string query_drop() {
     return drop;
+}
+
+void set_skills(string* s) {
+    skills = s;
+}
+
+string* query_skills() {
+    return skills;
 }
 
 // Sets the drop_amount of items that will drop after node is gathered

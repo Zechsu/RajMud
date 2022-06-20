@@ -11,6 +11,7 @@
 #define LOG_D                   "daemon/log_d"
 #define GENDER_D                "daemon/gender_d"
 #define VNUM_D                  "daemon/vnum_d"
+#define VIRTUAL_D               "daemon/virtual_d"
 
 // FUNCTIONS
 #define Material(x)             MATERIAL_D->query_material(x)

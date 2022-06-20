@@ -2,7 +2,7 @@ RAJMUD 0.2
 
  *  More beetles
  *  Beetles have descriptions
- *  Adds corpses for dead beetles
+ *  Added corpses for dead beetles
  *  Better look formatting
  *  Moving messages now based on player's position
  *  Item names in inventory are sorted
@@ -12,9 +12,12 @@ RAJMUD 0.2
  *  Added severing limbs
  *  Added butchering
  *  Title command now shows current title
- *  Added rings
+ *  Added rings and fingers for races
  *  Added combat
  *  Added Mudlet mapping with GMCP
- *  Added accounts with easy character selection
- *  Added rodents
+ *  Added accounts with character selection and multiple characters
+ *  Added rodent race
  *  Disabled pvp by default
+ *  Added a shortcut to talking using (') before text
+ *  Added lumbering skill
+ *  Added virtual rooms

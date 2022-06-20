@@ -41,7 +41,7 @@ int look(object tp) {
     string desc, ret = "";
     object room = environment(tp);
     string* exit_keys;
-    object* inv, *living, *items, *specials;
+    object* inv, *living, *items, *specials, *resources;
 
     if (!room) {
         return notify_fail("You're in the void.\n");
@@ -63,10 +63,14 @@ int look(object tp) {
     living = filter_array(inv, (:$1->is_living():));
     items = filter_array(inv, (: $1->is_item() :));
     specials = filter_array(items, (: $1->is_portal() :));
+    resources =  filter_array(inv, (: $1->is_gatherable() :));
     items -= specials;
 
     if (sizeof(exit_keys) == 1) {
         tell_object(tp, "  The only obvious exit is %^MAGENTA%^" + exit_keys[0] + ".%^RESET%^\n");
+    }
+    else if (sizeof(exit_keys) == 0) {
+        tell_object(tp, "  There are no obvious exits.\n");
     }
     else {
         tell_object(tp, "  The only obvious exits are %^MAGENTA%^" + list_strings(exit_keys) + ".%^RESET%^\n");
@@ -100,6 +104,10 @@ int look(object tp) {
             ret += list_strings(map_array(items, (:$1->query_short():)));
         }
         write(ret + ".\n");
+    }
+
+    if (sizeof(resources) > 0) {
+        write("\n%^GREEN%^" + capitalize(list_strings(map_array(resources, (: $1->query_short() :)))) + " is here.%^RESET%^\n");
     }
 
     tp->gmcp("Room.Info");

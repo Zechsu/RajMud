@@ -67,13 +67,17 @@ string process_input(string arg) {
     return arg;
 }
 
+mixed* user_commands() {
+    return commands();
+}
+
 int commandHook(string arg) {
     string cmd_path;
     object cobj;
     string verb = query_verb();
 
-    if (verb[0] == '\"' && verb[<1] == '\"') {
-        return (int)load_object("/command/say")->main(verb[1..<2]);
+    if (verb[0] == '\'') {
+        return (int)load_object("/command/say")->main(verb[1..]);
     }
 
     foreach(string path in query_search_paths()) {
