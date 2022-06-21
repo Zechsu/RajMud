@@ -95,7 +95,7 @@ varargs int event_wear(object who, string* limbs) {
 
     wear = can_wear(who, limbs);
     if (sizeof(wear) == 0)
-        return notify_fail("You cannot do that!\n");
+        return 0;
 
     player_body = who->query_body();
     foreach(string limb in wear) {

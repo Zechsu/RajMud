@@ -81,6 +81,7 @@ mapping query_body() {
 
 // Create a new body
 // This will completely overwrite the limbs mapping with that of the new one given by the race
+// FIXME: Remove items before setting limbs
 int create_new_body(string race) {
      object raceob;
      if (!race) {
@@ -215,7 +216,7 @@ varargs mixed query_worn(string limb, int layer) {
                          ret += ({worn});
                     }
                }
-               return ret;
+               return ret - ({0});
           }
      }
 }

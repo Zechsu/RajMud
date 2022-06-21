@@ -49,20 +49,22 @@ void set_drop_amount(int i) {
     }
 }
 
+int query_drop_amount() {
+    return drop_amount;
+}
+
 int can_gather(object who) {
     if (!who) {
         who = this_player();
-    }
-    if (!sizeof(filter_array(who->query_wield(), (: $1->is_lumbering_tool() :))) > 0) {
-        return notify_fail_colored("%^RED%^You lack the tools required.%^RESET%^\n");
     }
     return 1;
 }
 
 mixed event_gather(object who) {
     if (can_gather(who)) {
-        object ob = new(drop, drop_amount);
+        object ob = new(drop);
         ob->event_get(who);
+        ob->add_weight(drop_amount);
         remove();
         return 1;
     }

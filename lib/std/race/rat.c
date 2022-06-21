@@ -3,7 +3,7 @@
 inherit STD_RACE;
 
 void create() {
-    set_race_name("rodent");
+    set_race_name("rat");
     set_race_body(([
         "head":([
             "flags": LIMB_CRITICAL,
