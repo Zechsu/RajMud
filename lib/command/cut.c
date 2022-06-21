@@ -13,6 +13,6 @@ int main(string arg) {
         return notify_fail("You can't cut that.\n");
     }
     else {
-        return gath->event_gather();
+        return gath->event_gather(this_player());
     }
 }

@@ -53,6 +53,12 @@ int query_drop_amount() {
     return drop_amount;
 }
 
+void get_drop(object who) {
+    object ob = new(drop);
+    ob->add_weight(query_drop_amount());
+    ob->event_get(who);
+}
+
 int can_gather(object who) {
     if (!who) {
         who = this_player();
@@ -61,13 +67,7 @@ int can_gather(object who) {
 }
 
 mixed event_gather(object who) {
-    if (can_gather(who)) {
-        object ob = new(drop);
-        ob->event_get(who);
-        ob->add_weight(drop_amount);
-        remove();
-        return 1;
-    }
+    Log("BUG", "Gatherable without event_gather()!  " + this_object());
     return 0;
 }
 

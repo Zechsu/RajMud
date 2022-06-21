@@ -10,6 +10,7 @@ void create() {
     set_ids(({"coal vein", "coal", "vein"}));
     set_action("mine");
     set_drop("/domains/test/items/coal");
+    set_drop_amount(50);
     set_exp(1);
 }
 
@@ -22,17 +23,17 @@ int can_gather(object who) {
 }
 
 mixed event_gather(object who) {
-    int res;
-    if (!who) {
-        who = TP;
+    string* mess = compose_message(who, "$N $vmine the coal vein.");
+    if (!can_gather(who)) {
+        return 0;
     }
-    res = ::event_gather(who);
-    if (res) {
-        write("You mine the coal vein.\n");
-        //TODO: compose it
-        say(TP->query_name() + " mines the vein.\n");
-        who->give_exp("mining", query_exp_reward());     
-        return 1;
-    }
-    return 0;
+
+    tell_object(who, capitalize(mess[0]) + "\n");
+    tell_room(environment(who), capitalize(mess[1]) + "\n", ({who}));
+
+    who->give_exp("mining", query_exp_reward());
+    get_drop(who);
+    remove();
+
+    return 1;
 }

@@ -23,15 +23,17 @@ int can_gather(object who) {
 }
 
 mixed event_gather(object who) {
-    if (!who) {
-        who = TP;
+    string* mess = compose_message(who, "$N $vcut the oak tree.");
+    if (!can_gather(who)) {
+        return 0;
     }
-    if (::event_gather(who)) {
-        write("You cut the oak tree.\n");
-        //TODO: compose it
-        say(TP->query_name() + " cuts the oak.\n");
-        who->give_exp("lumbering", query_exp_reward());     
-        return 1;
-    }
-    return 0;
+
+    tell_object(who, capitalize(mess[0]) + "\n");
+    tell_room(environment(who), capitalize(mess[1]) + "\n", ({who}));
+
+    who->give_exp("lumbering", query_exp_reward());
+    get_drop(who);
+    remove();
+
+    return 1;
 }

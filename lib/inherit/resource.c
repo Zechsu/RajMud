@@ -34,8 +34,7 @@ string query_long() {
 }
 
 string query_short() {
-    string res = ::query_short();
-    return weight + "grams of " + res;
+    return ::query_short() + "  (" + weight + "g)";
 }
 
 int move(mixed dest)
