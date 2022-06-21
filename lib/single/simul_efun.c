@@ -3,6 +3,7 @@
 
 #pragma show_error_context
 #include <globals.h>
+#include <daemons.h>
 #include <lpctypes.h>
 
 inherit "/single/sefuns/misc";
@@ -236,6 +237,11 @@ varargs void say(string msg, mixed exclude) {
     else if(pointerp(exclude)) exclude += ({ me });
     else if (!exclude) exclude = ({ me });
     message("say", msg, environment(me), exclude);
+}
+
+int notify_fail_colored(mixed str) {
+    str = TERM_D->parse_pinkfish(str, this_player()->query_no_color());
+    return notify_fail(str);
 }
 
 varargs void tell_room(object ob, string msg, mixed exclude) {

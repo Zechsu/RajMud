@@ -49,11 +49,24 @@ void set_drop_amount(int i) {
     }
 }
 
-mixed event_gather(object who) {
-    object ob = new(drop, drop_amount);
-    ob->event_get(who);
-    remove();
+int can_gather(object who) {
+    if (!who) {
+        who = this_player();
+    }
+    if (!sizeof(filter_array(who->query_wield(), (: $1->is_lumbering_tool() :))) > 0) {
+        return notify_fail_colored("%^RED%^You lack the tools required.%^RESET%^\n");
+    }
     return 1;
+}
+
+mixed event_gather(object who) {
+    if (can_gather(who)) {
+        object ob = new(drop, drop_amount);
+        ob->event_get(who);
+        remove();
+        return 1;
+    }
+    return 0;
 }
 
 // Sets the action/required command to gather the node

@@ -10,7 +10,7 @@ inherit LIB_BIRTHDAY;
 inherit M_SHELL;
 inherit M_PLAYTIME;
 
-private int no_color = 1;
+private int no_color = 0;
 //forward declarations
 
 //end forward declarations

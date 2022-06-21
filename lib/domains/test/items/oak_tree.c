@@ -17,9 +17,12 @@ mixed event_gather(object who) {
     if (!who) {
         who = TP;
     }
-    write("You cut the oak tree.\n");
-    //TODO: compose it
-    say(TP->query_name() + " cuts the oak.\n");
-    who->give_exp("lumbering", query_exp_reward());
-    ::event_gather(who);
+    if (::event_gather(who)) {
+        write("You cut the oak tree.\n");
+        //TODO: compose it
+        say(TP->query_name() + " cuts the oak.\n");
+        who->give_exp("lumbering", query_exp_reward());     
+        return 1;
+    }
+    return 0;
 }

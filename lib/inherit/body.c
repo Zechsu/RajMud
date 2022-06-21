@@ -12,6 +12,7 @@
 #include <modules.h>
 #include <lib.h>
 #include <flags/limbs_flags.h>
+#include <armor_layers.h>
 #include "include/race.h"
 #include "include/body.h"
 
@@ -162,6 +163,21 @@ void sever_limb(string limb) {
      }
 
      this_object()->check_position();
+}
+
+mixed query_wield() {
+     object raceob = Race(query_race());
+     string* lkeys = raceob->query_hands();
+     int sz = sizeof(lkeys);
+     object* ret = ({});
+     for (int i = 0; i < sz; i++) {
+          foreach (object worn in limbs[lkeys[i]]["worn"]) {
+               if (worn->query_layer() == A_WEAPON) {
+                    ret += ({worn});
+               }
+          }
+     }
+     return ret;
 }
 
 varargs mixed query_worn(string limb, int layer) {
