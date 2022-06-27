@@ -106,15 +106,15 @@ void gmcp(string message) {
             break;
         }
         case "Room.Info": {
-            "daemon/gmcp/info"->Info(this_player());
+            "daemon/gmcp/info"->Info(this_object());
             break;
         }
         case "Room.Items": {
-            "daemon/gmcp/info"->Items(this_player());
+            "daemon/gmcp/info"->Items(this_object());
             break;
         }
         case "Room.Livings": {
-            "daemon/gmcp/info"->Livings(this_player());
+            "daemon/gmcp/info"->Livings(this_object());
             break;
         }
     }

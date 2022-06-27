@@ -27,9 +27,17 @@ void Info(object who)
 }
 
 void Items(object who) {
-    object room = environment(who);
-    object* inv = all_inventory(room);
-    mapping data = ([]);
+    object room;
+    object* inv;
+    mapping data;
+
+    if (!who) {
+        return;
+    }
+
+    room = environment(who);
+    inv = all_inventory(room);
+    data = ([]);
     inv = filter_array(inv, (: $1->is_item() :));
 
     data = ([
