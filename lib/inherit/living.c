@@ -40,6 +40,14 @@ void set_name(string n) {
     set_living_name(name);
 }
 
+mixed query(string q) {
+    return call_other(this_object(), "query_" + q);
+}
+
+object query_room() {
+    return environment(this_object());
+}
+
 string query_name() {
     return name;
 }
