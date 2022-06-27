@@ -1,6 +1,8 @@
 #include <lib.h>
 #include <armor_layers.h>
 
+inherit LIB_ITEM;
+
 // Prototype functions
 string query_short();
 
@@ -17,6 +19,10 @@ private string wear_mess;
 private string remove_mess;
 
 varargs mixed query_real_limbs(string* args, int slot);
+
+void create() {
+    add_save(({"worn"}));
+}
 
 string* query_worn() {
     return worn;

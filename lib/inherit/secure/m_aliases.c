@@ -1,7 +1,7 @@
 #include <globals.h>
 
 private mapping aliases = ([]);
-private nosave mapping predefined_aliases = (["l":"look", "i":"inventory"]);
+private nosave mapping predefined_aliases = (["l":"look", "i":"inventory", "eq":"equipment"]);
 
 mapping query_aliases() {
     return aliases;

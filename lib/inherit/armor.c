@@ -1,6 +1,5 @@
 #include <lib.h>
 
-inherit LIB_ITEM;
 inherit LIB_WORN;
 
 void hook_state(string tag, function hook, int state);

@@ -1,6 +1,5 @@
 #include <lib.h>
 
-inherit LIB_ITEM;
 inherit LIB_WORN;
 
 void hook_state(string tag, function hook, int state);
@@ -12,7 +11,6 @@ void create() {
     item::create();
     set_wear_mess("$N $vwield $t in $p $L.");
     set_remove_mess("$N $vunwield $p $t.");
-    add_save(({"worn"}));
 }
 
 // Check if object can be wielded
