@@ -8,7 +8,6 @@ private int weapon_class = 1;
 private string* combat_skills;
 
 void create() {
-    item::create();
     set_wear_mess("$N $vwield $t in $p $L.");
     set_remove_mess("$N $vunwield $p $t.");
 }

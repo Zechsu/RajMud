@@ -21,6 +21,7 @@ private string remove_mess;
 varargs mixed query_real_limbs(string* args, int slot);
 
 void create() {
+    item::create();
     add_save(({"worn"}));
 }
 
