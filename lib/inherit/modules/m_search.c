@@ -23,6 +23,10 @@ void set_search_table(mapping table) {
     search_table = table;
 }
 
+void add_loot(string ob, int weight) {
+    search_table[ob] = weight;
+}
+
 /**
  * @brief Set the amount of time it takes to be able to search again
  * 
