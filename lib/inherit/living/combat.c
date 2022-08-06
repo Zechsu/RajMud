@@ -165,6 +165,10 @@ void set_target_limb(string limb) {
     target_limb = limb;
 }
 
+int is_in_combat() {
+    return sizeof(enemies) > 0;
+}
+
 void heart_beat() {
     object target = element_of(enemies);
     if (!sizeof(enemies)) {
