@@ -46,7 +46,7 @@ void give_exp(string skill, int amt) {
     skill_max_level = Skill(skill)->query_max_level();
 
     skills[skill]["exp"] += amt;
-    // If enough exp to level up
+    // If enough exp to level up and below max level
     if (skills[skill]["exp"] >= required_exp && skills[skill]["level"] < skill_max_level) {
         skills[skill]["exp"] -= required_exp;
         skills[skill]["level"] += 1;

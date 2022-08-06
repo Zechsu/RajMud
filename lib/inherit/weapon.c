@@ -5,7 +5,7 @@ inherit LIB_WORN;
 void hook_state(string tag, function hook, int state);
 private nosave function move_hook = (: event_remove, 1 :);
 private int weapon_class = 1;
-private string* combat_skills;
+private string* attacks;
 
 void create() {
     set_wear_mess("$N $vwield $t in $p $L.");
@@ -56,12 +56,12 @@ varargs int event_wear(object who, string* limbs) {
     return res;
 }
 
-void set_combat_skills(string* skills) {
-    combat_skills = skills;
+void set_attacks(string* new_attacks) {
+    attacks = map(new_attacks, (: "/std/attacks/" + $1 :));
 }
 
-string* query_combat_skills() {
-    return combat_skills;
+string* query_attacks() {
+    return copy(attacks);
 }
 
 void set_class(int c) {

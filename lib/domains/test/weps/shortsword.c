@@ -10,6 +10,7 @@ void create() {
     set_ids(({"shortsword", "sword"}));
     set_required_limbs(({"hand"}));
     set_layer(A_WEAPON);
+    set_attacks(({"slash"}));
 }
 
 int event_strike(object target) {
