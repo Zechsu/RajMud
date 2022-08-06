@@ -94,6 +94,9 @@ int create_new_body(string race) {
      }
      raceob = Race(race);
      limbs = raceob->query_race_body();
+
+     //TODO: Foreach trait in race traits add trait remove old traits!!!!
+
      foreach (string limb in keys(limbs)) {
           limbs[limb]["max_hp"] = raceob->calculate_health_of_limb(limb);
           limbs[limb]["current_hp"] = limbs[limb]["max_hp"];
@@ -203,7 +206,7 @@ varargs mixed query_worn(string limb, int layer) {
                     }
                }
           }
-          return distinct_array(ret);
+          return distinct_array(ret - ({0}));
      }
      else {
           if (!layer) {
@@ -274,9 +277,14 @@ int event_die() {
      corpse->move(environment(to));
      corpse->set_decay(10);
      to->move_inventory_to(corpse);
-     tell_object(to, "\n\n%^RED%^%^BOLD%^YOU'VE DIED!%^RESET%^\n\n");
-     to->move(TEST_ROOM);
-     to->create_new_body(query_race());
+
+     if (to->is_player()) {
+          tell_object(to, "\n\n%^RED%^%^BOLD%^YOU'VE DIED!%^RESET%^\n\n");
+          to->move(TEST_ROOM);
+          to->create_new_body(query_race());
+     } else {
+          destruct(to);
+     }
 }
 
 string severed_attributes() {

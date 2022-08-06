@@ -119,3 +119,7 @@ void gmcp(string message) {
         }
     }
 }
+
+int is_player() {
+    return 1;
+}

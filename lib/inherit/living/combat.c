@@ -1,6 +1,7 @@
 #include <positions.h>
 #include <armor_layers.h>
 #include <flags/room_flags.h>
+#include <descriptors/attack.h>
 
 private nosave object* attackers;
 private nosave object* enemies;
@@ -108,9 +109,16 @@ void do_weapon_attack(object target) {
     // compose_message() does not support $L.
     tmp = replace_string(tmp, "$L", target_limb);
     
-    mess = compose_message(this_player(), tmp, target, ({weapon}));
+    // mess = compose_message(this_player(), tmp, target, ({weapon}));
+    mess = weapon->query_attacks()[0]->describe(([
+        ATTACKER    : this_player(),
+        DEFENDER    : target,
+        WEAPON      : weapon,
+        LOCATION    : target_limb
+    ]));
 
-    tell_object(this_player(), mess[0] + sprintf(" [%d]\n", damage));
+    mess = map(mess, (: "\n    " + capitalize($1) + "\n\n" :));
+    tell_object(this_player(), mess[0]);
     tell_object(target, mess[1] + "\n");
     tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
     res = target->event_receive_damage(damage, target_limb);
@@ -133,6 +141,9 @@ void do_unarmed_attack(object target) {
     }
 
     tmp = Race(this_object()->query_race())->query_attack_message();
+    if (!tmp) {
+        return;
+    }
     // compose_message() does not support $L.
     tmp = replace_string(tmp, "$L", target_limb);
 
