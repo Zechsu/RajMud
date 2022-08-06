@@ -5,10 +5,12 @@
 #include <globals.h>
 #include <daemons.h>
 #include <lpctypes.h>
+#include <rgb.h>
 
 inherit "/single/sefuns/misc";
 inherit "/single/sefuns/arrays";
 inherit "/single/sefuns/json";
+inherit "/single/sefuns/math";
 
 int same(mixed x, mixed y) {
     if (typeof(x) != typeof(y)) return 0;
@@ -264,4 +266,26 @@ varargs void tell_object(object ob, string msg) {
 
 string player_save_file(string name) {
     return PLAYERS_DIR + "/" + lower_case(name[0..0]) + "/" + name + ".o";
+}
+
+class RGB_t blend(mixed* colors) {
+    class RGB_t mixture = new(class RGB_t);
+    int* color1 = map_array(explode(colors[0], ","), (: to_int($1) :));
+    int sz = sizeof(colors);
+    mixture->r = color1[0];
+    mixture->g = color1[1];
+    mixture->b = color1[2];
+
+    for (int i = 1; i < sz; i++) {
+        int* color2 = map_array(explode(colors[i], ","), (: to_int($1) :));
+        mixture->r = mixture->r + color2[0];
+        mixture->g = mixture->g + color2[1];
+        mixture->b = mixture->b + color2[2];
+    }
+
+    mixture->r = mixture->r / sz;
+    mixture->g = mixture->g / sz;
+    mixture->b = mixture->b / sz;
+
+    return mixture;
 }
