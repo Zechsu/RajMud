@@ -7,14 +7,18 @@ int main(string str) {
     inv = filter_array(inv, (: !$1->query_worn() :));
 
     if (!str || !sizeof(trim(str))) {
-        tell_object(tp, "You currently hold: \n");
-        foreach(object ob in inv) {
-            string ret = ob->query_short();
-            string attr = ob->worn_attributes();
-            write(sprintf("  %-30s %-30s\n", ret, attr? attr : ""));
-        }
-        return 1;
-    } else {
+        tell_object(tp, "You are currently holding ");
+        write(list_strings(inv->query_short()));
+        // foreach(object ob in inv) {
+        //     string ret = ob->query_short();
+        //     write(ret);
+        //     // string attr = ob->worn_attributes();
+        //     // write(sprintf("  %-30s %-30s\n", ret, attr? attr : ""));
+        // }
+
+        write("\n");
         return 1;
     }
+
+    return 1;
 }

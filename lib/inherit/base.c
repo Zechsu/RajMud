@@ -68,3 +68,8 @@ string query_id() {
 void set_adjectives(string* adjs) {
     adjectives = adjs;
 }
+
+void add_object(string ob) {
+    object obj = new(ob);
+    obj->move(this_object());
+}
