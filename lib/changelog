@@ -21,3 +21,5 @@ RAJMUD 0.2
  *  Added a shortcut to talking using (') before text
  *  Added lumbering skill
  *  Added virtual rooms
+ *  Added weapon types and attacks
+ *  Added item dispenser
