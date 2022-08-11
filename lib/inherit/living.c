@@ -12,6 +12,7 @@ inherit M_TRAITS;
 inherit M_TITLE;
 inherit M_INVENTORY;
 inherit M_VISIBLE;
+inherit M_ATTRIBUTES;
 
 private string name;
 private string current_room;
@@ -22,6 +23,7 @@ void create() {
     position::create();
     combat::create();
     m_visible::create();
+    m_attributes::create();
 
     enable_commands();
     if (!current_room) {

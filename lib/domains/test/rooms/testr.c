@@ -9,4 +9,5 @@ void create() {
     add_exit("north", "/domains/test/rooms/testr2");
     add_exit("up", "/domains/test/rooms/testrup");
     add_exit("east", "/domains/test/rooms/forest_entrance");
+    add_item("/domains/test/items/dispenser");
 }

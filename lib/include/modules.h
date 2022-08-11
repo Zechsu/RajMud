@@ -20,5 +20,6 @@
 #define M_DECAY             "/inherit/modules/m_decay"
 #define M_HOOKS             "/inherit/modules/m_hooks"
 #define M_FLAGS             "/inherit/modules/m_flags"
+#define M_ATTRIBUTES        "/inherit/modules/m_attributes"
 
 #endif
