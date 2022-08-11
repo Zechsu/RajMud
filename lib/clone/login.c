@@ -143,8 +143,7 @@ void accept_password(string password, string name) {
     link->restore_me();
     if ( link->check_password(password)) {
         write("\n\nWelcome back!\n");
-        write_account_options();
-        input_to("account_menu");
+        goto_account_menu();
         return;
     }
     link = 0;
@@ -222,6 +221,8 @@ void account_menu(string option) {
         case "q":
             destruct(this_object());
             return;
+        default:
+            goto_account_menu();
     }
 }
 

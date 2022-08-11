@@ -29,6 +29,10 @@ string process_input(string arg) {
         arg = replace_string(arg, "%#", "");
     }
 
+    if (trim(arg) == "") {
+        return "";
+    }
+
     // since all verbs here are lower case, typing in 'L' or 'N' should also work
     arg[0] = lower_case(arg)[0];
 
