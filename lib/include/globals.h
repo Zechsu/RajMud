@@ -25,6 +25,7 @@
 #define RACES_DIR           "/std/race"
 #define MATERIALS_DIR       "/std/materials"
 #define SKILLS_DIR          "/std/skills"
+#define WEAPON_TYPES_DIR    "/std/weapon_types"
 
 #define LOGIN_OB            "/clone/login"
 #define PLAYER_OB           "/clone/player"

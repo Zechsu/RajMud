@@ -105,9 +105,9 @@ void do_weapon_attack(object target) {
     //     }
     // }
 
-    tmp = weapon->query_attack_message();
+    //tmp = weapon->query_attack_message();
     // compose_message() does not support $L.
-    tmp = replace_string(tmp, "$L", target_limb);
+    //tmp = replace_string(tmp, "$L", target_limb);
     
     // mess = compose_message(this_player(), tmp, target, ({weapon}));
     mess = weapon->query_attacks()[0]->describe(([

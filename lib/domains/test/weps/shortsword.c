@@ -1,5 +1,7 @@
 #include <lib.h>
 #include <armor_layers.h>
+#include <weapon_types.h>
+#include <daemons.h>
 
 inherit LIB_WEAPON;
 
@@ -10,13 +12,9 @@ void create() {
     set_ids(({"shortsword", "sword"}));
     set_required_limbs(({"hand"}));
     set_layer(A_WEAPON);
-    set_attacks(({"slash"}));
+    set_weapon_type(WEAPON_SWORD);
 }
 
 int event_strike(object target) {
-    return 36;
-}
-
-string query_attack_message() {
-    return "$N $vswing at $T";
+    return Weapon_Type(WEAPON_SWORD)->calculate_damage_rating(this_interactive()) / 10;
 }

@@ -5,5 +5,6 @@ int can_wield(object who, string limb);
 varargs mixed event_wield(object who, string limb);
 void set_valid_limbs(mixed equips);
 int is_weapon();
+void set_attacks(string* new_attacks);
 
 #endif

@@ -215,6 +215,10 @@ varargs mixed query_worn(string limb, int layer) {
           else {
                object* ret = ({});
                foreach (object worn in limbs[limb]["worn"]) {
+                    if (!worn) {
+                         limbs[limb]["worn"] -= ({worn});
+                         continue;
+                    }
                     if (worn->query_layer() == layer) {
                          ret += ({worn});
                     }

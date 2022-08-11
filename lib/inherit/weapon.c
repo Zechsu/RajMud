@@ -1,4 +1,6 @@
 #include <lib.h>
+#include <daemons.h>
+#include "include/weapon.h"
 
 inherit LIB_WORN;
 
@@ -6,8 +8,10 @@ void hook_state(string tag, function hook, int state);
 private nosave function move_hook = (: event_remove, 1 :);
 private int weapon_class = 1;
 private string* attacks;
+private int weapon_type;
 
 void create() {
+    worn::create();
     set_wear_mess("$N $vwield $t in $p $L.");
     set_remove_mess("$N $vunwield $p $t.");
 }
@@ -75,4 +79,9 @@ int query_class() {
 // Called each time weapon hits an enemy
 int event_strike(object target) {
     return weapon_class;
+}
+
+void set_weapon_type(int type) {
+    weapon_type = type;
+    set_attacks(WEAPON_TYPES_D->query_weapon_type(type)->query_attacks());
 }
