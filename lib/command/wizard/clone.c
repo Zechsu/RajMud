@@ -20,7 +20,7 @@ int main(string str) {
     }
     if (stat(file) != ({})) {
         ob = new(file);
-        if (inherits(LIB_ITEM, ob)) {
+        if (ob->is_item() || ob->is_living()) {
             ob->move(environment(tp));
             write(sprintf("Cloned %s\n", ob->query_short()));
             return 1;   
