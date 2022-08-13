@@ -1,9 +1,12 @@
 #ifndef _WEAPON_TYPES_
 #define _WEAPON_TYPE
 
-#define WEAPON_TYPES_COUNT 2
+#define WEAPON_TYPES_COUNT 5
 
 #define WEAPON_SWORD 1
 #define WEAPON_DAGGER 2
+#define WEAPON_CLUB 3
+#define WEAPON_SPEAR 4
+#define WEAPON_SLINGSHOT 5
 
 #endif

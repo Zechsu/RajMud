@@ -102,7 +102,7 @@ varargs mixed event_drop(object who) {
         return 0;
     }
     tell_object(who, "You drop " + query_short() + ".\n");
-    tell_room(environment(who), who->query_name() + " drops " + query_short() + "\n", ({who}));
+    tell_room(environment(who), capitalize(who->query_name()) + " drops " + query_short() + "\n", ({who}));
 
     return move(environment(who));
 }

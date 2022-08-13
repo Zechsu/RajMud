@@ -123,7 +123,7 @@ void sever_limb(string limb) {
      }
      tell_object(this_object(), "Your " + limb + " is severed!\n");
      tell_object(this_object(), "Your " + limb + " falls on the ground.\n");
-     tell_room(environment(this_object()), sprintf("%s's %s falls on the ground.\n", query_short(), limb), ({this_object()}));
+     tell_room(environment(this_object()), sprintf("%s's %s falls on the ground.\n", capitalize(query_short()), limb), ({this_object()}));
 
      limbs[limb]["flags"] |= LIMB_SEVERED;
      limbs[limb]["current_hp"] = -limbs[limb]["max_hp"];
@@ -199,6 +199,10 @@ varargs mixed query_worn(string limb, int layer) {
                     }
                     else {
                          foreach (object worn in limbs[lkeys[i]]["worn"]) {
+                              if (!worn) {
+                                   limbs[limb]["worn"] -= ({worn});
+                                   continue;
+                              }
                               if (worn->query_layer() == layer) {
                                    ret += ({worn});
                               }
@@ -273,6 +277,7 @@ int has_limbs(string* which) {
 int event_die() {
      object corpse = new(LIB_CORPSE);
      object to = this_object();
+     object* equipped = to->query_worn();
 
      corpse->set_short(sprintf("%s's corpse", query_name()));
      corpse->set_long(sprintf("The corpse of %s", query_name()));
@@ -280,6 +285,11 @@ int event_die() {
      corpse->set_adjectives(({query_name(), query_name() + "'s", query_race()}));
      corpse->move(environment(to));
      corpse->set_decay(10);
+
+     foreach (object obj in equipped) {
+          // 1 for quietly
+          obj->event_remove(1);
+     }
      to->move_inventory_to(corpse);
 
      if (to->is_player()) {

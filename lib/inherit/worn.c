@@ -120,6 +120,25 @@ varargs int event_wear(object who, string* limbs) {
     return 1;
 }
 
+varargs mixed event_quiet_wear(object who, string* limbs) {
+    string* wear;
+    mapping player_body;
+    if (!who) who = this_player();
+    if (!limbs) limbs = required_limbs;
+
+    wear = can_wear(who, limbs);
+    if (sizeof(wear) == 0)
+        return 0;
+
+    player_body = who->query_body();
+    foreach(string limb in wear) {
+        player_body[limb]["worn"] += ({this_object()});
+    }
+    worn = wear;
+
+    return 1;
+}
+
 varargs mixed event_remove(int quietly) {
     object to;
     mapping player_body;

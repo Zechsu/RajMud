@@ -7,8 +7,14 @@ int main(string str) {
     inv = filter_array(inv, (: !$1->query_worn() :));
 
     if (!str || !sizeof(trim(str))) {
-        tell_object(tp, "You are currently holding ");
-        write(list_strings(inv->query_short()));
+        string* items = inv->query_short();
+        if (sizeof(items)) {
+            tell_object(tp, "You are currently holding ");
+            tell_object(tp, list_strings(inv->query_short()));
+        }
+        else {
+            tell_object(tp, "You are not holding anything.");
+        }
         // foreach(object ob in inv) {
         //     string ret = ob->query_short();
         //     write(ret);

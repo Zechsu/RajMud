@@ -69,7 +69,8 @@ void set_adjectives(string* adjs) {
     adjectives = adjs;
 }
 
-void add_object(string ob) {
+object add_object(string ob) {
     object obj = new(ob);
     obj->move(this_object());
+    return obj;
 }

@@ -15,9 +15,16 @@ void setup() {
 string process_input(string arg) {
     // possible to modify player input here before driver parses it.
     string* tmp;
-    string* exits = ENV(TP)->query_exit_keys();
+    object env = ENV(TP);
+    string* exits;
     int idx;
     // string* ignored = ({"alias", "go", "say", "open", "close", "tp", "look"});
+
+    if (!env) {
+        debug_message(sprintf("ENVIRONMENT OF %s IS 0", query_name()));
+        return "";
+    }
+    exits = env->query_exit_keys();
 
     // protects from sending empty commands
     if (trim(arg) == "") {
