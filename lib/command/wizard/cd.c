@@ -6,7 +6,6 @@ int main(string str) {
 
     if (!str) {
         tp->set_cwd("/");
-        write("/");
         return 1;
     }
 
@@ -23,7 +22,7 @@ int main(string str) {
         return 1;
     }
     else if (stat(str) != ({})) {
-        tp->set_cwd(str);
+        tp->set_cwd("/" + str + "/");
         tp->force_me("ls");
         return 1;
     }
