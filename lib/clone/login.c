@@ -1,5 +1,4 @@
-#include <lib.h>
-#include <daemons.h>
+#include <globals.h>
 
 inherit CLEAN_UP;
 
@@ -163,10 +162,13 @@ void create_password(string password, string name) {
 }
 
 void write_account_options() {
-    write("Choose an option:\n");
-    write("p: Choose a character\n");
-    write("n: Make a new character\n");
-    write("q: Quit\n");
+    write("/---------------------------\\\n");
+    write("|       Account Menu        |\n");
+    write(">---------------------------<\n");
+    write("| [P] Choose a character    |\n");
+    write("| [N] Make a new character  |\n");
+    write("| [Q] Quit                  |\n");
+    write("\\---------------------------/\n");
 }
 
 void repeat_password(string vpass, string opass, string name) {
@@ -214,6 +216,10 @@ void account_menu(string option) {
             character_list();
             break;
         case "n":
+            if (link->query_characters_count() >= MAX_CHARACTERS) {
+                write("You have a maximum of 6 characters!\n");
+                return goto_account_menu();
+            }
             write("Enter a character name:\n");
             input_to("create_new_character");
             break;

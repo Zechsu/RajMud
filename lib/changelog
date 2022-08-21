@@ -16,10 +16,13 @@ RAJMUD 0.2
  *  Added combat
  *  Added Mudlet mapping with GMCP
  *  Added accounts with character selection and multiple characters
- *  Added rodent race
+ *  Added rodents
  *  Disabled pvp by default
  *  Added a shortcut to talking using (') before text
  *  Added lumbering skill
  *  Added virtual rooms
- *  Added weapon types and attacks
+ *  Added weapon types, weapon attacks and skills
+ *  Added attributes
  *  Added item dispenser
+ *  Added goblins
+ *  Improved account menu

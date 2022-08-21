@@ -42,3 +42,7 @@ string* query_characters() {
     }
     return keys(bodies);
 }
+
+int query_characters_count() {
+    return sizeof(bodies);
+}

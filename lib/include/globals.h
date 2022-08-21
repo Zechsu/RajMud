@@ -12,6 +12,10 @@
 #include "lib.h"
 #include "modules.h"
 
+// Config
+#define MAX_CHARACTERS      6
+
+
 #define ENV(x)              environment(x)
 #define TO                  this_object()
 #define TP                  this_player()
