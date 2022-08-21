@@ -13,6 +13,7 @@ inherit M_TITLE;
 inherit M_INVENTORY;
 inherit M_VISIBLE;
 inherit M_ATTRIBUTES;
+inherit M_ATTACKS;
 
 private string name;
 private string current_room;
@@ -33,6 +34,7 @@ void create() {
 
 void setup() {
     command::setup();
+    setup_race_attacks();
     restore_worn_equipment();
 }
 

@@ -3,7 +3,7 @@
 #include <flags/limbs_flags.h>
 
 private string race;
-private mapping body;
+private mapping body, attacks;
 
 void set_race_name(string n) {
     race = n;
@@ -17,6 +17,13 @@ mapping query_race_body() {
     return copy(body);
 }
 
+void set_race_attacks(mapping new_attacks) {
+    attacks = new_attacks;
+}
+
+mapping query_race_attacks() {
+    return copy(attacks);
+}
 void set_race_body(mapping b) {
     body = b;
 }

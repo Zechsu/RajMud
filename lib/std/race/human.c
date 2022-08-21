@@ -4,6 +4,7 @@ inherit STD_RACE;
 
 void create() {
     set_race_name("human");
+    set_race_attacks((["punch" : 12, "kick" : 9]));
     set_race_body(([
         "head":([
             "flags": LIMB_CRITICAL,

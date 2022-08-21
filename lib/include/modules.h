@@ -21,5 +21,6 @@
 #define M_HOOKS             "/inherit/modules/m_hooks"
 #define M_FLAGS             "/inherit/modules/m_flags"
 #define M_ATTRIBUTES        "/inherit/modules/m_attributes"
+#define M_ATTACKS           "/inherit/modules/m_attacks"
 
 #endif

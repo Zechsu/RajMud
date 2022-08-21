@@ -61,7 +61,7 @@ varargs int event_wear(object who, string* limbs) {
 }
 
 void set_attacks(string* new_attacks) {
-    attacks = map(new_attacks, (: "/std/attacks/" + $1 :));
+    attacks = map(new_attacks, (: $1 :));
 }
 
 string* query_attacks() {
