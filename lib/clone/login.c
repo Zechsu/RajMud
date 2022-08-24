@@ -265,6 +265,7 @@ void character_select(string input) {
         user->move(user->query_current_room());
         write("Welcome, " + user->query_name() + "\n");
         user->force_me("look");
+        user->set_account_link(link);
         Log("login", strftime("%D [%H:%M:%S] ", time()) + user->query_name());
     }
 }

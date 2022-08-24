@@ -46,3 +46,7 @@ string* query_characters() {
 int query_characters_count() {
     return sizeof(bodies);
 }
+
+string query_account_name() {
+    return account_name;
+}

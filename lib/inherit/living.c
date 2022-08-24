@@ -18,6 +18,7 @@ inherit M_ATTACKS;
 private string name;
 private string current_room;
 private nosave int busy = 0;
+private nosave object account_link;
 
 void create() {
     race::create();
@@ -125,4 +126,12 @@ void receive_message(string newclass, string msg)
         msg = TERM_D->parse_pinkfish(msg, 1);
     }
     receive(msg);
+}
+
+void set_account_link(object ob) {
+    account_link = ob;
+}
+
+object query_account_link() {
+    return account_link;
 }
