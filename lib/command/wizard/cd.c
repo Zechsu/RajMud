@@ -5,29 +5,17 @@ int main(string str) {
     string cwd = tp->query_cwd();
 
     if (!str) {
-        tp->set_cwd("/");
-        return 1;
+        str = "realm/" + tp->query_account_link()->query_account_name();
     }
+    else if (str[0] != '/' && str[0] != '~' && str[0] != '^') {
+        str = tp->query_cwd() + "/" + str;
+    }
+    str = sanitize_path(str);
 
-    if (str == "..") {
-        cwd[strsrch(cwd[0..<2], "/", -1)..] = "";
-        tp->set_cwd(cwd + "/");
-        tp->force_me("ls");
+    if (file_size(str) == -2) {
+        tp->set_cwd(str);
         return 1;
-    }
-
-    if (stat(cwd + str + "/")) {
-        tp->set_cwd(cwd + str + "/");
-        tp->force_me("ls");
-        return 1;
-    }
-    else if (stat(str) != ({})) {
-        tp->set_cwd("/" + str + "/");
-        tp->force_me("ls");
-        return 1;
-    }
-    else {
-        tell_object(tp, "Directory not found.\n");
-        return 1;
+    } else {
+        return notify_fail("Invalid directory.\n");
     }
 }

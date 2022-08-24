@@ -11,6 +11,7 @@ inherit "/single/sefuns/misc";
 inherit "/single/sefuns/arrays";
 inherit "/single/sefuns/json";
 inherit "/single/sefuns/math";
+inherit "/single/sefuns/path";
 
 int same(mixed x, mixed y) {
     if (typeof(x) != typeof(y)) return 0;
@@ -140,11 +141,8 @@ string resolve_path(string curr, string newer) {
     case 0: 
     case ".":
     return curr;
-    
-#ifndef __NO_ENVIRONMENT__
     case "here":
-    return file_name(environment())+".c";
-#endif
+	    return file_name(environment(this_player()))+".c";
     
     default:
     if (newer[0..1] == "~/") newer = user_path((string)this_player()->query_name()) + newer[2..];
@@ -288,4 +286,11 @@ class RGB_t blend(mixed* colors) {
     mixture->b = mixture->b / sz;
 
     return mixture;
+}
+
+object this_link(object who) {
+    if (!who)
+        return this_interactive()->query_account_link();
+
+    return who->query_account_link();
 }

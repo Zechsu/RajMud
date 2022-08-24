@@ -6,12 +6,13 @@ main(string arg)
     object *list = users();
     int j;
 
-    printf("+-------------------------------------+\n"
-           " Players online %d\n" +
-           "+-------------------------------------+\n",
+    printf("/-------------------------------------\\\n"
+           "| Players online %d                    |\n" +
+           ">-------------------------------------<\n",
            sizeof(list));
     for (j = 0; j < sizeof(list); j++) {
-        printf(" %s\n", list[j]->query_name());
+        printf("| %35-s |\n", list[j]->query_name());
     }
+    printf("\\-------------------------------------/\n");
     return 1;
 }

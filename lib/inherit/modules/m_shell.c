@@ -15,3 +15,7 @@ int set_cwd(string str) {
     cwd = str;
     return 1;
 }
+
+int query_shell() {
+    return 1;
+}
