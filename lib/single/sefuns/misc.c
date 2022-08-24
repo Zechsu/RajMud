@@ -122,11 +122,24 @@ string make_rainbow(string sh) {
     return str + white();
 }
 
-string alternate_colors(string str, string* colors) {
+varargs string alternate_colors(string str, string* colors, int step) {
     string ret = "";
+    int current_step = 0, spaces = 0;
     str = trim(str);
+    if (!colors) {
+        return str;
+    }
+    if (!step) {
+        step = 1;
+    }
     for (int i = 0; i < sizeof(str); i++) {
-        ret += colors[i % sizeof(colors)] + str[i..i];
+        ret += colors[current_step % sizeof(colors)] + str[i..i];
+        if ((i+1-spaces) % step == 0) {
+            current_step++;
+        }
+        if (str[i..i] == " ") {
+            spaces += 1;
+        }
     }
     return ret += white();
 }
