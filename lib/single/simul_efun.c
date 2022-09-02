@@ -12,6 +12,8 @@ inherit "/single/sefuns/arrays";
 inherit "/single/sefuns/json";
 inherit "/single/sefuns/math";
 inherit "/single/sefuns/path";
+inherit "/single/sefuns/color";
+inherit "/single/sefuns/format";
 
 int same(mixed x, mixed y) {
     if (typeof(x) != typeof(y)) return 0;
@@ -136,53 +138,53 @@ dump_variable(mixed arg)
 string resolve_path(string curr, string newer) {
     int i, j, size;
     string *tmp;
-    
+
     switch(newer) {
-    case 0: 
+    case 0:
     case ".":
-    return curr;
+	    return curr;
     case "here":
 	    return file_name(environment(this_player()))+".c";
-    
+
     default:
-    if (newer[0..1] == "~/") newer = user_path((string)this_player()->query_name()) + newer[2..];
-    else {
-        switch(newer[0]) {
-        case '~':
-        {
-        i = strsrch(newer, '/');
-        if (i < 0) newer = user_path(newer[1..]);
-        else newer = user_path(newer[1..i-1]) + newer[i..];
-        break;
-        }
-        case '/': break;
-        default: newer[<0..<1] = curr + "/";
-        }
-    }
-    
-    if (newer[<1] != '/') newer += "/";
-    size = sizeof(tmp = regexp(explode(newer, "/"), "."));
-    
-    i = j = 0;
-    
-    while (i < size) {
-        switch(tmp[i]) {
-        case "..":
-        if (j) {
-            while (j-- && !tmp[j]);
-            if (j >= 0) tmp[j] = 0;
-            else j++;
-        }
-        case ".":
-        tmp[i++] = 0;
-        break;
-        
-        default:
-        j = ++i;
-        break;
-        }
-    }
-    return "/"+implode(tmp, "/");
+	    if (newer[0..1] == "~/") newer = user_path((string)this_player()->query_name()) + newer[2..];
+	        else {
+	        switch(newer[0]) {
+	            case '~':
+	            {
+		            i = strsrch(newer, '/');
+		            if (i < 0) newer = user_path(newer[1..]);
+		            else newer = user_path(newer[1..i-1]) + newer[i..];
+		            break;
+	            }
+	            case '/': break;
+	            default: newer[<0..<1] = curr + "/";
+	        }
+	    }
+
+	if (newer[<1] != '/') newer += "/";
+	size = sizeof(tmp = regexp(explode(newer, "/"), "."));
+
+	i = j = 0;
+
+	while (i < size) {
+	    switch(tmp[i]) {
+	    case "..":
+		    if (j) {
+		        while (j-- && !tmp[j]);
+		        if (j >= 0) tmp[j] = 0;
+		        else j++;
+		    }
+	    case ".":
+		    tmp[i++] = 0;
+		    break;
+
+	    default:
+		    j = ++i;
+		    break;
+	    }
+	}
+	    return "/"+implode(tmp, "/");
     }
 }
 
