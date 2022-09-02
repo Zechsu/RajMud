@@ -283,3 +283,13 @@ void create_save() {
     if(str[0] < 'a' || str[0] > 'z') return;
     mkdir(PLAYERS_DIR+"/"+lower_case(str[0..0]));
 }
+
+mapping get_mud_stats() {
+    return ([
+        "LANGUAGE": "English",
+        "FAMILY": "LPMud",
+        "CREATED": "2021",
+        "STATUS": "Alpha",
+        "ANSI": "1",
+    ]);
+}
