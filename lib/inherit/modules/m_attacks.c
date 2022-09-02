@@ -10,7 +10,7 @@ varargs void setup_race_attacks(int forced) {
         mapping race_attacks = Race(this_object()->query_race())->query_race_attacks();
         string* keys = keys(race_attacks);
         if (!attacks) {
-            attacks = allocate_mapping(sizeof(keys));
+            attacks = ([]);
         }
         foreach (string key in keys) {
             attacks[key] = ([
@@ -26,7 +26,7 @@ varargs void setup_weapon_attacks(int forced) {
         string* weapon_attacks = this_object()->query_worn(0, A_WEAPON)->query_attacks();
         weapon_attacks = decompose(weapon_attacks);
         if (!attacks) {
-            attacks = allocate_mapping(sizeof(weapon_attacks));
+            attacks = ([]);
         }
         foreach (string attack in weapon_attacks) {
             attacks[attack] = ([

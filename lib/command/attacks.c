@@ -37,7 +37,10 @@ int main(string arg) {
             return notify_fail("You have not disabed any attacks.\n");
         }
     }
-    else if (sscanf(arg, "stop %s", attack) == 1) {
+    else if (arg == "stop" || sscanf(arg, "stop %s", attack) == 1) {
+        if (!attack) {
+            return notify_fail("Stop attacking with which attack?\n");
+        }
         if (this_player()->disable_attack(attack)) {
             tell_object(this_player(), "You stop attacking with " + attack + ".\n");
             return 1;
@@ -45,7 +48,10 @@ int main(string arg) {
         else
             return notify_fail("You do not have such attack.\n");
     }
-    else if (sscanf(arg, "start %s", attack) == 1) {
+    else if (arg == "start" || sscanf(arg, "start %s", attack) == 1) {
+        if (!attack) {
+            return notify_fail("Start attacking with which attack?\n");
+        }
         if (this_player()->enable_attack(attack)) {
             tell_object(this_player(), "You start attacking with " + attack + ".\n");
             return 1;

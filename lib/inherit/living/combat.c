@@ -1,4 +1,5 @@
 #include <positions.h>
+#include <daemons.h>
 #include <armor_layers.h>
 #include <flags/room_flags.h>
 #include <descriptors/attack.h>
@@ -110,7 +111,7 @@ void do_weapon_attack(object target) {
     //tmp = replace_string(tmp, "$L", target_limb);
     
     // mess = compose_message(this_player(), tmp, target, ({weapon}));
-    mess = weapon->query_attacks()[0]->describe(([
+    mess = Attack(weapon->query_attacks()[0])->describe(([
         ATTACKER    : this_player(),
         DEFENDER    : target,
         WEAPON      : weapon,
@@ -119,8 +120,8 @@ void do_weapon_attack(object target) {
 
     mess = map(mess, (: "\n    " + capitalize($1) + "\n\n" :));
     tell_object(this_player(), mess[0]);
-    tell_object(target, mess[1] + "\n");
-    tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
+    tell_object(target, mess[1]);
+    tell_room(environment(target), mess[2], ({this_player(), target}));
     res = target->event_receive_damage(damage, target_limb);
     if (res == -1) {
         remove_enemy(target);
