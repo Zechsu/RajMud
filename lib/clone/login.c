@@ -267,5 +267,6 @@ void character_select(string input) {
         user->force_me("look");
         user->set_account_link(link);
         Log("login", strftime("%D [%H:%M:%S] ", time()) + user->query_name());
+        destruct(this_object());
     }
 }

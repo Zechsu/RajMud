@@ -11,7 +11,10 @@ inherit M_SHELL;
 inherit M_PLAYTIME;
 
 private int no_color = 0;
+private nosave object account_link;
 //forward declarations
+
+object query_account_link();
 
 //end forward declarations
 
@@ -78,6 +81,7 @@ void net_dead()
     set_heart_beat(0);
     debug_message(query_name() + " is link-dead.");
     save_player();
+    destruct(query_account_link());
     remove();
 }
 
@@ -122,4 +126,12 @@ void gmcp(string message) {
 
 int is_player() {
     return 1;
+}
+
+void set_account_link(object ob) {
+    account_link = ob;
+}
+
+object query_account_link() {
+    return account_link;
 }
