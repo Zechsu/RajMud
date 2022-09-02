@@ -12,12 +12,17 @@ int main(string str) {
         tell_object(tp, help());
         return 1;
     }
-    if (str[0] == '/') {
-        file = str + ".c";
+    else if (str[0] != '/' && str[0] != '~' && str[0] != '^') {
+        file = tp->query_cwd() + "/" + str;
     }
     else {
         file = tp->query_cwd() + str + ".c";
     }
+
+    if (file[<2..] != ".c") {
+        file += ".c";
+    }
+
     if (stat(file) != ({})) {
         ob = new(file);
         if (ob->is_item() || ob->is_living()) {
@@ -38,5 +43,5 @@ int main(string str) {
 }
 
 string help() {
-    return "Usage: clone <item name in directory>";
+    return "Usage: clone <item name in directory>\n";
 }
