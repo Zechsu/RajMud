@@ -14,6 +14,7 @@
 #define VIRTUAL_D               "daemon/virtual_d"
 #define CHANGELOG_D             "daemon/changelog_d"
 #define WEAPON_TYPES_D          "daemon/weapon_type_d"
+#define ATTACKS_D               "daemon/attacks_d"
 
 // FUNCTIONS
 #define Material(x)             MATERIAL_D->query_material(x)
@@ -21,8 +22,12 @@
 #define Skill(x)                SKILL_D->query_skill(x)
 #define Log(x, y)               LOG_D->log(x, y)
 #define Weapon_Type(x)          WEAPON_TYPES_D->query_weapon_type(x)
+#define Attack(x)               ATTACKS_D->query_attack(x)
 
 // SAVEFILES
 #define CHANGELOG_SAVE          "data/daemon/changelog"
+
+// DIRECTORIES
+#define ATTACKS_DIR             "/std/attacks/"
 
 #endif
