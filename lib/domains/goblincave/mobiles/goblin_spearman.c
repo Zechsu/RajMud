@@ -5,7 +5,7 @@ inherit LIB_LIVING;
 
 void create() {
     ::create();
-    set_short("goblin spearmann");
+    set_short("goblin spearman");
     set_name("goblin spearman");
     set_race("goblin");
     set_ids(({"goblin spearman", "goblin spear", "spearman", "goblin"}));
