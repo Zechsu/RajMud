@@ -28,3 +28,15 @@ void set_y(int _y) {
 void create() {
     ::create();
 }
+
+int query_virtual_room() {
+    return 1;
+}
+
+int query_x() {
+    return x;
+}
+
+int query_y() {
+    return y;
+}

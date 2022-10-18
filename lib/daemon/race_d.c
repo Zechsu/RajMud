@@ -1,8 +1,14 @@
 #include <globals.h>
 
+void rebuild_races();
+
 mapping races = ([]);
 
 void create() {
+    rebuild_races();
+}
+
+void rebuild_races() {
     foreach (string file in get_dir(RACES_DIR + "/*.c")) {
         string tmp = RACES_DIR + "/" + file;
         string name;

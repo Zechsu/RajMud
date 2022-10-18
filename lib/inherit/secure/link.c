@@ -36,6 +36,15 @@ void add_character(string name, string race) {
     }
 }
 
+void remove_character(string name) {
+    if (!bodies[name]) {
+        return;
+    }
+    map_delete(bodies, name);
+    rm("/data/users/" + lower_case(name[0..0]) + "/" + name + ".o");
+    save_me();
+}
+
 string* query_characters() {
     if (!sizeof(bodies) || !bodies) {
         return 0;

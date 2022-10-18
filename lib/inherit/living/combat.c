@@ -150,7 +150,7 @@ void do_unarmed_attack(object target) {
 
     mess = compose_message(this_player(), tmp, target);
 
-    tell_object(this_player(), mess[0] + sprintf(" [%f]\n", damage));
+    tell_object(this_player(), mess[0]);
     tell_object(target, mess[1] + "\n");
     tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
     target->event_receive_damage(damage, target_limb);

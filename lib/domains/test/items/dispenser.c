@@ -7,6 +7,8 @@ int do_dispense(string arg);
 
 void create() {
     ::create();
+    // string* grad = color_gradient(({247, 240, 166}), ({207, 247, 166}), 8); string* grad2 = color_gradient(({207, 247, 166}),
+    // ({247, 240, 166}), 8); return apply_gradient("item dispenser", grad+grad2);
     set_short(alternate_colors("item dispenser", ({"%^GREEN%^", "%^YELLOW%^"}), 2));
     set_ids(({"item dispenser", "dispenser"}));
 
@@ -14,6 +16,8 @@ void create() {
     add_object("/domains/test/items/sshapkata");
     add_object("/domains/test/weps/shortsword");
     add_object("/std/obj/tools/axe");
+    add_object("/realm/edmond/wbox");
+    add_object("/realm/edmond/compass");
 
     set_long(dispense_info());
 }

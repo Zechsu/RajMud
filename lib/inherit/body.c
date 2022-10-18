@@ -264,14 +264,20 @@ int is_limb_severed(string limb) {
      return limbs[limb]["flags"] & LIMB_SEVERED; 
 }
 
-int has_limbs(string* which) {
-     string keys = implode(keys(limbs), ",");
+// TODO: Fix!!!
+varargs int has_limbs(string* which, function filter) {
+     string* keys = keys(limbs);
+     if (filter) {
+          keys = filter_array(keys, filter);
+     }
      foreach (string w in which) {
-          if (strsrch(keys, w) == -1) {
-               return 0;
+          foreach (string key in keys) {
+               if (strsrch(key, w) != -1) {
+                    return 1;
+               }
           }
      }
-     return 1;
+     return 0;
 }
 
 int event_die() {

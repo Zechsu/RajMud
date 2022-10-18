@@ -34,7 +34,7 @@ int main(string arg)
         }
 
         write("You say " + "\"" + arg + "\""  + "\n");
-        say(name + " says " + arg + "\"" +arg + "\"" +"\n");
+        say(name + " says " + "\"" +arg + "\"" +"\n");
     }
     else {
         write("You say \"" + sprintf("%c["+(1)+"m", 27) + arg +sprintf("%c["+(0)+"m", 27)+"\"\n");

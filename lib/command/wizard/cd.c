@@ -5,7 +5,7 @@ int main(string str) {
     string cwd = tp->query_cwd();
 
     if (!str) {
-        str = "realm/" + tp->query_account_link()->query_account_name();
+        str = "realm/" + tp->query_account_name();
     }
     else if (str[0] != '/' && str[0] != '~' && str[0] != '^') {
         str = tp->query_cwd() + "/" + str;

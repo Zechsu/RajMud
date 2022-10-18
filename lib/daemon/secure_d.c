@@ -4,6 +4,7 @@
 
 private mapping users = ([]);
 private mapping wizards = ([]);
+private mapping builders = ([]);
 
 void create() {
     if (clonep(this_object())) {
@@ -12,6 +13,7 @@ void create() {
     if (!restore_object(ACCESS_SAVE)) {
         wizards = ([]);
         users = ([]);
+        builders = ([]);
     }
 }
 
@@ -24,6 +26,18 @@ nomask void make_wizard(string wizard) {
     }
     wizards[wizard] = 1;
     find_player(wizard)->refresh_search_paths();
+    save_object(ACCESS_SAVE);
+}
+
+nomask void make_builder(string builder) {
+    if (!find_player(builder)) {
+        return;
+    }
+    if (builders[builder]) {
+        return;
+    }
+    builders[builder] = 1;
+    find_player(builder)->refresh_search_paths();
     save_object(ACCESS_SAVE);
 }
 
@@ -56,6 +70,15 @@ nomask void delete_user(string user) {
     save_object(ACCESS_SAVE);
 }
 
+nomask void delete_builder(string builder) {
+    if (!builders[builder]) {
+        return;
+    }
+    map_delete(builders, builder);
+    find_player(builder)->refresh_search_paths();
+    save_object(ACCESS_SAVE);
+}
+
 nomask int query_wizard(string wizard) {
     if (wizards[wizard]) {
         return 1;
@@ -70,8 +93,19 @@ nomask int query_user(string user) {
     return 0;
 }
 
+nomask int query_builder(string builder) {
+    if (builders[builder]) {
+        return 1;
+    }
+    return 0;
+}
+
 nomask string* query_all_wizards() {
     return keys(wizards);
+}
+
+nomask string* query_all_builders() {
+    return keys(builders);
 }
 
 string* query_search_paths(mixed user) {
@@ -80,6 +114,9 @@ string* query_search_paths(mixed user) {
         ret += ({COMMAND_PREFIX});
         if (query_wizard(user)) {
             ret += ({"/command/wizard/"});
+        }
+        if (query_builder(user)) {
+            ret += ({"/command/builder/"});
         }
         return ret;
     }
