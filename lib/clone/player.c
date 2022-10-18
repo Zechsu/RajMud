@@ -12,6 +12,7 @@ inherit M_PLAYTIME;
 
 private int no_color = 0;
 private nosave object account_link;
+private string account_name;
 //forward declarations
 
 object query_account_link();
@@ -70,6 +71,9 @@ void setup()
 
     if(!query_current_room()) {
         move(TEST_ROOM);
+    }
+    else {
+        move(query_current_room());
     }
 }
 
@@ -134,4 +138,12 @@ void set_account_link(object ob) {
 
 object query_account_link() {
     return account_link;
+}
+
+void set_account_name(string x) {
+    account_name = x;
+}
+
+string query_account_name() {
+    return account_name;
 }

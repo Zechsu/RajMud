@@ -1,4 +1,5 @@
 #include <globals.h>
+#include <attributes.h>
 
 inherit CLEAN_UP;
 
@@ -8,6 +9,8 @@ private nomask int valid_name(string name);
 void character_list();
 void write_account_options();
 void goto_account_menu();
+void delete_character();
+void choose_character_delete(string);
 
 // needs fixed to handle passwords
 
@@ -42,16 +45,19 @@ private void create_user_object(string name) {
     user = new(PLAYER_OB);
     user->set_name(name);
     exec(user, this_object());
-    user->setup();
-    user->move(user->query_current_room());
-    // until chargen
     user->set_race("human");
+    user->setup();
+    // until chargen
     user->set_gender(1);
     user->set_trait("handedness", "right");
-    user->set_skill_level("constitution", 2);
+    user->set_attribute(NORMAL_CONSTITUTION, 2);
+    user->set_account_name(link->query_account_name());
     // Send the discord hello gmcp message to set-up the rich pressence
     user->gmcp("External.Discord.Hello");
+    write("Welcome, " + user->query_name() + "\n");
+    user->force_me("look");
 
+    destruct(link);
     destruct(this_object());
 }
 
@@ -106,6 +112,14 @@ void accept_name(string name) {
 private nomask int valid_name(string str) {
     int len = strlen(str);
 
+    if (!str || trim(str) == "") {
+        write("\nPlease enter a name!\n");
+        return 0;
+    }
+    if (len < 3) {
+        write("\nSorry, your name is too short!\n");
+        return 0;
+    }
     if ( len > 18 ) {
         write("\nSorry, your name is too long!\n");
         return 0;
@@ -167,6 +181,7 @@ void write_account_options() {
     write(">---------------------------<\n");
     write("| [P] Choose a character    |\n");
     write("| [N] Make a new character  |\n");
+    write("| [D] Delete a character    |\n");
     write("| [Q] Quit                  |\n");
     write("\\---------------------------/\n");
 }
@@ -223,6 +238,10 @@ void account_menu(string option) {
             write("Enter a character name:\n");
             input_to("create_new_character");
             break;
+        case "d":
+            write("Delete a character: \n");
+            delete_character();
+            break;
         case "q":
             destruct(this_object());
             return;
@@ -246,6 +265,44 @@ void character_list() {
     }
 }
 
+void delete_character() {
+    string* chars = link->query_characters();
+    if (chars) {
+        for (int i = 1; i < sizeof(chars)+1; i++) {
+            write(i + ". " + chars[i-1] + "\n");
+        }
+        input_to("choose_character_delete");
+    }
+    else {
+        write("\nYou do not have any characters!\n\n");
+        write_account_options();
+        input_to("account_menu");
+    } 
+}
+
+void choose_character_delete(string input) {
+    string* chars = link->query_characters();
+    int len = sizeof(chars);
+    int num = to_int(input);
+
+    if (num < 1 || num > len) {
+        write("Invalid character!\n");
+        write_account_options();
+        input_to("account_menu");
+    }
+    else if (find_player(chars[num-1])) {
+        write("You cannot delete that character!\n");
+        write_account_options();
+        input_to("account_me");
+    }
+    else {
+        string name = chars[num-1];
+        link->remove_character(name);
+        write_account_options();
+        input_to("account_menu");
+    }
+}
+
 void character_select(string input) {
     string* chars = link->query_characters();
     int len = sizeof(chars);
@@ -253,6 +310,11 @@ void character_select(string input) {
 
     if (num < 1 || num > len) {
         write("Invalid character!\n");
+        write_account_options();
+        input_to("account_menu");
+    }
+    else if (find_player(chars[num-1])) {
+        write("That charcter is already logged in!\n");
         write_account_options();
         input_to("account_menu");
     }
@@ -267,6 +329,8 @@ void character_select(string input) {
         user->force_me("look");
         user->set_account_link(link);
         Log("login", strftime("%D [%H:%M:%S] ", time()) + user->query_name());
+        user->set_account_name(link->query_account_name());
+        destruct(link);
         destruct(this_object());
     }
 }
