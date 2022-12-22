@@ -9,7 +9,11 @@ int main(string arg) {
     users = users();
     name = this_player()->query_name();
     foreach (object usr in users) {
+        mapping info = ([]);
         tell_object(usr, sprintf("%%^BOLD%%^%%^CYAN%%^[OOC %s]%%^RESET%%^ %s\n", name, arg));
+        info["from"] = name;
+        info["message"] = arg;
+        usr->send_gmcp_data("Game.OOC", json_encode(info));
     }
     return 1;
 }
