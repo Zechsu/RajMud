@@ -9,5 +9,6 @@ varargs mixed query_worn(string limb);
 varargs string* find_limb(string* match, int flag, int slot);
 void sever_limb(string limb);
 int is_limb_severed(string limb);
+int is_limb_damaged(string limb);
 
 #endif

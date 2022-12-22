@@ -85,7 +85,7 @@ void net_dead()
     set_heart_beat(0);
     debug_message(query_name() + " is link-dead.");
     save_player();
-    destruct(query_account_link());
+    //destruct(query_account_link());
     remove();
 }
 
