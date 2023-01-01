@@ -38,6 +38,7 @@ void logon()
     input_to("accept_name", 2); // 2 means no command escaping with !
 }
 
+// Called for creating new characters
 private void create_user_object(string name) {
     object user;
     SECURE_D->make_user(name);
@@ -52,10 +53,11 @@ private void create_user_object(string name) {
     user->set_trait("handedness", "right");
     user->set_attribute(NORMAL_CONSTITUTION, 2);
     user->set_account_name(link->query_account_name());
-    // Send the discord hello gmcp message to set-up the rich pressence
-    user->gmcp("External.Discord.Hello");
     write("Welcome, " + user->query_name() + "\n");
     user->force_me("look");
+
+    // Send the discord hello gmcp message to set-up the rich pressence
+    this_player()->gmcp("External.Discord.Hello");
 
     destruct(link);
     destruct(this_object());
@@ -330,6 +332,11 @@ void character_select(string input) {
         user->set_account_link(link);
         Log("login", strftime("%D [%H:%M:%S] ", time()) + user->query_name());
         user->set_account_name(link->query_account_name());
+
+        // Send the discord hello gmcp message to set-up the rich pressence
+        // Repeated since logging in is different and does not use create_user_object
+        this_player()->gmcp("External.Discord.Hello");
+
         destruct(link);
         destruct(this_object());
     }
