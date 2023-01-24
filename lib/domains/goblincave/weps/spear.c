@@ -8,7 +8,7 @@ inherit LIB_WEAPON;
 void create() {
     ::create();
     set_short("wooden spear");
-    set_long("A long wooden stick with a pointy stone attached at the end of it.");
+    set_long("A crudely made weapon constisting of a shaprened stone attached to a wooden shaft. The stone is chipped and uneven, and the wood, rough and splintered.");
     set_ids(({"wooden spear", "spear"}));
     set_required_limbs(({"hand"}));
     set_layer(A_WEAPON);

@@ -2,6 +2,7 @@
 
 private object* weapon_types = ({});
 
+// FIXME: Probably better to just compile everything in the folder and have the objects keep their index
 void create() {
     mixed input = read_file("include/weapon_types.h");
     int count;

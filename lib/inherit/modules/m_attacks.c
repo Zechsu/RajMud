@@ -8,7 +8,12 @@ private nosave int attacks_dirty = 1;
 varargs void setup_race_attacks(int forced) {
     if (attacks_dirty || forced) {
         mapping race_attacks = Race(this_object()->query_race())->query_race_attacks();
-        string* keys = keys(race_attacks);
+        string* keys;
+
+        if (!race_attacks)
+            return;
+        
+        keys = keys(race_attacks);
         if (!attacks) {
             attacks = ([]);
         }
@@ -23,14 +28,22 @@ varargs void setup_race_attacks(int forced) {
 
 varargs void setup_weapon_attacks(int forced) {
     if (attacks_dirty || forced) {
-        string* weapon_attacks = this_object()->query_worn(0, A_WEAPON)->query_attacks();
-        weapon_attacks = decompose(weapon_attacks);
+        int* weapon_types = this_object()->query_worn(0, A_WEAPON)->query_weapon_type();
+        mapping weapon_attacks = ([]);
+        string* keys;
+
+        foreach (int weapon_type in weapon_types) {
+            weapon_attacks += WEAPON_TYPES_D->query_weapon_type(weapon_type)->query_attacks();
+        }
+
+        keys = keys(weapon_attacks);
+        
         if (!attacks) {
             attacks = ([]);
         }
-        foreach (string attack in weapon_attacks) {
+        foreach (string attack in keys) {
             attacks[attack] = ([
-                "priority" : 12,
+                "priority" : weapon_attacks[attack],
                 "enabled"  : 1
             ]);
         }
@@ -63,7 +76,7 @@ int is_attack_enabled(string attack) {
     return 0;
 }
 
-mapping query_attacks(function filter) {
+varargs mapping query_attacks(function filter) {
     if (attacks_dirty) {
         setup_race_attacks(1);
         setup_weapon_attacks(1);
@@ -73,4 +86,38 @@ mapping query_attacks(function filter) {
     if (filter)
         return filter_mapping(copy(attacks), filter);
     return copy(attacks);
+}
+
+varargs mapping query_enabled_attacks(function filter) {
+    mapping ret = query_attacks(filter);
+    string* ats = keys(ret);
+    foreach (string key in ats) {
+        if (ret[key]["enabled"] == 0) {
+            map_delete(ret, key);
+        }
+    }
+
+    return ret;
+}
+
+mapping query_attacks_priority(function filter) {
+    mixed tmp = query_enabled_attacks(filter);
+    mapping ret = ([]);
+    string* ats = keys(tmp);
+    foreach (string key in ats) {
+        ret[key] = tmp[key]["priority"];
+    }
+
+    return ret;
+}
+
+string query_random_attack() {
+    mapping weights = ([]);
+    mapping en_attacks = query_enabled_attacks();
+    string* ats = keys(en_attacks);
+    foreach (string key in ats) {
+        weights[key] = en_attacks[key]["priority"];
+    }
+
+    return element_of_weighted(weights);
 }

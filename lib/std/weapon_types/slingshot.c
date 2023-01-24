@@ -1,11 +1,14 @@
 #include <attributes.h>
+#include <priorities.h>
+#include <lib.h>
 
-string query_name() {
-    return "slingshot";
-}
+inherit LIB_WEAPON_TYPE;
 
-string* query_attacks() {
-    return ({"shoot"});
+void create() {
+    set_name("slingshot");
+    set_attacks(([
+        "shoot": Priority_High
+    ]));
 }
 
 float calculate_damage_rating(object who) {

@@ -25,5 +25,6 @@
 #define LIB_ARMOR           "/inherit/armor"
 #define LIB_COMBAT          "/inherit/living/combat"
 #define LIB_VIRTUAL_ROOM    "/inherit/virtual_room"
+#define LIB_WEAPON_TYPE     "/std/weapon_type"
 
 #endif

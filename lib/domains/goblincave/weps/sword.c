@@ -8,7 +8,7 @@ inherit LIB_WEAPON;
 void create() {
     ::create();
     set_short("broken wooden sword");
-    set_long("Once it was a wooden sword, not only the hilt and part of the blade remain.");
+    set_long("Once it was a wooden sword, now only the hilt and part of the blade remain.");
     set_ids(({"broken wooden sword", "broken sword", "wooden sword", "sword"}));
     set_required_limbs(({"hand"}));
     set_layer(A_WEAPON);

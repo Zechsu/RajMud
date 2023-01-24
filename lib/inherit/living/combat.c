@@ -84,7 +84,9 @@ int can_attack(object target) {
 void do_weapon_attack(object target) {
     object weapon;
     string* mess, tmp;
-    int damage, res;
+    float damage;
+    int res;
+    
     weapon = this_player()->query_worn(0, A_WEAPON)[0];
     damage = weapon->event_strike(target);
 
@@ -97,21 +99,12 @@ void do_weapon_attack(object target) {
         return;
     }
 
-    // if (target->is_limb_severed(target_limb)) {
-    //     target_limb = target->query_random_limb(1);
-    //     // if target has no more limbs left remove him from enemies
-    //     if (!target_limb) {
-    //         remove_enemy(target);
-    //         return;
-    //     }
-    // }
-
     //tmp = weapon->query_attack_message();
     // compose_message() does not support $L.
     //tmp = replace_string(tmp, "$L", target_limb);
     
     // mess = compose_message(this_player(), tmp, target, ({weapon}));
-    mess = Attack(weapon->query_attacks()[0])->describe(([
+    mess = Attack(this_player()->query_random_attack())->describe(([
         ATTACKER    : this_player(),
         DEFENDER    : target,
         WEAPON      : weapon,
