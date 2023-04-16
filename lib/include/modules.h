@@ -22,5 +22,6 @@
 #define M_FLAGS             "/inherit/modules/m_flags"
 #define M_ATTRIBUTES        "/inherit/modules/m_attributes"
 #define M_ATTACKS           "/inherit/modules/m_attacks"
+#define M_HEARING           "/inherit/modules/m_hearing"
 
 #endif

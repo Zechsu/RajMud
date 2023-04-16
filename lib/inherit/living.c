@@ -14,6 +14,7 @@ inherit M_INVENTORY;
 inherit M_VISIBLE;
 inherit M_ATTRIBUTES;
 inherit M_ATTACKS;
+inherit M_HEARING;
 
 private string name;
 private string current_room;
