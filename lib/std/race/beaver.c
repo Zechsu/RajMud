@@ -3,7 +3,9 @@
 inherit STD_RACE;
 
 void create() {
+    set_race_groups(({"rodent"}));
     set_race_name("beaver");
+    set_race_traits(({"woodcutter"}));
     set_race_body(([
         "head":([
             "flags": LIMB_CRITICAL,
