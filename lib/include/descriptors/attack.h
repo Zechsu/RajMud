@@ -5,5 +5,6 @@
 #define DEFENDER    "defender"
 #define WEAPON      "weapon"
 #define LOCATION    "location"
+#define DAMAGE      "damage"
 
 #endif

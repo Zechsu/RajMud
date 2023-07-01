@@ -14,13 +14,16 @@ varargs void setup_race_attacks(int forced) {
             return;
         
         keys = keys(race_attacks);
+
         if (!attacks) {
             attacks = ([]);
         }
+
         foreach (string key in keys) {
             attacks[key] = ([
                 "priority" : race_attacks[key],
-                "enabled"  : 1
+                "enabled"  : 1,
+                "source"   : Race(this_object()->query_race())
             ]);
         }
     }
@@ -28,24 +31,28 @@ varargs void setup_race_attacks(int forced) {
 
 varargs void setup_weapon_attacks(int forced) {
     if (attacks_dirty || forced) {
-        int* weapon_types = this_object()->query_worn(0, A_WEAPON)->query_weapon_type();
+        object* weapons = this_object()->query_worn(0, A_WEAPON);
+        int* weapon_types = weapons->query_weapon_type();
         mapping weapon_attacks = ([]);
         string* keys;
 
-        foreach (int weapon_type in weapon_types) {
-            weapon_attacks += WEAPON_TYPES_D->query_weapon_type(weapon_type)->query_attacks();
-        }
-
-        keys = keys(weapon_attacks);
-        
         if (!attacks) {
             attacks = ([]);
         }
-        foreach (string attack in keys) {
-            attacks[attack] = ([
-                "priority" : weapon_attacks[attack],
-                "enabled"  : 1
-            ]);
+
+        for (int i = 0; i < sizeof(weapon_types); i++) {
+            weapon_attacks += WEAPON_TYPES_D->query_weapon_type(weapon_types[i])->query_attacks();
+            keys = keys(weapon_attacks);
+            if (!keys)
+                continue;
+
+            foreach (string attack in keys) {
+                attacks[attack] = ([
+                    "priority" : weapon_attacks[attack],
+                    "enabled"  : 1,
+                    "source"   : weapons[i]
+                ]);
+            }
         }
     }
 }
@@ -111,7 +118,8 @@ mapping query_attacks_priority(function filter) {
     return ret;
 }
 
-string query_random_attack() {
+// Returns a random attack
+varargs string query_random_attack(int flag) {
     mapping weights = ([]);
     mapping en_attacks = query_enabled_attacks();
     string* ats = keys(en_attacks);

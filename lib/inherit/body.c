@@ -57,6 +57,16 @@ varargs mixed query_random_limb(int flag) {
      return element_of(query_limbs());
 }
 
+varargs mixed query_random_damaged_limb() {
+     string* tmp = query_limbs();
+     tmp = filter_array(tmp, (: is_limb_damaged($1) :));
+
+     if (!sizeof(tmp))
+          return 0;
+
+     return element_of(tmp);
+}
+
 // Damages a limb if it's not passed, picks a random limb
 varargs int event_receive_damage(float damage, string limb) {
      // If no limb is passed, get a random one
@@ -71,6 +81,18 @@ varargs int event_receive_damage(float damage, string limb) {
      if (is_dead) {
           event_die();
           return -1;
+     }
+}
+
+varargs int event_heal_limb(string limb, float amount) {
+     if (!amount) {
+          limbs[limb]["current_hp"] = limbs[limb]["max_hp"];
+          limbs[limb]["flags"] = limbs[limb]["flags"] & (~LIMB_SEVERED);
+          return 1;
+     }
+     else {
+          limbs[limb]["current_hp"] = minimum(limbs[limb]["max_hp"], limbs[limb]["current_hp"]+amount);
+          return 1;
      }
 }
 
@@ -264,6 +286,10 @@ int is_limb_severed(string limb) {
      return limbs[limb]["flags"] & LIMB_SEVERED; 
 }
 
+int is_limb_damaged(string limb) {
+     return limbs[limb]["current_hp"] != limbs[limb]["max_hp"];
+}
+
 // TODO: Fix!!!
 varargs int has_limbs(string* which, function filter) {
      string* keys = keys(limbs);
@@ -285,6 +311,7 @@ int event_die() {
      object to = this_object();
      object* equipped = to->query_worn();
 
+     tell_room(environment(to), sprintf("    %s falls %%^RED%%^DEAD%%^RESET%%^!\n", query_name()));
      corpse->set_short(sprintf("%s's corpse", query_name()));
      corpse->set_long(sprintf("The corpse of %s", query_name()));
      corpse->set_ids(({"corpse"}));

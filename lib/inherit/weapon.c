@@ -79,7 +79,8 @@ int query_class() {
 // Called each time weapon hits an enemy
 // Returns damage
 float event_strike(object target) {
-    return WEAPON_TYPES_D->query_weapon_type(weapon_type)->calculate_damage_rating(this_player());
+    object weapon_type = WEAPON_TYPES_D->query_weapon_type(weapon_type);
+    return weapon_type->calculate_damage_rating(this_player());
 }
 
 int query_weapon_type() {

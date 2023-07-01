@@ -82,14 +82,12 @@ int can_attack(object target) {
 }
 
 void do_weapon_attack(object target) {
+    mixed attack;
     object weapon;
     string* mess, tmp;
     float damage;
     int res;
     
-    weapon = this_player()->query_worn(0, A_WEAPON)[0];
-    damage = weapon->event_strike(target);
-
     // Query an unsevered limb
     target_limb = target->query_random_limb(1);
 
@@ -103,6 +101,9 @@ void do_weapon_attack(object target) {
     // compose_message() does not support $L.
     //tmp = replace_string(tmp, "$L", target_limb);
     
+    attack = this_player()->query_random_attack();
+    damage = attack["source"]->event_strike(target);
+
     // mess = compose_message(this_player(), tmp, target, ({weapon}));
     mess = Attack(this_player()->query_random_attack())->describe(([
         ATTACKER    : this_player(),

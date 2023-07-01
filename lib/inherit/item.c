@@ -10,7 +10,8 @@ inherit M_FLAGS;
 inherit LIB_PERSIST;
 
 void create() {
-    ::create();
+    m_visible::create();
+    m_flags::create();
     if (!sizeof(query_ids())) {
         set_ids(({}));
     }
