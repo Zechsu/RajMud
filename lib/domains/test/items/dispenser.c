@@ -18,6 +18,7 @@ void create() {
     add_object("/std/obj/tools/axe");
     add_object("/realm/edmond/wbox");
     add_object("/realm/edmond/compass");
+    add_object("/std/obj/spawn_egg")->set_monster_path("/domains/goblincave/mobiles/goblin_spearman");
 
     set_long(dispense_info());
 }
@@ -44,6 +45,9 @@ int do_dispense(string arg) {
     selected = present(arg, this_object());
     if (selected) {
         object ob = clone_object(base_name(selected));
+        if (ob->is_spawn_egg()) {
+            ob->set_monster_path(selected->query_monster_path());
+        }
         ob->move(environment(this_object()));
         tell_room(environment(this_object()), "The dispenser shoots out a " + ob->query_short() + "!\n");
         return 1;

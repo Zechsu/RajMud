@@ -11,6 +11,7 @@ void create() {
     add_exit("west", "/domains/test/rooms/inkicata");
     add_prop("sink", "Maybe you should try pushing it.");
     add_item("/domains/test/items/raciststone");
+    add_item("/realm/edmond/wisps");
 }
 
 void init() {
