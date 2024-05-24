@@ -19,6 +19,7 @@ inherit M_HEARING;
 private string name;
 private string current_room;
 private nosave int busy = 0;
+private nosave int godmode = 0;
 
 void create() {
     race::create();
@@ -55,6 +56,15 @@ object query_room() {
 
 string query_name() {
     return name;
+}
+
+int toggle_godmode() {
+    godmode = !godmode;
+    return godmode;
+}
+
+int query_godmode() {
+    return godmode;
 }
 
 string query_short() {

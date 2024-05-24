@@ -81,7 +81,7 @@ int can_attack(object target) {
     return 1;
 }
 
-void do_weapon_attack(object target) {
+void do_attack(object target) {
     mixed attack;
     object weapon;
     string* mess, tmp;
@@ -102,18 +102,26 @@ void do_weapon_attack(object target) {
     //tmp = replace_string(tmp, "$L", target_limb);
     
     attack = this_player()->query_random_attack();
+    // Return if no attacks available
+    if (!attack) {
+        return;
+    }
     damage = attack["source"]->event_strike(target);
 
     // mess = compose_message(this_player(), tmp, target, ({weapon}));
-    mess = Attack(this_player()->query_random_attack())->describe(([
+    mess = Attack(attack["name"])->describe(([
         ATTACKER    : this_player(),
         DEFENDER    : target,
         WEAPON      : weapon,
         LOCATION    : target_limb
     ]));
 
-    mess = map(mess, (: "\n    " + capitalize($1) + "\n\n" :));
+    mess = map(mess, (: "\n    " + capitalize($1) + "\n" :));
+
     tell_object(this_player(), mess[0]);
+    if (SECURE_D->query_wizard(this_player()->query_name())) {
+        tell_object(this_player(), "%^CYAN%^[WIZARD INFO] Damage: " + damage + "%^RESET%^\n");
+    }
     tell_object(target, mess[1]);
     tell_room(environment(target), mess[2], ({this_player(), target}));
     res = target->event_receive_damage(damage, target_limb);
@@ -121,33 +129,6 @@ void do_weapon_attack(object target) {
         remove_enemy(target);
     }
     // target->event_receive_damage(damage, target_limb);
-}
-
-void do_unarmed_attack(object target) {
-    float damage = 1;
-    string* mess, tmp;
-
-    target_limb = target->query_random_limb(1);
-
-    // If enemy has no unsevered lims, remove it as an enemy
-    if (!target_limb) {
-        remove_enemy(target);
-        return;
-    }
-
-    tmp = Race(this_object()->query_race())->query_attack_message();
-    if (!tmp) {
-        return;
-    }
-    // compose_message() does not support $L.
-    tmp = replace_string(tmp, "$L", target_limb);
-
-    mess = compose_message(this_player(), tmp, target);
-
-    tell_object(this_player(), mess[0]);
-    tell_object(target, mess[1] + "\n");
-    tell_room(environment(target), mess[2] + "\n", ({this_player(), target}));
-    target->event_receive_damage(damage, target_limb);
 }
 
 int event_attack(object target) {
@@ -186,12 +167,7 @@ void heart_beat() {
         enemies -= ({target});
         return;
     }
-    if (sizeof(this_player()->query_worn(0, A_WEAPON))) {
-        return do_weapon_attack(target);
-    }
-    else {
-        return do_unarmed_attack(target);
-    }
+    return do_attack(target);
     // If we get to this point, it means we couldn't have done any attack, so we stop the combat
     remove_enemy(target);
 }

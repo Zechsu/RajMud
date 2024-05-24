@@ -69,6 +69,10 @@ varargs mixed query_random_damaged_limb() {
 
 // Damages a limb if it's not passed, picks a random limb
 varargs int event_receive_damage(float damage, string limb) {
+     // If godmode, ignore
+     if (this_object()->query_godmode()) {
+          return 0;
+     }
      // If no limb is passed, get a random one
      if (!limb) {
           limb = query_random_limb();
@@ -311,9 +315,9 @@ int event_die() {
      object to = this_object();
      object* equipped = to->query_worn();
 
-     tell_room(environment(to), sprintf("    %s falls %%^RED%%^DEAD%%^RESET%%^!\n", query_name()));
+     tell_room(environment(to), sprintf("    %s falls %%^RED%%^DEAD%%^RESET%%^!\n", capitalize(query_name())));
      corpse->set_short(sprintf("%s's corpse", query_name()));
-     corpse->set_long(sprintf("The corpse of %s", query_name()));
+     corpse->set_long(sprintf("The %s corpse of %s", query_race(), query_name()));
      corpse->set_ids(({"corpse"}));
      corpse->set_adjectives(({query_name(), query_name() + "'s", query_race()}));
      corpse->move(environment(to));

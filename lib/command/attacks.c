@@ -11,13 +11,14 @@ int main(string arg) {
     if (!arg || trim(arg) == "") {
         attacks = filter_array(attacks, (: this_player()->is_attack_enabled($1) :));
         keys = keys(attacks);
-        write("/---------------------------\\\n");
-        write(sprintf("| %13-s %s    |\n", "Attack", "Priority"));
-        write(">---------------------------<\n");
+        //write("/---------------------------------------\\\n");
+        write(sprintf(" %13-s %13-s %s    \n\n", "Attack", "Priority", "Source"));
+        //write(">---------------------------------------<\n");
         foreach (attack in keys) {
-            write(sprintf("| %15-s (%-2d)      |\n", attack, attacks[attack]["priority"]));
+            string source = attacks[attack]["source"]->query_short();
+            write(sprintf(" %13-s %13-d %13-s      \n", attacks[attack]["name"], attacks[attack]["priority"], source? source : ""));
         }
-        write("\\---------------------------/\n");
+        //write("\\---------------------------------------/\n");
         return 1;
     }
     if (arg == "disabled") {

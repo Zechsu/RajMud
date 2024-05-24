@@ -21,6 +21,7 @@ varargs void setup_race_attacks(int forced) {
 
         foreach (string key in keys) {
             attacks[key] = ([
+                "name"     : key,
                 "priority" : race_attacks[key],
                 "enabled"  : 1,
                 "source"   : Race(this_object()->query_race())
@@ -35,19 +36,27 @@ varargs void setup_weapon_attacks(int forced) {
         int* weapon_types = weapons->query_weapon_type();
         mapping weapon_attacks = ([]);
         string* keys;
+        int dups = 0;
 
         if (!attacks) {
             attacks = ([]);
         }
 
         for (int i = 0; i < sizeof(weapon_types); i++) {
-            weapon_attacks += WEAPON_TYPES_D->query_weapon_type(weapon_types[i])->query_attacks();
+            weapon_attacks = WEAPON_TYPES_D->query_weapon_type(weapon_types[i])->query_attacks();
             keys = keys(weapon_attacks);
             if (!keys)
                 continue;
 
             foreach (string attack in keys) {
-                attacks[attack] = ([
+                string tmp = attack;
+                // Can't use same name for attack just add indexing
+                if (attacks[tmp]) {
+                    tmp = attack + "-" + dups;
+                    dups = dups + 1;
+                }
+                attacks[tmp] = ([
+                    "name"     : attack,
                     "priority" : weapon_attacks[attack],
                     "enabled"  : 1,
                     "source"   : weapons[i]
@@ -123,9 +132,11 @@ varargs string query_random_attack(int flag) {
     mapping weights = ([]);
     mapping en_attacks = query_enabled_attacks();
     string* ats = keys(en_attacks);
+    string attack;
     foreach (string key in ats) {
         weights[key] = en_attacks[key]["priority"];
     }
 
-    return element_of_weighted(weights);
+    attack = element_of_weighted(weights);
+    return copy(attacks[attack]);
 }
