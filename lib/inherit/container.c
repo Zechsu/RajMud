@@ -21,18 +21,18 @@ void create() {
 }
 
 /**
- * @brief Checks if object is container
+ * Checks if object is container.
  * 
- * @return int Returns 1 if it's container
+ * @return {int}  Returns 1 if it's container.
  */
 int is_container() {
     return 1;
 }
 
 /**
- * @brief Returns a string of contents
+ * Returns a string of contents.
  * 
- * @return string "It holds: ..."
+ * @return {string} "It holds: ..." + the short descriptions of the contents.
  */
 string query_contents_mess() {
     string ret = "";
@@ -55,10 +55,10 @@ string query_contents_mess() {
 }
 
 /**
- * @brief Look inside the container
+ * Look inside the container.
  * 
- * @param who Object looking
- * @return mixed
+ * @param {object} who - The object looking.
+ * @return {mixed} 1 if sucessful.
  */
 varargs mixed event_look_in(object who) {
     if (!who) {
@@ -69,10 +69,10 @@ varargs mixed event_look_in(object who) {
 }
 
 /**
- * @brief Check if `who` can put something inside the container
+ * Check if `who` can put something inside the container.
  * 
- * @param who Object putting something
- * @return int
+ * @param {object} who The object putting something.
+ * @return {int} 1 if sucessful.
  */
 int can_put(object who) {
     if (!who) {

@@ -37,13 +37,19 @@ int is_dead() {
      return is_dead;
 }
 
-// Returns keys of limbs mapping
+/**
+ * Returns the keys from the limbs mapping.
+ */
 string* query_limbs() {
      return (limbs? keys(limbs) : 0);
 }
 
 // Returns a random limb from the mapping
 // If flag is set it will return a limb that is not severed
+/**
+ * Returns a random limb from the mapping.
+ * @param {int} flag - If flag is set it will return a limb that is not severed.
+ */
 varargs mixed query_random_limb(int flag) {
      if (flag) {
           string* tmp = query_limbs();
@@ -88,6 +94,12 @@ varargs int event_receive_damage(float damage, string limb) {
      }
 }
 
+/**
+ * Restores a limb from inside the mapping to max HP
+ * @param {string} limb - The limb to heal
+ * @param {float} amount - Optional, the amount of HP to heal
+ * @returns 1 if successful
+ */
 varargs int event_heal_limb(string limb, float amount) {
      if (!amount) {
           limbs[limb]["current_hp"] = limbs[limb]["max_hp"];
@@ -100,7 +112,9 @@ varargs int event_heal_limb(string limb, float amount) {
      }
 }
 
-// Returns full limbs mapping
+/**
+ * Returns full limbs mapping
+ */
 mapping query_body() {
      return limbs;
 }
@@ -131,6 +145,9 @@ int create_new_body(string race) {
      return 1;
 }
 
+/**
+ * Goes through each limb in the body mapping and recalcualtes the max HP
+ */
 void update_max_health() {
      object raceob = Race(query_race());
      foreach (string limb in keys(limbs)) {

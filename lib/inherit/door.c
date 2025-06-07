@@ -21,10 +21,10 @@ void create() {
 }
 
 /**
- * @brief Check if living can enter
+ * Checks if living can enter.
  * 
- * @param who Living
- * @return int
+ * @param {object} who - The living (if not provided set to `this_player()`)
+ * @return {int} 1 if can enter.
  */
 varargs int can_enter(object who) {
     if (!who) {
@@ -37,11 +37,11 @@ varargs int can_enter(object who) {
 }
 
 /**
- * @brief Living has entered through door
+ * Should fire when a living enters through a door.
  * 
- * @param from Which direction the living headed
- * @param who Living
- * @return int
+ * @param {string} direction - From which direction the living headed.
+ * @param {object} who - The living who did it.
+ * @return Returns 1 if everything went sucessfully. 0 if the living can't enter.
  */
 varargs int event_enter(string direction, object who) {
     int pos;
@@ -71,9 +71,9 @@ varargs int event_enter(string direction, object who) {
 }
 
 /**
- * @brief Checks if object is door
+ * Checks if object is door.
  * 
- * @return int 
+ * @return Returns 1 if it a door.
  */
 int is_door() {
     return 1;

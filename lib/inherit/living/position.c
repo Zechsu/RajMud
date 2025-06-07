@@ -76,6 +76,20 @@ int event_fly() {
     return 1;
 }
 
+varargs int can_sit(object on) {
+    return 1;
+}
+
+int event_sit() {
+    if (!can_sit()) {
+        retur 0;
+    }
+    write("You sit down.\n");
+    say(this_player()->query_name() + " sits down.\n");
+    position = SITTING;
+    return 1;
+}
+
 void check_position() {
     if (!can_stand()) {
         event_crawl();

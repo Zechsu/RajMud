@@ -35,8 +35,8 @@ string query_status(mapping limb) {
     return "%^GREEN%^intact  %^RESET%^";
 }
 
-string query_color_health(float c, float m, int pad) {
-    float percentof = percent(c, m);
+string query_color_health(float current_hp, float max_hp, int pad) {
+    float percentof = percent(current_hp, max_hp);
     string hp = sprintf("[%-:*.1f / %:*.1f]", pad+1, c, pad+1, m);
     if (percentof > 75.0) {
         return "%^GREEN%^" + hp + "%^RESET%^";

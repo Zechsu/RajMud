@@ -103,8 +103,11 @@ string* query_hands() {
     return ({"right hand", "left hand"});
 }
 
-// Name of a limb that will be matched and used to determine if a entity has at least 1 usable hand
-// For example used to check if has a hand to get things
+/**
+ * Name of a limb that will be matched and used to determine if an entity has at least 1 usable hand.
+ * 
+ * For example used to check if it has a hand to get items.
+ */
 string query_hand() {
     return "hand";
 }
