@@ -1,0 +1,5 @@
+#/daemon/changelog_d.c
+entries_count 5
+entries ([5:(["summary":"Refactor attacks","description":"Changes attacks a bit","version":"patch",]),4:(["summary":"Add OOC","description":"Adds OOC command","version":"patch",]),3:(["summary":"Item dispenser","description":"Adds item dispenser for testing","version":"patch",]),2:(["summary":"Weapon types","description":"Adds weapon types","version":"patch",]),1:(["summary":"changelog add command","description":"Adds a new argument to the changelog command to allow for easy tracking of changes","version":"patch",]),])
+mud_version_minor 1
+mud_version_patch 5

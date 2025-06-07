@@ -1,0 +1,24 @@
+#/clone/player.c
+gender 1
+limbs (["right leg":(["current_hp":14.000000,"type":"leg","worn":({}),"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":0,]),"head":(["current_hp":19.600000,"type":"head","worn":({}),"max_hp":19.600000,"factor":0.350000,"parent":0,"flags":2,]),"left arm":(["current_hp":14.000000,"type":"arm","worn":({}),"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":0,]),"left leg":(["current_hp":14.000000,"type":"leg","worn":({}),"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":0,]),"torso":(["current_hp":28.000000,"type":"torso","worn":({}),"max_hp":28.000000,"factor":0.500000,"parent":0,"flags":6,]),"right hand":(["current_hp":8.400000,"type":"hand","worn":({}),"max_hp":8.400000,"factor":0.150000,"fingers":5,"parent":"right arm","flags":0,]),"genitals":(["current_hp":2.800000,"type":"genitals","worn":({}),"max_hp":2.800000,"factor":0.050000,"parent":"torso","flags":0,]),"left hand":(["current_hp":8.400000,"type":"hand","worn":({}),"max_hp":8.400000,"factor":0.150000,"fingers":5,"parent":"left arm","flags":0,]),"right arm":(["current_hp":14.000000,"type":"arm","worn":({}),"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":0,]),])
+race "human"
+position 1
+aliases (["swatt":"eval return TP->query_worn(0, 1)->query_attacks()","allinvhere":"eval return all_inventory(environment(this_player()))","me":"eval return TP->","simup":"update /single/simul_efun -r","obs":"eval return objects()","allinvme":"eval return all_inventory(this_player())",])
+target_limb "right arm"
+short_desc 0
+long_desc 0
+skills (["mining":(["level":1,"exp":13,]),"lumbering":(["level":1,"exp":6,]),"sword":(["level":2,"exp":0,]),"constitution":(["level":2,"exp":0,]),])
+traits (["flight":0,"handedness":"right",])
+title "the Promethean"
+capacity 0
+item_count 0
+visible 1
+attributes (["normal strength":60,])
+name "Edmond"
+current_room "/domains/goblincave/rooms/gc_2"
+inventory ({})
+birthday (/0,1,1,1,0,/)
+cwd "/realm/edmond"
+play_time 417731
+no_color 0
+account_name "edmond"

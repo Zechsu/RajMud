@@ -1,0 +1,24 @@
+#/clone/player.c
+gender 1
+limbs (["head":(["worn":({}),"type":"head","current_hp":19.600000,"max_hp":19.600000,"factor":0.350000,"parent":0,"flags":2,]),"right leg":(["worn":({}),"type":"leg","current_hp":14.000000,"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":0,]),"left arm":(["worn":({}),"type":"arm","current_hp":14.000000,"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":0,]),"torso":(["worn":({}),"type":"torso","current_hp":28.000000,"max_hp":28.000000,"factor":0.500000,"parent":0,"flags":6,]),"left leg":(["worn":({}),"type":"leg","current_hp":14.000000,"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":0,]),"right hand":(["worn":({}),"type":"hand","current_hp":-8.400000,"max_hp":8.400000,"factor":0.150000,"fingers":5,"parent":"right arm","flags":1,]),"genitals":(["worn":({}),"type":"genitals","current_hp":2.800000,"max_hp":2.800000,"factor":0.050000,"parent":"torso","flags":0,]),"right arm":(["worn":({}),"type":"arm","current_hp":-14.000000,"max_hp":14.000000,"factor":0.250000,"parent":"torso","flags":1,]),"left hand":(["worn":({}),"type":"hand","current_hp":8.400000,"max_hp":8.400000,"factor":0.150000,"fingers":5,"parent":"left arm","flags":0,]),])
+race "human"
+position 1
+aliases ([])
+target_limb "right arm"
+short_desc 0
+long_desc 0
+skills (["constitution":(["level":2,"exp":0,]),])
+traits (["handedness":"right",])
+title 0
+capacity 0
+item_count 0
+visible 1
+attributes ([])
+name "Mirir"
+current_room "/domains/test/rooms/testr"
+inventory ({})
+birthday (/7,1,0,1,0,/)
+cwd 0
+play_time 43346
+no_color 0
+account_name "mirir"
