@@ -1,4 +1,0 @@
-#/inherit/secure/link.c
-account_name "edmond"
-bodies (["Edmond":"human",])
-password "$6$uXT25kUFRvUBaALs$oNKfdoZgSDvtJrKyyGitqzEsq8ESkHROpME9ypr3ETQwof/1riSNIX.qmSngBxtIJR/F9Q1B4narM1mZ2PWck1"

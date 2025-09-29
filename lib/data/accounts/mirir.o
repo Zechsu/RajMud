@@ -1,4 +1,0 @@
-#/inherit/secure/link.c
-account_name "mirir"
-bodies (["Mirir":"human",])
-password "$6$T7DME9sFNmArv4xG$o2IgIAfSZYzgKGM1fuW3Y2Q7OCdCTUzBWlSqq3YmS3i8rQzhr13L.Ol3pF.WW6H/OodWC/GSZJnQ6oWevnSlM."
